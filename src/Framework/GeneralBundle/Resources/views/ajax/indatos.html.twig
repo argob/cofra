@@ -1,0 +1,24 @@
+{# empty Twig template #}
+<html>
+    <head>
+           {% javascripts 'Resources/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    
+            
+        
+    </head>
+    <body>
+        <form action="" method="post" {{ form_enctype(form) }} name="formu">
+            {{ form_widget(form) }}
+
+                {% include 'FrameworkGeneralBundle:ajax:includecombo.html.twig'  with {subfijo : 'rural'}%}
+                {% include 'FrameworkGeneralBundle:ajax:includecombo.html.twig'  with {subfijo : 'urbano'}%}
+                <input type="submit" />
+            
+        </form>
+            <div id="lista">Aca lo q llega con ajax</div>
+    </body>
+    
+    <script src="{{ asset('js/jquery-1.7.2.min') }}" type="text/javascript" /></script>
+</html>

@@ -1,0 +1,21 @@
+{% extends '::generalrudo.html.twig' %}
+
+{% set  entorno= 'interno' %}
+
+
+{% block cuerpo %}
+<div id="listado">
+        {% block listado %}
+        {% endblock %}
+</div>
+{% endblock %}
+
+{% block estilosEspeciales %}
+        <link href="{{ asset('css/tablaListado.css') }}" rel="stylesheet" type="text/css" media="screen" /> 
+		
+		<script type="text/javascript" src="{{ asset ("tablecloth/tablecloth.js")}}"></script>
+{% endblock %}
+	
+{% block scriptOnload %}
+	<body onLoad="tablecloth();MM_preloadImages('{{ asset('images/logout-2_over.png') }}')">
+{% endblock %}

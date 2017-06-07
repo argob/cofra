@@ -1,0 +1,27 @@
+{% extends "FrameworkSeguridadBundle:Admin:base.html.twig" %}
+
+{% block body %}
+{# cambiar {{ entity.tipoUC }} por lo que devuelva el string #}
+<h1>Grupos a los que pertenece el {{ entity.tipoUC }} {{ entity.nombre }}</h1>
+<table class="record_properties">
+	<tr>
+		<td>
+			Grupos Actuales:
+		</td>
+		<td>
+			<ul>
+			{% for grupo in entity.gruposPertenece %}
+					<li>{{ grupo }}</li>
+			{% endfor %}
+					</ul>
+
+				</td>
+			</tr>
+		</table>
+		<form action="{{ path('admin_gestionusuario_modificargrupos', { 'id': entity.id }) }}" method="post" {{ form_enctype(editGrupos_Form) }}>
+	{{ form_widget(editGrupos_Form) }}
+				<p>
+					<button type="submit">Asignar Grupos</button>
+				</p>
+			</form>
+{% endblock %}

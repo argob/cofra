@@ -1,0 +1,19 @@
+{% extends '::generalrudo.html.twig' %}
+
+{% set  entorno= 'interno' %}
+
+
+
+
+{% block cuerpo %}
+
+    <div id="carga">
+        {% block carga %}
+        {% endblock %}   
+    </div>
+    <div id="detalle">
+        {% block detalle %}
+        {% endblock %}
+    </div>
+
+{% endblock %}

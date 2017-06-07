@@ -1,0 +1,91 @@
+{# empty Twig template #}
+{% block domiciliotype_widget %}
+{# {% spaceless %} #}
+	<div id="domicilio{{id}}" >
+		<div>
+			{{ form_widget(form.dirGeneral) }}
+		</div>
+		<div id="configuracion_{{id}}"  >
+			<div id='funciones'>
+{#                            <!--<h2>Indique Tipo de Domicilio:</h2>-->
+				<span class="domicilioTipo" onclick="selec_{{id}}(this)" style="cursor: pointer;"><label>Urbano</label></span> | 		
+				<span class="domicilioTipo" onclick="selec_{{id}}(this)" style="cursor: pointer;"><label>Rural</label></span> |  
+				<span class="domicilioTipo" onclick="selec_{{id}}(this)" style="cursor: pointer;"><label>Industrial</label></span> #}
+				<ul class="idTabs" style="display: inline-block"> 
+					<li style="display: inline-block"><a href="#urbano_{{id}}" onclick="selec_{{id}}(this)" >Urbano</a> | </li> 
+					<li style="display: inline-block"><a href="#rural_{{id}}" onclick="selec_{{id}}(this)" >Rural</a> | </li> 
+					<li style="display: inline-block"><a href="#industrial_{{id}}" onclick="selec_{{id}}(this)" >Industrial</a></li>
+				</ul> 
+				<script>
+						div="";
+						formulario = document.forms[0];
+						function selec_{{id}}(obj){
+							
+							//div = obj.parentNode.parentNode;
+							//div = $(obj).parent().parent();
+							div = $(obj).parent().parent()[0];
+							//domtipo= $(div).children();
+							//domicilio_div = div.children['domicilio_div']
+							$(div).children('#domicilio_div_{{id}}')[0];
+							if($(obj).text() == 'Urbano'){				
+								$('#{{id}}_tipo').val(1);
+								}
+							if($(obj).text() == 'Rural'){
+								$('#{{id}}_tipo').val(2);
+								}
+							if($(obj).text() == 'Industrial'){
+								$('#{{id}}_tipo').val(3);
+								}	
+					}
+
+
+			</script>
+			</div>
+				<div id="domicilio_div_{{id}}"  >
+					<div name="urbano" id="urbano_{{id}}"  style="display: none;"  >
+							{{ form_widget(form.dirUrbano) }}	
+					</div>
+					<div name="rural" id="rural_{{id}}"  style="display: none;" >						
+							{{ form_widget(form.dirRural) }}		
+					</div>
+					<div name="industrial" id="industrial_{{id}}"  style="display: none;" >						
+						{{ form_widget(form.dirIndustrial) }}				
+					</div>			
+				</div>
+{#				<script>
+						div = $('#configuracion_{{id}}');
+						//div_domicilio = $($(div).children()[1]);
+										//$(div).children()[1]
+						div_domicilio = $('#domicilio_div_{{id}}')
+						urbano_{{id}} = $(div_domicilio).children()[0]; 
+						rural_{{id}} = $(div_domicilio).children()[1];
+						industrial_{{id}} = $(div_domicilio).children()[2];
+						$(div_domicilio).html($(urbano_{{id}}).html()); // por defecto											
+				</script>#}
+		</div>
+		{{ form_rest(form) }}
+	</div>		
+	<script type="text/javascript">
+		{% if attr['tipo'] is defined %}
+		$('#{{id}}_tipo').val( {{ attr['tipo']}} );{% else %} $('#{{id}}_tipo').val(1){% endif %}
+		
+			
+		tipohidden = $('#{{id}}_tipo').val();
+		if(tipohidden == 1) $("#funciones ul").idTabs("urbano_{{id}}"); 	
+		if(tipohidden == 2)$("#funciones ul").idTabs("rural_{{id}}"); 
+		if(tipohidden == 3)$("#funciones ul").idTabs("industrial_{{id}}"); 
+		{#
+
+		{% if tipo == 1 %}
+		$("#funciones ul").idTabs("urbano_{{id}}"); 	
+		{% elseif tipo == 2 %}	
+		$("#funciones ul").idTabs("rural_{{id}}"); 
+		{% elseif tipo == 3 %}	
+		$("#funciones ul").idTabs("industrial_{{id}}"); 
+		{% endif%}	
+		#}
+	</script>
+{# {% endspaceless %} #}
+{% endblock %}
+
+	

@@ -1,0 +1,19 @@
+{# empty Twig template #}
+
+<html>
+    <head>
+                {% javascripts '../app/Resources/public/js/*'  output='js/' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    </head>
+    <body>
+        <form action="" method="post" {{ form_enctype(form) }} name="inoperador">
+            {{ form_widget(form) }}
+
+                <input type="submit" />
+                   </form>
+
+    </body>
+    
+    
+</html>

@@ -1,0 +1,26 @@
+{# empty Twig template #}
+
+<html>
+    <head>
+                {% javascripts '../app/Resources/public/js/*'  output='js/' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+	<style>
+	.dirclase1  { display: block;
+				border-bottom: 1px solid rgb(204, 204, 204);
+				margin-bottom: 10px;
+				padding-bottom: 2px;
+			}	
+		</style>
+    </head>
+    <body>
+        <form action="" method="post" {{ form_enctype(form) }} name="inoperador">
+            {{ form_widget(form) }}
+
+                <input type="submit" />
+                   </form>
+
+    </body>
+    
+    
+</html>

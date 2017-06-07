@@ -1,0 +1,50 @@
+{# empty Twig template #}
+
+<script>
+			vacio = '<option value="0">-</option>';
+			function pedirprov_{{subfijo}}(){
+				form = document.forms[0];
+				if(form.provincias_{{subfijo}}.length < 2){
+					$.get('pedidos/provincias', function(data) {					   
+						form.provincias_{{subfijo}}.innerHTML = vacio + data;
+						});
+			   }
+			   form.localidades_{{subfijo}}.innerHTML = vacio;
+			}
+			function pedirpart_{{subfijo}}(){
+				form = document.forms[0]; 
+				id_prov = form.provincias_{{subfijo}}.value;
+				
+					 $.post('pedidos/partidos', 
+						  { 'id_prov': id_prov } ,
+						  function(data){ form.partidos_{{subfijo}}.innerHTML = vacio +  data;
+						});   
+				
+			  }
+			
+			function pedirloc_{{subfijo}}(){
+				form = document.forms[0];
+				id_part = form.partidos_{{subfijo}}.value;
+				$.post('pedidos/localidades', 
+						  { 'id_part': id_part } ,
+						  function(data){ form.localidades_{{subfijo}}.innerHTML =  vacio + data;
+						});
+			}
+			
+		</script>
+		<style>select {margin: 5px; min-width: 280px}</style>
+		<div id='domicilio_{{subfijo}}' style="border:1px solid #ccc; padding:5px; display:inline-block">
+			
+			<select name="provincias_{{subfijo}}" size=1 onclick="javascript:pedirprov_{{subfijo}}()" onchange="javascript:pedirpart_{{subfijo}}()">
+				<option value="0">-</option>
+			</select>
+			<br />
+			<select name="partidos_{{subfijo}}" size=1 onclick="javascript:pedirloc_{{subfijo}}()">
+				<option value="0">-</option>
+			</select>			
+			<br />
+			<select name="localidades_{{subfijo}}" size=1 >
+				<option value="0">-</option>
+			</select>
+			
+		</div>

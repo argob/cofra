@@ -1,0 +1,13 @@
+{# empty Twig template #}
+
+{% extends '::base.html.twig' %}
+
+{% block base_body %}
+
+
+    {% for item in objetos %}
+    <OPTION VALUE="{{item.getId()}}">{{item.getNombre()}}</OPTION>
+    {% endfor  %}
+
+
+{% endblock %}

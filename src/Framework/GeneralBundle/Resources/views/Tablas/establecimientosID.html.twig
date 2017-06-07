@@ -1,0 +1,26 @@
+{# 
+requiere: establecimientos => Entidad
+#}
+
+<table>
+<thead>
+	<tr>
+		<th>Id</th>
+		<th>Domicilio</th>
+		<th>Nombre Identificador</th>
+	</tr>
+</thead>
+<tbody>
+	{% if establecimientos is defined %}
+{% for establecimiento in establecimientos %}
+		<tr>
+			<td>{{ establecimiento.id }}</td>
+			<td>{{ establecimiento.domicilio  }}</td>
+			<td>{{ establecimiento.nombreIdentificador }}</td>
+		</tr>
+{% endfor %}
+{% else %}		
+	<span>No se encontraron Coincidencias</span>		
+{% endif %}		
+	</tbody>
+</table>

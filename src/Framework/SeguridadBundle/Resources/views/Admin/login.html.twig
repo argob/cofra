@@ -1,0 +1,40 @@
+{#{% extends "FrameworkSeguridadBundle:Admin:testbase.html.twig" %}#}
+ {% extends "::baseFramework.html.twig" %} 
+
+{#% extends "::generalrudo.html.twig" %#}
+
+{% block stylesheets %}
+{# <link href="{{ asset('css/login-cuerpo.css') }}" rel="stylesheet" type="text/css" /> #}
+{# <link href="{{ asset('css/login.css') }}" rel="stylesheet" type="text/css" /> #}
+{% endblock %}
+
+{% block logout %}
+{% endblock %}
+
+{% block menu %}
+{% endblock %}
+
+
+{% block cuerpo %}
+	{% if error %}
+<div>
+	<span class="error">Usuario o clave incorrecta</span>
+</div>
+	{% endif %}
+<div id="login">
+	<form action="{{ path('admin_login_check') }}" method="post" id="login">
+		<h1>Bienvenido</h1>
+		<fieldset id="inputs">
+				{% block inputs %}
+				<input type="text" id="username" placeholder="Usuario" name="_username" value="{{ last_username }}" />
+				<input type="password" id="password" name="_password" placeholder="Clave" />
+				{% endblock %}
+			</fieldset>
+			<fieldset id="actions">
+				{% block actions %}	
+					<input type="submit" id="enviar" value="Ingresar" />
+				{% endblock %}
+				</fieldset>
+			</form>
+		</div>
+{% endblock %}

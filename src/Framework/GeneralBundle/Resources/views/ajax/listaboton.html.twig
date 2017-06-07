@@ -1,0 +1,35 @@
+{# empty Twig template #}
+{# empty Twig template #}
+
+<html>
+    <head>
+        {% javascripts '@FrameworkGeneralBundle/Resources/public/js/*' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    <script src="{{ asset('js/jquery-1.7.2.min') }}" type="text/javascript" /></script>
+            <script>
+            function listar(){
+                
+                $.get('listatabla', function(data) {
+                    $('#lista').html(data);
+                    });
+                
+                }
+        </script> 
+        <style>
+                <!--
+
+        .tabla { border:1px solid #ccc}
+        .tabla tr { border:1px solid #ccc}
+        .tabla tr td  { border:1px solid #ccc}
+        -->
+        </style>
+        
+   
+    </head>
+    <body>
+        <a href="javascript:listar()" > Listar</a>
+        <div id="lista">
+        </div>    
+    </body>
+</html>

@@ -1,0 +1,123 @@
+{# empty Twig template #}
+{% block selectorlocalidad_widget %}
+{% spaceless %}
+
+		{{ block('form_widget') }}
+
+		<script>			
+			noencotrado = '<option value="0">No hay opciones</option>';
+			vacio = '<option value="0">Seleccione una Opción</option>';
+			host = '/';
+			function pedirpartido_{{id}}(id_prov){
+				if(id_prov == 0) return 0;
+				primeritem = vacio;
+				if(id_prov==1) primeritem = "";
+				$.post(host + 'ajax/pedidos/partidos', 
+						  { 'id_prov': id_prov } ,
+						  function(data){ $(form.{{id}}_partido).html(primeritem + data);
+						});   
+						$(form.{{id}}_localidad).html("");
+						
+				if(id_prov==1){pedirlocalidad_{{id}}(7);pedircodpostal_{{id}}(3058)} // esto es para CABA
+				else vaciartodo_{{id}}();
+				
+			  }
+			function pedirlocalidad_{{id}}(id_part){
+				if(id_part == 0) return 0;
+				primeritem = vacio;
+				if(id_part==7) primeritem = "";
+				$.post(host +'ajax/pedidos/localidades', 
+						  { 'id_part': id_part } ,
+						  function(data){ $(form.{{id}}_localidad).html(primeritem + data);
+						});
+						$(form.{{id}}_codpostal).html(vacio);
+			}
+			function pedircodpostal_{{id}}(id_loc){
+{#				if(id_loc == 0) return 0;				
+				$.post(host +'ajax/pedidos/codpostal', 
+						  { 'id_loc': id_loc } ,
+						  function(data){ $(form.{{id}}_codpostal).html(vacio + data);
+						});
+#}
+			}
+			function vaciartodo_{{id}}(){
+			   form = document.forms[0];
+			   $(form.{{id}}_localidad).html(vacio);
+			   $(form.{{id}}_codpostal).html(vacio);
+			   $(form.{{id}}_codigopostal).val("");
+			   
+				
+				
+			}
+			function particular_caba_{{id}}(){
+				pedirpartido_{{id}}(1);
+				pedirlocalidad_{{id}}(7);
+				
+
+			}
+			function onclickprovincia_{{id}}(elegida){
+					form = document.forms[0];
+					id_part = $(form.{{id}}_provincia).val();
+					if(id_part==1)pedirpartido_{{id}}(1);
+					
+			}
+			function onclickpartido_{{id}}(elegida){
+										
+			}		
+			function onclicklocalidad_{{id}}(elegida){
+					form = document.forms[0];
+					id_loc = $(form.{{id}}_localidad).val();
+					pedircodpostal_{{id}}(id_loc);	
+			}
+			
+			function onchangeprovincia_{{id}}(elegida){
+					form = document.forms[0]; 
+					id_prov = $(form.{{id}}_provincia).val();
+					pedirpartido_{{id}}(id_prov);
+			}
+			function onchangepartido_{{id}}(elegida){
+					form = document.forms[0];
+					id_part = $(form.{{id}}_partido).val();
+					pedirlocalidad_{{id}}(id_part);	
+			}		
+			function onchangelocalidad_{{id}}(elegida){
+					form = document.forms[0];
+					id_loc = $(form.{{id}}_localidad).val();
+					pedircodpostal_{{id}}(id_loc);		
+			}
+			function onchangecodpostal_{{id}}(elegida){			
+				
+			}
+
+			function agregacp_{{id}}(){
+				form = document.forms[0];				
+				choice = form.{{id}}_codpostal;
+				if(choice.options[choice.selectedIndex].index == 0) return 0;				
+				$(form.{{id}}_codigopostal).val($(choice.options[choice.selectedIndex]).text());				
+				}
+				
+				provitem = document.getElementById('{{id}}_provincia');				
+				provitem.onclick = function(){onclickprovincia_{{id}}();}
+				provitem.onchange= function(){onchangeprovincia_{{id}}();}
+				//provitem.select= function(){pedirpart_{{id}}();}
+				
+				partitem = document.getElementById('{{id}}_partido');
+				partitem.onclick = function(){onchangepartido_{{id}}();}
+				partitem.onchange = function(){onchangepartido_{{id}}();}
+				
+				
+				locitem = document.getElementById('{{id}}_localidad');
+				locitem.onclick =  function(){onclicklocalidad_{{id}}();}
+				locitem.onchange = function(){onchangelocalidad_{{id}}();}
+			
+				//locitem.select = function(){pedircodpostal_{{id}}();}
+				//locitem.select = function(){alert('asdasd');}
+{#				
+				coditem = document.getElementById('{{id}}_codpostal');
+				coditem.onchange = function(){agregacp_{{id}}();}
+				coditem.onclick = function(){agregacp_{{id}}();}
+#}	
+		</script>
+{% endspaceless %}
+{% endblock %}
+		

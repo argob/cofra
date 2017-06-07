@@ -1,0 +1,20 @@
+{% extends "FrameworkSeguridadBundle:Admin:base.html.twig" %}
+
+{% block base_body %}
+<h1>{{ titulo|raw }}</h1>
+<ul>
+	{% for opcion in opciones %}
+		<li>
+			<a href="{{ path(opcion.name) }}">{{ opcion.titulo|raw }}</a>
+		</li>
+	{% endfor %}
+	{% if llevalinkdevuelta %}
+		<li>
+			<a href="{{ path('admin') }}">Volver a la consola de administraci&oacute;n</a>
+		</li>
+	{% endif %}
+	</ul>
+{% if is_granted('ROLE_FRUTA') %}
+	mostrame este cacho
+{% endif %}
+{% endblock %}
