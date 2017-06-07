@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>{% block title %}{% endblock %} Cofra - Rendición de Caja</title>
+        {% block stylesheets %}
+                {# las hojas de estilos directos en /web #}
+                <link rel="shortcut icon" href=" {{ asset ('images/favicon.ico') }}" />
+                {% block estilosEspeciales %}
+
+                {% endblock %}
+        {% endblock %}
+        {% block javascripts %}
+            <script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+            <script src="/js/notify/src/jquery-ui.js" type="text/javascript"></script>
+            <script src="/js/notify/src/jquery.notify.js" type="text/javascript"></script>
+
+            <script type="text/javascript" src="{{ asset('js/imghover.js')}}"></script>
+            <script type="text/javascript" src="{{ asset('js/efectosgenerales.js')}}"></script>
+            {% block javascriptEspeciales %}
+
+            {% endblock %}
+        {% endblock %}
+    </head>
+
+{% block scriptOnload %}
+    <body>  
+{% endblock %}
+
+    <div id="contenedor">
+            <header>
+              
+            </header>
+        <article>
+            <br/><br/><br/>
+            {% block cuerpo %}
+            {% endblock %}
+        </article>
+        <script>
+            efectosLoad('fade', 'article' );
+        </script>
+        <div class="push"></div>
+        </div>
+        <footer>
+            {% block pie %} 
+                Dirección de Informática | Av. Paseo Colón 982 (1063) Tel: 54 11 4349-2000 | Bs. As. - Argentina
+            {% endblock %}
+        </footer>
+    </body>
+</html>

@@ -1,0 +1,107 @@
+security:
+    encoders:
+        Framework\SeguridadBundle\Entity\Usuario:
+            algorithm:         sha1
+            encode_as_base64:  false
+            iterations:        1
+#        Registro\PadronBundle\Entity\UsuarioExterno:
+#            algorithm:         sha1
+#            encode_as_base64:  false
+#            iterations:        1
+        Symfony\Component\Security\Core\User\User: plaintext
+#            algorithm:         sha1
+#            encode_as_base64:  false
+#            iterations:        1
+#    factories:
+#        - "%kernel.root_dir%/../src/Framework/SeguridadBundle/Resources/config/security_factories.yml"
+
+    providers:
+        #my_chain_provider:
+           #  chain:
+              #   providers: [my_roots_provider, my_internos_provider]
+        my_roots_provider:
+            memory:
+                #name: roots
+                users:
+                    - { name: nombre, password: password, roles: 'ROLE_ADMIN' }
+        sistema:
+#            entity: { class: FrameworkSeguridadBundle:Usuario, property: username }
+            entity: { class: MagypRendicionDeCajaBundle:Usuario, property: username }
+    firewalls:
+#hay que poner primero el firewall de lo que seria la pantalla de login ya que si no pedira loguear y nunca saldra del ciclo
+#|(^/sistema/rendicion/imprimir/[\w\/]+$)
+#        secured_area:
+#            pattern: ^/
+#            anonymous: true
+#            provider: database_users
+#            form_login_ldap:
+#                provider: database_users
+#                service: app.ldap
+#                dn_string: "{username}@domain"
+#                check_path: security_login_check
+#                login_path: security_login_form
+#                csrf_token_generator: security.csrf.token_manager
+#            logout:
+#                path: security_logout
+#                target: homepage
+        sistemaLogin:
+            pattern: (^/sistema/login$)
+            security: false
+        sistema:
+            pattern:  ^/sistema/
+            provider: sistema
+            context:  sistema
+
+#            form_login:
+#                check_path: /sistema/login_check
+#                login_path: /sistema/login
+#                always_use_default_target_path: true
+#                default_target_path: /sistema/prehome
+
+            form_login_ldap:
+                provider: sistema
+                service: app.ldap
+                dn_string: "{username}@domain"
+                check_path: /sistema/login_check
+                login_path: /sistema/login
+                always_use_default_target_path: true
+                default_target_path: /sistema/prehome
+            logout:
+                path: /sistema/logout
+                target: /sistema/login
+
+        adminLogin:
+            pattern: ^/admin/login$
+            security: false
+        admin:
+            pattern: ^/admin
+            provider: my_roots_provider
+            context: roots
+            form_login:
+                check_path: /admin/login_check
+                login_path: /admin/login
+            logout:
+                path: /admin/logout
+                target: /
+
+#        publicoLogin:
+#            pattern: ^/publico(/login|/registro(/.*)?)?$
+#            security: false
+#        publico:
+#            pattern: ^/publico
+#            provider: externos
+#            context: externos
+#            form_login:
+#                check_path: /publico/login_check
+#                login_path: /publico/login
+#                always_use_default_target_path: false
+#                default_target_path: /publico/panel
+#            logout:
+#                path: /publico/logout
+#                target: /
+
+        dev:
+            pattern:  ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+#        access_control:
+#            - {path: ^/privado, roles: ROLE_NADIE }

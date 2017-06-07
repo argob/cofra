@@ -1,0 +1,55 @@
+magyp_rendicion_de_caja:
+    resource: "@MagypRendicionDeCajaBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+home:
+    resource: "@MagypRendicionDeCajaBundle/Controller/HomeController.php"
+    type:     annotation
+    prefix:   /
+
+login:
+    resource: "@MagypRendicionDeCajaBundle/Controller/LoginController.php"
+    type:     annotation
+    prefix:   /
+    
+perdipassword:
+    resource: "@MagypRendicionDeCajaBundle/Controller/UsuarioPasswordController.php"
+    type:     annotation
+    prefix:   /
+
+
+entidades:
+    resource: "@MagypRendicionDeCajaBundle/Controller/Entidades/"
+    type:     annotation
+    prefix:   /entidades/
+
+#Login
+admin_login_check:
+    pattern: /admin/login_check
+
+admin_logout:
+    pattern: /admin/logout
+
+sistema_login_check:
+    pattern: /sistema/login_check
+
+sistema_login_logout:
+    pattern: /sistema/logout    
+
+#General
+FrameworkGeneralBundle:
+    resource: "@FrameworkGeneralBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+#Seguridad
+FrameworkSeguridadBundle:
+    resource: "@FrameworkSeguridadBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+# Internal routing configuration to handle ESI
+#_internal:
+#    resource: "@FrameworkBundle/Resources/config/routing/internal.xml"
+#    prefix:   /_internal

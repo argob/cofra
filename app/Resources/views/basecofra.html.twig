@@ -1,0 +1,194 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+		<title>{% block title %}{% endblock %} Cofra - Rendición de Caja</title>
+				<link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+                <link href="{{ asset('css/basecofra.css') }}" rel="stylesheet" type="text/css" media="screen">
+				
+		{% block stylesheets %}
+			
+			<!--<link href="{{ asset('css/base2.css') }}" rel="stylesheet" type="text/css" media="screen">-->
+                      
+			<link rel="shortcut icon" href=" {{ asset ('images/favicon.ico') }}" />
+			{% block estilosEspeciales %}
+			
+			{% endblock %}
+		{% endblock %}
+		{% block javascripts %}     
+			<script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+			<script src="{{ asset('js/apprise-1.5.full.js') }}" type="text/javascript"></script>
+			<link href="{{ asset('css/apprise.css') }}" rel="stylesheet" type="text/css" media="screen">
+			<script src="{{ asset('js/MetroJs.min.js') }}" type="text/javascript" ></script>
+			<script src="/js/notify/src/jquery-ui.js" type="text/javascript"></script>
+			<script src="/js/notify/src/jquery.notify.js" type="text/javascript"></script>
+			<script type="text/javascript" src="{{ asset('js/imghover.js')}}"></script>
+			<script type="text/javascript" src="{{ asset('js/efectosgenerales.js')}}"></script>
+			
+				
+			{% block javascriptEspeciales %}
+				{#<script type="text/javascript" src="{{ asset('js/jquery.idTabs.min.js')}}"></script>#}
+			{% endblock %}
+		{% endblock %}
+	</head>
+
+{% block scriptOnload %}
+	<body>  
+{% endblock %}
+
+    <div id="contenedor">
+            <header>
+                {% block cabecera %}
+                    <div id="logo">
+                        {% if ( is_granted("ROLE_TESORERIA") ) %}
+                            <a href={{ path ("te_home") }} ><img name="logo" src={{ asset ("images/logo-cofra2-chico.png") }} width="249" height="82" alt="logo" style="float:left"></a>
+                        {% else %}
+                            {% if ( is_granted("ROLE_AF") ) %}
+                                <a href={{ path ("af_home") }} ><img name="logo" src={{ asset ("images/logo-cofra2-chico.png") }} width="249" height="82" alt="logo" style="float:left"></a>
+                            {% else %}
+                                <a href={{ path ("home") }} ><img name="logo" src={{ asset ("images/logo-cofra2-chico.png") }} width="249" height="82" alt="logo" style="float:left"></a>
+                            {% endif %}
+                        {% endif %}
+                    </div>					
+                    <!--<div id="botonera">
+
+                            {% block botonera %}
+                            {% endblock %}
+                    </div>-->
+                    <div id="vacio">
+                            <div id="logoMinisterio">
+                            </div>
+                    </div>
+                    {% if app.user.cambiarpassword is defined  %}
+                        {%if ( app.user.cambiarpassword == true )%}
+                            <script>
+                                $(location).attr('href','{{ path ("cambiopasswordporcos") }}');
+                            </script>
+                        {%endif%}
+                    {%endif%}
+                    {% if paginaActual is not defined%}{% set paginaActual = '' %}{% endif %}
+                    {% block botonera2 %}
+                        <div id="subHeader">
+                            <div id="usuario2">{% if app.user is defined  %}<span>Bienvenido, <strong><a href="{{path('usuario_mostrar', { 'id':app.user.id })}}">{{app.user.username}}</a> - </strong></span>	{#<span>Bienvenido, <strong>{{app.user.nombre}}, {{app.user.apellido}} - </strong></span>#}{% endif %}
+                                <a href="{{path('sistema_login_logout')}}" class="out">Salir</a>
+                            </div>
+                            
+                            <div id="menu">	
+                                {% if ( is_granted("ROLE_AF") ) %}
+                                    <a href="{{ path ("af_home") }}">
+                                        <li class="botones {% if paginaActual == 'RC' %}Icono_home_seleccionada{% else %}Icono_home{%endif%}"><span class="">Panel</span></li>
+                                    </a>
+                                {%else%}
+                                    {% if ( is_granted("ROLE_TESORERIA") ) %}
+                                        <a href="{{ path ("te_home") }}">
+                                            <li class="botones {% if paginaActual == 'RC' %}Icono_home_seleccionada{% else %}Icono_home{%endif%}"><span class="">Panel</span></li>
+                                        </a>
+                                    {%endif%}
+                                {%endif%}
+                                {% block menu %}
+                                    {% if ( is_granted("ROLE_AF") ) %}
+                                        
+                                        <a href="{{ path('af_buscador_general_pip')}}">
+                                            <li class="botones {% if paginaActual == 'Buscador' %}Icono_buscador_seleccionada {% else %}Icono_buscador{%endif%}"><span class=""<span class="" >Buscador </span></li>
+                                        </a> 
+                                        <a href="{{ path('af_notasgenericas_home')}}">
+                                            <li class="botones {% if paginaActual == 'Notas' %}Icono_notas_seleccionada {% else %}Icono_notas{%endif%}"><span class="">Notas</span></li>
+                                        </a> 
+                                        <a href="{{ path ("af_notificaciones_home")}}">
+                                            <li class="botones {% if paginaActual == 'Notificacion' %}Icono_notificaciones_seleccionada {% else %}Icono_notificaciones{%endif%}"><span class="" >Notificaciones</span></li>
+                                        </a> 
+                                        <a href="{{ path('af_rendiciones_home')}}">
+                                            <li class="botones {% if paginaActual == 'Gestion' %}Icono_gestion_seleccionada {% else %}Icono_gestion{%endif%}"><span class="">Gestión</span></li>
+                                        </a> 
+                                        <a href="{{ path('af_administracion_home')}}">
+                                            <li class="botones {% if paginaActual == 'Administracion' %}Icono_adm_seleccionada {% else %}Icono_adm{%endif%}">Administración</span></li>
+                                        </a> 
+                                    {% endif %}
+                                    {% if ( is_granted("ROLE_USUARIO") ) %}
+                                        <a href="{{ path ("usuario") }}">
+                                            <li class="botones {% if paginaActual == 'Usuario' %}Icono_usuario_seleccionada {% else %}Icono_usuario{%endif%}"><span class="" >Usuario</span></li>
+                                        </a>
+                                    {% else %}
+                                        {#<li class="botones subBoton5-off">Usuario</li>#}
+                                    {% endif %}
+                                    {% if ( not ( is_granted("ROLE_AF") ) ) %} 
+
+                                        {% if ( is_granted("ROLE_RENDICION") ) %}
+                                            <a href="{{ path ("sistema_rendicion") }}">
+                                                <li class="botones {% if paginaActual == 'Rendicion' %}Icono_gestion_seleccionada {% else %}Icono_gestion{%endif%}"><span class="">Rendición</span></li>
+                                            </a>
+                                        {% else %}
+                                            {#<li class="botones subBoton2-off">Rendicion</li>#}
+                                        {% endif %}
+
+                                        {% if ( is_granted("ROLE_PROVEEDOR") ) %}
+                                            <a href="{{ path('proveedor')}}">
+                                                <li class="botones {% if paginaActual == 'Proveedor' %}subBoton_prov_seleccionada {% else %}subBoton_prov{%endif%}"><span class="" >Proveedores</span></li>
+                                            </a>
+                                        {% else %}
+                                            {#<li class="botones subBoton_not">Proveedores</li>#}
+                                        {% endif %}
+                                        {% if ( is_granted("ROLE_NOTIFICACION") ) %}
+                                            <a href="{{ path('sistema_notificacion_propias')}}">
+                                                <li class="botones {% if paginaActual == 'Notificacion' %}Icono_notificaciones_seleccionada{% else %}Icono_notificaciones{%endif%}"><span class="" >Notificaciones</span></li>
+                                            </a>
+                                        {% endif %}
+                                        {#{% if ( is_granted("ROLE_IMPUTACION") ) %}
+                                            <a href="{{ path('imputacion')}}">
+                                                <li class="botones subBoton4">Imputaciones</li>
+                                            </a>
+                                        {% else %}
+                                            <li class="botones subBoton4-off">Imputaciones</li>
+                                        {% endif %}#}
+                                    {% endif %}
+                                    <script>
+                                        efectosLoad('fade', 'article' );
+                                        {% if ( is_granted("ROLE_AF") ) %}
+                                            lbase= 950;
+                                        {% else %}
+                                            lbase= 500;
+                                        {% endif %}
+                                        lcomprobante= 950;
+                                        lrendicion= 750;
+                                        $(window).resize(function(e) {
+                                            ancho= $(window).width();
+                                            if (ancho < lcomprobante ){
+                                                $('.labelbotoncomprobante').hide();
+                                            }else{
+                                                 $('.labelbotoncomprobante').show()
+                                            }
+
+                                            if (ancho < lrendicion ){
+                                                $('.labelbotonrendicion').hide();
+                                            }else{
+                                                 $('.labelbotonrendicion').show()
+                                            }
+
+                                            if (ancho < lbase ){
+                                                $('.labelbotonbase').hide();
+                                            }else{
+                                                 $('.labelbotonbase').show()
+                                            }
+                                        });
+                                    </script>
+                                {% endblock %}
+                            </div>
+                        </div>
+                    {% endblock %}
+                {% endblock %}
+            </header>
+        <article>
+            {% block cuerpo %}
+            {% endblock %}
+        </article>
+        
+        <div class="push"></div>
+    </div>
+        <footer>
+            {% block pie %} 
+                Dirección de Informática | Av. Paseo Colón 982 (1063) Tel: 54 11 4349-2000 | Bs. As. - Argentina
+            {% endblock %}
+        </footer>
+    </body>
+</html>

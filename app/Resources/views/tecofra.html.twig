@@ -1,0 +1,85 @@
+{% extends '::basecofra.html.twig' %}
+
+{% block stylesheets %}
+   <!--<link href="{{ asset('css/basecofra.css') }}" rel="stylesheet" type="text/css" media="screen">-->
+    <link href="{{ asset('css/te.css') }}" rel="stylesheet" type="text/css" media="screen">
+    <link rel="shortcut icon" href=" {{ asset ('images/favicon.ico') }}" />
+    {% block estilosEspeciales %}
+
+    {% endblock %}
+{% endblock %}
+
+{% block javascriptEspeciales %}
+{% endblock %}
+{% block botonera2 %}
+	<div id="subHeader">
+		<div id="usuario2">{% if app.user is defined  %}<span>Bienvenido, <strong><a href="{{path('usuario_mostrar', { 'id':app.user.id })}}">{{app.user.username}}</a> - </strong></span>	{#<span>Bienvenido, <strong>{{app.user.nombre}}, {{app.user.apellido}} - </strong></span>#}{% endif %}
+			<a href="{{path('sistema_login_logout')}}" class="out">Salir</a>
+		</div>
+
+		<div id="menu">	
+			
+				{% if ( is_granted("ROLE_TESORERIA") ) %}
+					<a href="{{ path ("te_home") }}">
+						<li class="botones {% if paginaActual == 'RC' %}Icono_home_seleccionada{% else %}Icono_home{%endif%}"><span class="">Panel</span></li>
+					</a>
+				{%endif%}
+			
+
+			{% block menu %}
+				{% if ( is_granted("ROLE_AF") ) %}
+
+					<a href="{{ path('te_pistolear_home')}}">
+						<li class="botones {% if paginaActual == 'Buscador' %}Icono_buscador_seleccionada {% else %}Icono_buscador{%endif%}"><span class=""<span class="" >Buscador </span></li>
+					</a> 
+					<a href="{{ path('te_home_listados')}}">
+						<li class="botones {% if paginaActual == 'Notas' %}Icono_notas_seleccionada {% else %}Icono_notas{%endif%}"><span class="">Expedientes</span></li>
+					</a> 
+					<a href="{{ path ("te_notificacion_propias")}}">
+						<li class="botones {% if paginaActual == 'Notificacion' %}Icono_notificaciones_seleccionada {% else %}Icono_notificaciones{%endif%}"><span class="" >Notificaciones</span></li>
+					</a> 
+				{% endif %}
+				{#
+				{% if ( is_granted("ROLE_USUARIO") ) %}
+					<a href="{{ path ("usuario") }}">
+						<li class="botones {% if paginaActual == 'Usuario' %}Icono_usuario_seleccionada {% else %}Icono_usuario{%endif%}"><span class="" >Usuario</span></li>
+					</a>
+				{% else %}
+					
+				{% endif %}
+				#}
+
+				<script>
+					efectosLoad('fade', 'article');
+					{% if ( is_granted("ROLE_AF") ) %}
+						lbase = 950;
+					{% else %}
+						lbase = 500;
+					{% endif %}
+						lcomprobante = 950;
+						lrendicion = 750;
+						$(window).resize(function (e) {
+							ancho = $(window).width();
+							if (ancho < lcomprobante) {
+								$('.labelbotoncomprobante').hide();
+							} else {
+								$('.labelbotoncomprobante').show()
+							}
+
+							if (ancho < lrendicion) {
+								$('.labelbotonrendicion').hide();
+							} else {
+								$('.labelbotonrendicion').show()
+							}
+
+							if (ancho < lbase) {
+								$('.labelbotonbase').hide();
+							} else {
+								$('.labelbotonbase').show()
+							}
+						});
+				</script>
+			{% endblock %}
+		</div>
+	</div>
+{% endblock %}

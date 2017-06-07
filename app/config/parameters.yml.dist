@@ -1,0 +1,24 @@
+parameters:
+#Remplazar con los datos correspondientes
+    database_driver: 
+
+    database_host: 
+    database_port: 
+    database_name: 
+    database_user: 
+    database_password: 
+
+    locale: 
+    secret: 
+    database_path: 
+
+
+    mailer_transport: 
+    mailer_host: 
+#    mailer_auth_mode: 
+    mailer_port: 
+    mailer_user: 
+    mailer_password: 
+
+    ldap_host:  
+    
