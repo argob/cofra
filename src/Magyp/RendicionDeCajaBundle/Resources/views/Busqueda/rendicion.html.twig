@@ -1,0 +1,70 @@
+{% extends 'MagypRendicionDeCajaBundle:Leyenda:base.html.twig' %}
+
+{% set paginaActual = 'Gestion' %}
+
+{% if textobuscar is null %} {%set mostrarTabla = false %} {% endif %}
+
+{% block cuerpo %}
+	<br/>
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+	
+	{% block titulotabla "Buscador de Rendiciones" %}
+	
+        {% block busqueda %}
+        	{% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+				{% set path_action = path('sistema_busqueda_rendicion') %} 
+				{#% set path_autocompletar = 'sistema_busqueda_area_lista' %#}
+				{% set busqueda_nombre = 'rendicion' %}
+				{% block input_with "400px" %}
+			{% endembed %}
+		{% endblock %}
+
+
+	{% block tabla %}		
+			<table class="tablaBusqueda" cellspacing="0" width="100%">
+				 <thead>
+						 <th>{{ knp_pagination_sortable(rendiciones, 'Expediente', 'ren.expediente') }}</th>
+						 <th>{{ knp_pagination_sortable(rendiciones, 'Usuario', 'responsable.nombre') }}</th>
+						 <th>{{ knp_pagination_sortable(rendiciones, 'Area', 'area.nombre') }}</th>
+						 <th>Estado</th>
+
+
+				 </thead>
+				 <tbody>
+				 {% for rendicion in rendiciones %}
+
+					 <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+
+							 <td><a href="{{path('sistema_rendicion_detalle',{'idrendicion' : rendicion.id })}}">{{ rendicion.expedienteCompleto}}</a></td>
+							 <td>{{ rendicion.responsable}}</td>
+							 <td>{{ rendicion.area}}</td>
+							 <td>{{ rendicion.EstadoNombre}}</td> 
+
+					 </tr>
+				 {% else %}
+					 <tr>
+						 <td colspan="4">No se encontraron Resultados</td>
+					 </tr>
+				 {% endfor %}
+				 </tbody>
+			 </table>
+		{% if ( rendiciones | length > 0) %}
+
+			<div class="pagination">
+					   <table align="center" id="paginador-tabla">
+					   <tr>
+						   <td>{{ knp_pagination_render(rendiciones) }}</td>
+					   </tr>
+			   </table>                   
+			   </div>            
+		{% endif %}
+	
+	{% endblock %}	
+
+	{% block botones %}
+        <span><a href="{{ path('af_rendiciones_home') }}" class="btn btn-default">Volver</a></span>
+	{% endblock %}
+
+    {% endembed %}
+
+{% endblock %}

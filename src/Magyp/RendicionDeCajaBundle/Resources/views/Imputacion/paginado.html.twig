@@ -1,0 +1,288 @@
+{# en desarrollo #}
+
+{% extends 'MagypRendicionDeCajaBundle:Imputacion:base.html.twig' %}
+
+{% block javascriptEspeciales %}
+   {#error1 <script language="javascript" type="text/javascript" src={{ asset ("js/jquery-1.8.0.min.js") }} ></script> #}
+    <script>
+        $(document).ready(function(){
+        $("tr :even").addClass("even");
+        $("tr :odd").addClass("odd");
+        });
+		
+$(function() {
+    $('img[data-hover]').hover(function() {
+        $(this)
+            .attr('tmp', $(this).attr('src'))
+            .attr('src', $(this).attr('data-hover'))
+            .attr('data-hover', $(this).attr('tmp'))
+            .removeAttr('tmp');
+    }).each(function() {
+        $('<img />').attr('src', $(this).attr('data-hover'));
+    });;
+});
+    </script>
+{% endblock %}
+	{#
+	<div style="margin:20px; text-align:center;" >
+						<span>
+							<a href="#" onclick="mostrarAgregar();" class="btn boton">Agregar</a>
+						</span>
+						<span>
+							<a href="{{ path ("home") }}" class="btn boton">Volver<a/>
+						</span>
+                                                <a href="{{path('sistema_imputacion_papelera',{ 'idarea': idarea})}}"><button class="btn boton">Papelera</button></a>
+                        </div>
+	#}
+		{% block cabecera %}
+    {{ parent() }}
+	<div class="acciones">
+    <span style="margin-right: 25px; vertical-align: middle;">Acciones de Imputacion: </span>
+						<li onclick="mostrarAgregar();" class="agregar" title="Agregar Rendición">Agregar </li>	
+                        <li onclick="location.href = '{{path('sistema_imputacion_papelera',{ 'idarea': idarea})}}';" class="papelera">Papelera</li>
+                        <li onclick="{{ path ("home") }}" class="volver">Volver</li>
+	</div>	
+	{% endblock %}
+	
+{% block cuerpo %}
+<h2>Imputaciones</h2>
+<section>
+		<div id="colIz">
+		   
+				<table width="100%" border="0" cellspacing="0">
+					<tr>
+						<th scope="col" style="background-color:#FC6;">IMPUTACIONES</th>
+					</tr>
+				</table>
+			<div id="colIzTabla">
+				<table class="records_list" width="100%" border="0" cellspacing="0">
+					<tr>
+						<th scope="col" style="background-color:#FCAF66;">Codigo</th>
+						<th scope="col" style="background-color:#FCAF66;">Descripcion</th>
+						<th scope="col" style="background-color:#FCAF66;">Acciones</th>
+					</tr>
+					{% for imputacion in imputaciones%}
+					<tr>
+						<td>
+							{{ imputacion.codigo }}
+						</td>
+						<td>
+							{{ imputacion.descripcion }}
+						</td>
+						<td>
+							<div style="display:inline-block; cursor:pointer;" onclick="cargarModificar('{{ imputacion.id  }}','{{ imputacion.codigo  }}','{{ imputacion.descripcion  }}')">
+								<img src={{ asset ("images/form-botones/form-modificar-32.png") }} width="31" height="32" alt="modificar" class="accion2" title="Modificar">
+							</div>
+							{#	
+							<form style="display:inline-block;" name="formborar{{ imputacion.id  }}" action="{{ path('imputacion_delete')}}" method="post" >
+								<div style="display:inline-block; cursor:pointer;" onclick="r=confirm('¿Usted esta seguro que desea borrarlo?');if (r==true) document.formborar{{ imputacion.id  }}.submit();">
+									<input id="id_borrar" name="id_borrar"  type="hidden" value="{{ imputacion.id  }}">
+										<img src={{ asset ("images/form-botones/form-borrar-32-2.png") }} width="31" height="32" alt="modificar" class="accion1" title="Eliminar">
+								</div>
+							</form>#}
+							<div style="display:inline-block; cursor:pointer;" onclick="r=confirm('¿Usted esta seguro que desea borrarlo?');if (r==true) document.location='{{path('imputacion_borrar', {'id': imputacion.id})}}';">
+										<img src={{ asset ("images/form-botones/form-borrar-32-2.png") }} width="31" height="32" alt="modificar" class="accion1" title="Eliminar">
+							</div>	
+							{% if  is_granted('ROLE_LOG') %}	
+							<div style="display:inline-block; cursor:pointer;">
+								
+								<a href="{{ path('sistema_imputacion_eventos',{'id': imputacion.id } )}}"><img src="{{ asset ("images/form-botones/form-eventos-32.png") }}" width="31" height="32" alt="modificar" class="accion3" title="Registro de Eventos"></a>
+							</div>	
+							{% endif %}	
+						</td>
+					</tr>
+					{% endfor %}
+				</table>
+				<!--
+				<table align="center" id="tablaDescripcion0">
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+					<td>
+					
+					
+					</td>
+					</tr>
+				</table>
+					-->
+			</div>
+
+		</div>
+			<div id="colDe">
+					<table id="tablaDescripcion" width="100%" border="0" cellspacing="0" class="secundaria">
+						<tr>
+							<th colspan="2" scope="col" style="background-color:#FC6;">ACCIONES</th>
+						</tr>
+					</table>
+					<form id="form_borrar" action="{{ path('imputacion_delete') }}" method="post" {{ form_enctype(borrar) }}>
+						<input id="id_borrar" name="id_borrar"  type="hidden" value="">
+					</form>
+					
+                                        <div id="modificar" style="display: none">
+                                                <table width="100%" border="0" cellspacing="0">
+                                                          <tr>
+                                                                <th scope="col" style="background-color:#FCAF66; font-weight:normal;">Modificar</th>
+                                                          </tr>
+                                                </table>
+                                                <table width="100%" border="0" cellspacing="0" id="tablaDescripcion1">
+
+                                                        <tr>
+                                                                <td>&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                                <td>&nbsp;</td>
+                                                        </tr>
+                                                 </table>
+                                                 <form id="form_modificar" action="{{ path('imputacion_update') }}" method="post" {{ form_enctype(modificar) }}>
+                                                    <table border="0" cellspacing="5" class="acciones2">
+                                                        
+                                                            <tr>
+                                                                    <td align="left">{{ form_label(modificar.codigo) }}:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td align="left">{{ form_widget(modificar.codigo) }}</td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td align="left">{{ form_label(modificar.descripcion) }}:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td align="left">{{ form_widget(modificar.descripcion) }}</td>	
+                                                            </tr>
+                                                            <tr>		
+                                                                    <td align="left">{{ form_label(modificar.tipo) }}:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                    <td>{{ form_widget(modificar.tipo) }}	</td>	
+                                                            </tr>
+                                                            <tr>		
+                                                                    {{ form_rest(modificar) }}
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                              
+                                                                 </td> 
+                                                            </tr>
+                                                       
+                                                    </table>
+                                                        <span>
+                                                                <button type="submit" class="btn boton">Guardar</button>
+                                                                <button onclick="limpiar()" class="btn boton">Cancelar</button>
+                                                        </span>
+                                                                <input id="id_modificar" name="id_modificar"  type="hidden" value="">
+                                                </form>
+                                        </div>
+				
+					{#	Form Agregar	#}
+								<div id="agregar" style="display: none">
+										<table width="100%" border="0" cellspacing="0">
+                                                                                    <tr>
+                                                                                          <th scope="col" style="background-color:#FCAF66; font-weight:normal;">Agregar</th>
+                                                                                    </tr>
+                                                                                </table>
+                                                                                <table width="100%" id="tablaDescripcion2" cellspacing="0">
+										<tr>
+											<td>&nbsp; </td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+                                                                                </table>
+										<form action="{{ path('imputacion_create') }}" method="post" {{ form_enctype(agregar) }}>
+											
+											<tr>
+												<td>
+													<table border="0" cellspacing="5" class="acciones2">
+														<tr>
+															<td align="left">{{ form_label(agregar.codigo) }}:</td>
+                                                                                                                </tr>
+														<tr>
+															<td align="left">{{ form_widget(agregar.codigo) }}</td>
+														</tr>
+														<tr>
+															<td align="left">{{ form_label(agregar.descripcion) }}:</td>
+                                                                                                                </tr>
+														<tr>
+															<td align="left">{{ form_widget(agregar.descripcion) }}</td>	
+														</tr>
+														<tr>		
+															<td align="left">{{ form_label(agregar.tipo) }}:</td>
+                                                                                                                </tr>
+														<tr>
+															<td>{{ form_widget(agregar.tipo) }}	</td>	
+														</tr>
+														<tr>		
+															{{ form_rest(agregar) }}
+														</tr>
+													</table>   
+												</td>
+											</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td>
+												<span>
+													<button type="submit" class="btn boton">Guardar</button>
+													<button onclick="limpiar()" class="btn boton">Cancelar</button>
+												</span>
+											</td>
+										</tr>
+										</form>
+									</table>
+								</div>
+							</td>
+						</tr>
+					</table>
+			</div>
+			<div>			
+			    <select name="cantidad_paginas" style="width: 50px" >
+				<option value="15">10</option>
+				<option value="15">15</option>
+				<option value="15">20</option>
+				<option value="15">30</option>
+				<option value="15">50</option>
+			    </select>
+				<a href="/inicio">Inicio</a>
+				<input name="pagina_actual" style="width: 20px" >
+				<a href="/final">Final</a>
+			</div>
+	</section>
+
+
+<script>
+    function mostrarAgregar(){
+        document.getElementById("agregar").style.display= "inline";
+        document.getElementById("modificar").style.display= "none";
+    }
+    
+    function cargarModificar(id, codigo, descripcion){
+        document.getElementById("imputacion_codigo").value= codigo
+        document.getElementById("imputacion_descripcion").value= descripcion
+        document.getElementById("agregar").style.display= "none";
+        document.getElementById("modificar").style.display= "inline";
+        document.getElementById("id_modificar").value= id;
+    }
+    
+    function limpiar(){
+        document.getElementById("agregar").style.display= "none";
+        document.getElementById("modificar").style.display= "none";
+    }
+	$('.accion1').hover(function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/form-borrar-32-2-over.png') }}');
+}, function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/form-borrar-32-2.png') }}');
+});
+	$('.accion2').hover(function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/form-modificar-32-over.png') }}');
+}, function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/form-modificar-32.png') }}');
+});
+$('.accion3').hover(function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/form-eventos-32-over.png') }}');
+}, function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/form-eventos-32.png') }}');
+	});
+</script>
+
+{% endblock %}

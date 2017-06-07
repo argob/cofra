@@ -1,0 +1,23 @@
+<table id="Rendicion" class="principal" width="370" border="0" cellspacing="0">
+					
+    <tr>
+	    <th scope="col" style="display: none">Id</th>
+	    <th scope="col">Fecha</th>
+	    <th scope="col">Expediente</th>
+	    <th scope="col">Total Rendicion</th>
+    </tr>
+
+	    {% for rendicion in rendiciones %}
+
+			    <tr id="trcito{{rendicion.id}}" onclick="elegir({{rendicion.id}})" style="cursor: pointer;" class="{{ cycle(["even", "odd"], loop.index) }}">
+				    <td style="display: none"><a href="{{ path('rendicion_show', { 'id': rendicion.id }) }}">{{ rendicion.id }}</a></td> 
+			    <td>{% if rendicion.fecha %}{{ rendicion.fecha|date('Y-m-d') }}{% endif %}</td>
+			    <td>{{ rendicion.expedienteCompleto }}</td>
+			    <td>$ {{ rendicion.totalRendicion }}</td>
+
+		    </tr>
+	    {% endfor %}
+	    {% if rendiciones is null %} vacia
+	    {% endif %}	
+
+</table>

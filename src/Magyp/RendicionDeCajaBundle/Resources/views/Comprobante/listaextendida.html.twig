@@ -1,0 +1,150 @@
+<div id="comprobantesDiv">	
+	<table class="tablaTitulo" align="center" width="100%">
+							<thead>
+								<tr>
+									<th class="titulo_tbl" style="text-align: center;">Listado de Comprobantes</th>
+								</tr>
+							</thead>
+	</table>
+	<div id="comprobantesTabla">		
+		<table id="Comprobantes" class="records_list" style="overflow-y: scroll; width: 100%" cellspacing="0">
+			<thead>
+				<tr>
+					<th style="display: none">Id</th>
+					<th Style="background-color:#dddddd">Número</th>
+					<th style="width:300px; background-color:#dddddd">Descripción</th>
+					<th Style="background-color:#dddddd">Importe</th>
+					{#<th>Foja</th>#}
+				<th Style="background-color:#dddddd">Tipo</th>
+					<th Style="background-color:#dddddd">Imputación</th>
+				<th Style="background-color:#dddddd">Proveedor</th>
+
+				</tr>
+			</thead>
+			<tbody>
+			{% for comprobante in comprobantes %}
+				<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+					<td style="display: none"><a href="{{ path('sistema_comprobante_show', { 'id': comprobante.id }) }}">{{ comprobante.id }}</a></td>
+					<td>{{ comprobante.numero }}</td>
+					<td>{{ comprobante.descripcion }}</td>
+					<td>$ {{ comprobante.importe }}</td>
+				   {# <td>{{ comprobante.numeroFoja }}</td> #}
+				<td>{{ comprobante.imputacion.tipoSignificado}}</td>
+					<td>{{ comprobante.imputacion }}</td>
+					<td> {{ comprobante.proveedor}} </td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+
+	</div>
+	{#<div class="titulo_tbl">#}
+	<div class="contieneTotales"  >
+
+		<ul class="subtotales">
+			<li>
+				<div class="subtotalesCat">SUB-TOTAL</div>
+				<h4> Bienes de Consumo</h4>
+				<input type="text" readonly="true" value="${{totalTipo2}}" size="10">
+			</li>
+			<li>
+				<div class="subtotalesCat">SUB-TOTAL</div>
+				<h4> Servicios</h4>
+				<input type="text" readonly="true" value="${{totalTipo3}}" size="10"> 
+			</li>
+			<li>
+				<div class="subtotalesCat">SUB-TOTAL</div>
+				<h4> Inventariables</h4>
+				<input type="text" readonly="true" value="${{totalTipo4}}" size="10">
+			</li>
+			<li>
+				<div class="subtotalesCat">TOTAL</div>
+				<h4>TOTAL</h4>
+				<input type="text" readonly="true" value="${{total}}" size="10">
+			</li>
+		</ul>
+			{#
+		<span style="margin-right:5px;"><strong>SubTotal Bienes de Consumo:</strong></span><input type="text" readonly="true" value="${{totalTipo2}}" size="4">
+		<span style="margin-right:5px;"><strong>SubTotal Servicios:</strong></span><input type="text" readonly="true" value="${{totalTipo3}}" size="4"> 
+		<span style="margin-right:25px;"><strong>SubTotal Inventariables:</strong></span><input type="text" readonly="true" value="${{totalTipo4}}" size="4">
+		<span style="margin-right:5px;"><strong>Total:</strong></span><input type="text" readonly="true" value="${{total}}" size="8">
+		<div style="display: inline; float: right">
+	  #}
+			{#<img src="{{ asset('images/iconopapelera.png')}}" style="display: inline"> #}
+				{#<button onclick="irApagina('{{linkpapelera}}',true)">P</button>	#}
+				{#
+		</div>
+	   #}
+	</div>
+	<div style="border:thin solid #000; margin-top:20px; padding:5px; background-color:#000; min-width:300px; max-width: 850px; margin-left:auto; margin-right:auto; ">
+	{% if ( is_granted("ROLE_AF") ) %}
+		{% if rendicion.isAceptada %}
+                    <button class="btn btn-exito" onclick="irApagina('{{path('sistema_liquidacion_new', { 'idrendicion':rendicion.id })}}',true)">Generar Liquidación</button>	
+                    <!--<div class="btn btn-default" style=""><a href="{{ path('sistema_liquidacion_new', { 'idrendicion': rendicion.id }) }}"><span>Generar Liquidación</span></a></div>-->
+		{% endif %}
+	</div>
+	
+</div>
+
+        
+        
+   <style type="text/css">
+	   .contieneTotales {
+		  margin-top:30px; background-color:#fff;  padding:5px; border:thin solid #000;
+	   }
+	   .subtotales {
+		   width:100%;
+	   }
+	   .subtotales, .subtotales li {
+		   list-style: none; padding-left:0; text-align: left;
+	   }
+	   .subtotales li {
+		   display:inline-block;
+		   width:24%;
+		   margin:0;
+	   }
+	   .subtotales li h4 {
+		   text-align: center;
+		   border-bottom:thin solid #000;
+		   background-color:#5FB2AE;
+		   margin-top:0;
+	   }
+	   .subtotalesCat {
+		   width:100%;
+		   height:14px;
+		   font-size:  12px;
+		   background-color:#5FB2AE;
+		   text-align: left;
+		   color:#fff;
+	   }
+	   
+    input[type="text"], input[type="number"], input[type="email"] {
+        font-size:14px;
+        width:auto;
+        font-family: Arial, helvetica;
+        outline:none;
+        transition: all 0.75s ease-in-out;
+        -webkit-transition: all 0.75s ease-in-out;
+        -moz-transition: all 0.75s ease-in-out;
+        border-radius:3px;
+        -webkit-border-radius:3px;
+        -moz-border-radius:3px;
+        border:1px solid rgba(0,0,0, 0.2);
+        color:gray;
+        background-color:#eee;
+        height:22px;
+	width:200px !important;
+    }
+
+    input[type="text"]:focus, input[type="number"]:focus, input[type="email"]:focus {
+        box-shadow: 0 0 10px #aaa;
+        -webkit-box-shadow: 0 0 10px #aaa;
+        -moz-box-shadow: 0 0 10px #aaa;
+        border:1px solid #999;
+        background-color:white;
+        height:20px;
+    }
+
+            </style>
+{%endif%}
+{#<td>{% if comprobante.proveedor is not null %} {{ comprobante.proveedor}}{% endif %}</td> #}

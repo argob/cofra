@@ -1,0 +1,51 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+
+{% set paginaActual = 'Notificacion' %}
+
+{% block cuerpo %}
+    <section id="panel-notificacion">
+        
+        <div id="superSuperior">
+            <h1>Notificaciones</h1>
+        </div>
+        {% if ( is_granted("ROLE_AF") ) %}
+            <div id="superior">
+{#                <div class="boton1">                       
+                    <img onclick="efectosUnLoad('fade', '#panel-notificacion', '{{ path("sistema_notificacion_nueva")}}' );" src={{ asset("images/botonera2/images/crear.jpg") }} width="245" height="105" alt="boton9" class="imghover">
+                </div>#}
+                <div class="boton2">   
+                    <img onclick="efectosUnLoad('fade', '#panel-notificacion', '{{ path("sistema_notificacion_propias")}}' );" src={{ asset("images/botonera2/images/ver1.jpg") }} src={{ asset("images/botonera2/images/listado.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+                </div>
+            </div>
+            <div id="medio">
+                <div class="boton10">
+                    <img onclick="efectosUnLoad('fade', '#panel-notificacion', '{{ path("af_notificaciones")}}' );" src={{ asset("images/botonera2/images/list1.jpg") }} width="492px" height="105" alt="boton9" class="imghover"class="imghover">
+                </div>
+                <br/> 
+                <div id="volver"  class="volver" onclick="efectosUnLoad('slideaizquierda', '#panel-notificacion', '{{ path("af_home")}}' );">
+                    <a>Volver</a>
+                </div>     
+            </div>	
+        {%else%}
+            <div id="superior">
+{#                <div class="boton10">
+                    <img onclick="efectosUnLoad('fade', '#panel-notificacion', '{{ path("sistema_notificacion_nueva")}}' );" src={{ asset("images/botonera2/images/crear-noti.jpg") }} width="492px" height="105" alt="boton9" class="imghover"class="imghover">
+                </div>#}
+            </div>
+            <div id="medio">
+                <div class="boton10">
+                    <img onclick="efectosUnLoad('fade', '#panel-notificacion', '{{ path("sistema_notificacion_propias")}}' );" src={{ asset("images/botonera2/images/ver.jpg") }} width="492px" height="105" alt="boton9" class="imghover"class="imghover">
+                </div>
+                <br/> 
+                <div id="volver"  class="volver" onclick="efectosUnLoad('slideaizquierda', '#panel-notificacion', '{{ path("af_home")}}' );">
+                    <a>Volver</a>
+                </div>     
+            </div>	 
+        {%endif%}
+    </section>
+    
+    <script>
+        efectosLoad('slideaizquierda', '#panel-notificacion' );
+        setTimeout('$(".imghover").imghover({suffix: "-over"})', 410);
+    </script>
+{% endblock %}

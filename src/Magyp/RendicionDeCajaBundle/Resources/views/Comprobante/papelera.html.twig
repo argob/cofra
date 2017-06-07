@@ -1,0 +1,65 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+
+
+{% block cuerpo %}
+
+	{% embed 'MagypRendicionDeCajaBundle:Plantilla:papelera.html.twig' %}
+
+	
+		{% block titulotablapapelera "PAPELERA DE COMPROBANTES" %}
+
+		{% block tabla %}		
+		<table Style="width:100%" id="papelera" class="records_list" style="overflow-y: scroll" cellspacing="0">
+			<thead>
+				<tr>
+					<th style="display: none; background-color: #ccc">Id</th>
+					<th Style="background-color: #ccc">Fecha</th>
+					<th Style="background-color: #ccc">Número</th>
+					<th style="width:300px; background-color: #ccc">Descripción</th>
+					<th Style="background-color: #ccc">Importe</th>
+
+					<th Style="background-color: #ccc">Tipo</th>
+					<th Style="background-color: #ccc" >Imputación</th>
+					<th Style="background-color: #ccc">Proveedor</th>
+					<th Style="background-color: #ccc">Acción</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for comprobante in comprobantes %}
+				<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+					<td style="display: none">{{ comprobante[0].id }}</td>
+					<td>{{ comprobante[1]| date('d/m/y H:i:s')}}</td> 
+					<td>{{ comprobante[0].numero }}</td>
+					<td>{{ comprobante[0].descripcion }}</td>
+					<td>$ {{ comprobante[0].importe }}</td>
+
+					<td>{{ comprobante[0].imputacion.tipoSignificado}}</td>
+					<td>{{ comprobante[0].imputacion }}</td>
+					<td> {{ comprobante[0].proveedor}} </td>
+					<td>
+						{% if comprobante[0].esRestaurable(comprobante[1]) %}
+						<button onclick="irApagina('{{path('sistema_comprobante_restaurar',{ 'idcomprobante':comprobante[0].id})}}',true)" class="btn btn-default"> Restaurar </button>
+						{% else %}
+						<span>Eliminado</span>
+						{% endif %}
+					</td>
+				</tr>
+			{% endfor %}
+			</tbody>
+		</table>
+		{% endblock %}
+
+		{% block botones %}
+
+            {% if is_granted('ROLE_LOG') %}
+                        <button onclick="irApagina('/sistema/comprobante/'+seleccionado+'/eventos',0)" class="btn btn-default">Eventos</button>
+            {% endif %}
+			<button onclick="irApagina('{{ ruta_volver is null ? path('sistema_rendicion_detalle', {'idrendicion' : idrendicion}) : ruta_volver}}',true)" class="btn btn-default">Volver</button>
+			
+            
+                {% endblock %}
+	{% endembed %}
+	
+{% endblock %}
+
+

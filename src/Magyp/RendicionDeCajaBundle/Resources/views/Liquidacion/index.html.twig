@@ -1,0 +1,162 @@
+{% extends 'MagypRendicionDeCajaBundle:Liquidacion:base.html.twig' %}
+
+{% block cuerpo %}   
+	{% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+
+		{% block titulotabla "Listado de Liquidaciónes del Expediente " ~ expediente %}
+
+		{% block tabla %}
+			<table cellspacing="0" width="100%" >
+				<thead>
+					<tr>
+						<th>Nota</th>
+
+						<th>Dependencia</th>
+						<th>Beneficiario</th>
+
+						<th>Período inicial</th>
+						<th>Período final</th>
+
+						<th>Actividad</th>
+
+						<th>FF</th>
+						<th>UG</th>
+						<th>Iniciales</th>
+						<th>Acciones</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for entity in entities %}
+                    <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+						<td>{{ entity.nota }}</td>
+
+						<td>{{ entity.area }}</td>
+						<td>{{ entity.beneficiario }}</td>
+
+						<td>{% if entity.periodoinicial %}{{ entity.periodoinicial|date('d-m-Y') }}{% endif %}</td>
+						<td>{% if entity.periodofinal %}{{ entity.periodofinal|date('d-m-Y') }}{% endif %}</td>
+
+						<td>{{ entity.actividad }}</td>
+
+						<td>{{ entity.fuentefinanciamiento }}</td>
+						<td>{{ entity.ug }}</td>
+						<td>{{ entity.responsable.nombre | slice(0, 1) }}{{ entity.responsable.apellido | slice(0, 1) }}</td>
+						
+							
+						<td style="width: 200px;" >
+							<ul class="listaH">
+								<li><a href="{{ path('sistema_liquidacion_show', { 'id': entity.id, 'idrendicion': idrendicion }) }}"><img src="{{ asset('images/form-botones/ver.png') }}" class="accion3" title="Ver Datos" alt="Ver" style="cursor:pointer;" /></a></li>
+                            {%if ( entity.rendicion.isAceptada )%}
+                                <li><a href="{{ path('sistema_liquidacion_edit', { 'id': entity.id, 'idrendicion': idrendicion }) }}"><img src="{{ asset('images/form-botones/editar.png') }}" class="accion3" title="Modificar Datos" alt="Modificar" style="cursor:pointer;" /></a></li>
+                            {%endif%}
+                            {%if ( entity.id != laarchivada)%}
+                                {%if (not ( entity.rendicion.isAtesoreria) )%}
+                                   <li> <a href="{{ path('sistema_liquidacion_borrar', { 'idliquidacion': entity.id }) }}"><img src="{{ asset('images/form-botones/borrar.png') }}" class="accion3" title="Borrar" alt="Borrar" style="cursor:pointer;" /></a></li>
+                                {%endif%}
+                            {%endif%}
+                            {% if is_granted('ROLE_LOG') %}   
+                               <li> <a href="{{ path('sistema_liquidacion_eventos', { 'idliquidacion': entity.id, 'idrendicion' : idrendicion }) }}"><img src="{{ asset('images/form-botones/eventos.png') }}" class="accion3" title="Eventos" alt="Eventos" style="cursor:pointer;" /></a></li>
+                            {%endif%}	
+							</ul>
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>	 
+		{% endblock %}	
+
+		{% block botones %}
+		
+		<span><a href="{{ path('sistema_liquidacion_new', { 'idrendicion': idrendicion }) }}" class="btn btn-default">Crear nueva liquidación</a></span>
+			{% if entities is not empty %}
+		<span><a href="{{ path('sistema_liquidacion_papelera',{'idrendicion' : entities[0].rendicion.id}) }}" class="btn btn-default">Papelera</a></span>
+        <span><button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button></span>    
+			{% endif %}
+        {% endblock %}
+
+    {% endembed %}
+
+        {#
+        <style>
+       a{
+ text-decoration: none;
+ color:#000000;
+  
+}
+a:link{
+ text-decoration: none;
+ color:#000000;
+    
+}
+a:hover{
+ text-decoration: none;
+ color:#000000;
+    
+}
+
+
+
+.tabla-verde {
+	font-size: 12px !important;
+	width: 900px;
+	min-height:320px;
+    max-height:700px;
+	padding: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #000000;
+    text-decoration: none;
+    overflow-y: auto;
+    
+        
+	
+}
+.tabla-verde table th{
+	padding:3px; 
+	margin-bottom:10px;
+	/*background-color:#5fb2ae;*/
+    text-decoration: none;
+
+}
+.tabla-verde th a{
+    text-decoration: none;
+    color:#000000;
+
+
+
+}
+.tabla-verde table td{
+	padding:2px;
+	/*margin:10px;*/
+    text-decoration: none;
+ 
+}
+.tabla-verde   th{
+ 
+   color:white;
+   text-decoration: none;
+   background-color:#5FB2AE;
+ 
+       
+}
+
+
+#}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+       </style>
+{% endblock %}
+	
+	

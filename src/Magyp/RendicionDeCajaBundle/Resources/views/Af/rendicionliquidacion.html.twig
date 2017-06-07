@@ -1,0 +1,100 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+{% set paginaActual = 'Gestion' %}
+{% block estilosEspeciales %}
+
+{% endblock %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Liquidaciones : </span>
+        
+		<li onclick="parent.location='{{ path('af_rendiciones_home') }}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+   <style>
+   .listadoLiquidacion tr {
+	   height:32px;
+	   max-height: 32px;
+	   }
+	 .tabla-verde {
+		 max-height:1000px;
+		 }
+	</style>
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+
+        {% block busqueda %}
+             {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                {% set path_action = path('af_rendicion_liquidacion') %} 
+                
+                {% set busqueda_nombre = 'rendicion' %}
+                {% block input_with "300px" %}
+            {% endembed %}
+        {% endblock %}
+
+        {% block titulotabla "Listado de Liquidaciones discriminado por Rendicion" %}
+        {% block tabla %}
+            <table cellspacing="0" width="100%"  class="listadoLiquidacion">
+                <thead>
+                    <tr>
+                        <th>Rendicion</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>		    
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for rendicion in rendiciones %}
+                        <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                            <td>{{ rendicion.getExpedienteCompleto }}</td>
+                            <td>{{ rendicion.getEstadoNombre }}</td>
+							<td style="width: 80px;" >
+								<ul class="listaH">
+                                    {% if ( rendicion.getEstadoNombre == "Aceptado") %}
+                                        <li><a href="{{ path('sistema_liquidacion_new', { 'idrendicion': rendicion.id }) }}"><img src="{{ asset('images/agregar.png') }}" class="accion3" title="Crear" alt="Crear" style="cursor:pointer;" /></a></li>
+									{% endif %}
+                                    <li><a href="{{ path('sistema_liquidacion', { 'idrendicion': rendicion.id }) }}"><img src="{{ asset('images/listar.png') }}" class="accion3" title="Listar" alt="Listar" style="cursor:pointer;" /></a></li>
+									
+								</ul>						
+							</td>
+                                
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+	<table>
+		<tr>
+			<td>
+				{% if ( rendiciones | length > 0) %}
+
+					<div class="pagination">
+						<table align="center" id="paginador-tabla">
+							<tr>
+								<td>{{ knp_pagination_render(rendiciones) }}</td>
+							</tr>
+						</table>                   
+					</div>
+
+				{% endif %}		
+			</td>
+		</tr>
+	</table>
+            
+        {% endblock %}	
+	{% endembed %}
+{#
+				<ul style="margin-left:auto; margin-right: auto;">
+					<li style="display:inline-block;"><span><button type=button class="btn btn-default"  onclick="location.href='{{path('af_rendiciones_home') }}';" style="margin-left:auto; margin-right:auto;" >Atras</button></span></li>  
+					<li style="display:inline-block;"><span><a href="{{ path('af_rendiciones_home') }}" class="btn btn-default">Volver</a></span></li>
+				</ul>
+#}
+       {# {% block botones %} 
+            <span><button type=button class="btn btn-default"  onclick="location.href='{{path('af_rendiciones_home') }}';" style="margin-left:auto; margin-right:auto;" >Atras</button></span>  
+            <span><a href="{{ path('af_rendiciones_home') }}" class="btn btn-default">Volver</a></span>
+       {% endblock %} #}
+
+{% endblock %}
+	

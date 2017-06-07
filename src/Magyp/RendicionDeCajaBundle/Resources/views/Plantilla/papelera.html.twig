@@ -1,0 +1,46 @@
+{% block cuerpo %}
+
+<h2 style="color:#000;">{% block titulopapelera "" %}</h2>
+
+<section>
+
+<div id="papeleraDiv">	
+    <table class="tablaTitulo" align="center" width="100%">
+	    <thead>
+		    <tr>
+			    <th>{% block titulotablapapelera ""%}</th>
+		    </tr>
+	    </thead>
+    </table>
+    <div id="contenedor-tabla-scrollable" style="overflow-y: auto; display:block; height:370px ">
+    {% block tabla %}
+    {% endblock %}
+    </div>    
+</div>
+
+<div style="margin-top:15px;">
+    {% block botones %}
+	    <button onclick="irApagina('{{path('home')}}',true)" class="btn btn-submit">Volver</button>
+    {% endblock %}
+</div>
+</section>
+{% endblock %}
+        
+        
+{% block javascriptEspeciales %}
+
+<script src="{{ asset('js/tinybox.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/papelera.js') }}" type="text/javascript"></script>
+<script>
+        ActivarTabla('#papelera');
+</script>
+{% endblock %}
+
+
+
+{% block estilosEspeciales %}
+    <link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/plantillas/papelera-verde.css')}}" rel="stylesheet" type="text/css">			
+
+    	 
+{% endblock %}

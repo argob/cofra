@@ -1,0 +1,95 @@
+{% extends 'MagypRendicionDeCajaBundle:Usuario:base.html.twig' %}
+
+{#% form_theme form 'form_table_layout.html.twig' %#}
+{% block estilosEspeciales %}
+    <link href="{{asset('css/af.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+{% block cuerpo %}
+<h1>Registro de Usuario</h1>
+<section>
+	<div class="colIzComprobante" style="background-color: #5fb2ae;">
+	<img src="{{ asset ("images/af-usuario.jpg") }}" width="150" height="300" alt="login" style="margin-top:35px;" />
+    </div>
+    <div id="colDe" style="border:0px;">
+
+		<form action="{{ path('usuario_create') }}" method="post" {{ form_enctype(form) }}>
+         <div style="border:thin #000 solid; padding:0; margin:0; height:407px;">
+            <table width="100%" border="0" class="tablaFormularios" cellspacing="0" style="padding:3px; margin-bottom:10px;">
+				<tr>
+					<th scope="col" align="center">Registro De Usuario</th>
+				</tr>
+			</table>
+            <table id="registroForm" class="tablaFormularios" border="0" cellspacing="3" style="height:300px; margin-top:0;">
+					<tr>
+						<td>{{ form_label(form.username) }}:</td>
+						<td>{{ form_widget(form.username) }}</td>
+					</tr>
+					<tr>		
+						<td>{{ form_label(form.email.first) }}:</td>
+						<td>{{ form_widget(form.email.first) }}</td>		
+					</tr>
+					<tr>		
+						<td>{{ form_label(form.email.second) }}:</td>
+						<td>{{ form_widget(form.email.second) }}</td>
+					</tr>
+                    <tr>		
+						<td>{{form_label(form.dni) }}:</td>
+						<td>{{ form_widget(form.dni) }}</td>	
+					</tr>
+					<tr>		
+						<td>{{ form_label(form.nombre) }}:</td>
+						<td>{{ form_widget(form.nombre) }}</td>	
+					</tr>
+					<tr>		
+						<td>{{ form_label(form.apellido) }}:</td>
+						<td>{{ form_widget(form.apellido) }}</td>		
+					</tr>
+					<tr>		
+						<td>{{ form_label(form.area) }}:</td>
+						<td>{{ form_widget(form.area) }}</td>			
+					</tr>
+<!--
+		                        <tr>		
+						<th>{{ form_label(form.activo) }}:</th>
+						<td>{{ form_widget(form.activo) }}</td>			
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.bloqueada) }}:</th>
+						<td>{{ form_widget(form.bloqueada) }}</td>			
+					</tr>-->
+                    <tr>
+                        <td colspan= '2' class="permisos"><hr/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan= '2' class="permisos">{{ form_widget(editPermisos_Form.permisosContenidos) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        {{ form_rest(editPermisos_Form) }}
+                    </tr>
+					<tr>		
+						{{ form_rest(form) }}
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="2" scope="row">
+						<div style="margin:10px;" align="right">
+						<button type="submit" class="btn btn-default">Crear</button>
+						<a href="{{ path('usuario') }}" ><button type="button" class="btn btn-default" >Cancelar</button></a>
+						</div>
+						</td>
+					</tr>
+</table>
+
+    </div>
+</form>
+
+
+</section>
+	{% endblock %}

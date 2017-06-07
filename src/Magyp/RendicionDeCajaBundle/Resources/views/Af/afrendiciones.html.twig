@@ -1,0 +1,59 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+{% set paginaActual = 'Gestion' %}
+
+
+{% block cuerpo %} 
+    <section id="panel-rendicion">
+        <div id="superSuperior" class="anchoLargo">
+            <h1>Gestión de rendiciones</h1>
+        </div>
+        <div id="superior">
+            <div class="boton3">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_pip_leer")}}' );" src={{ asset("images/botonera2/images/generar.jpg") }} width="119" height="106"alt="boton3" class="imghover">
+            </div>
+            <div class="boton4">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_rendicion_liquidacion")}}' );" src={{ asset ("images/botonera2/images/liqui.jpg") }} width="119" height="106" alt="boton4" class="imghover">
+            </div>
+            <!--<div class="boton1">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_pip_leer")}}' );" src={{ asset("images/botonera2/images/generar.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+            </div>-->
+            <!--<div class="boton2">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("sistema_busqueda_rendicion")}}' );" src={{ asset("images/botonera2/images/buscadorexp.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+            </div>-->
+            <div class="boton5">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_archivar_index")}}' );" src={{ asset ("images/botonera2/images/inventario_cajas.jpg") }} width="119" height="106" alt="boton4" class="imghover">
+            </div>    
+            <div class="boton2af">
+{#                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("sistema_busqueda_rendicion")}}' );" src={{ asset ("images/botonera2/images/gestion_buscador.jpg") }}  width="119" height="106"alt="boton4" class="imghover">
+#}             <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("sistema_busqueda_rendicion")}}' );" src={{ asset ("images/botonera2/images/buscadorexp.jpg") }}  width="245" height="106"alt="boton4" class="imghover">
+			</div>  
+        </div>
+        <div id="medio">
+            <div class="boton3">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_rendiciones_enviadas")}}' );" src={{ asset("images/botonera2/images/r.enviadas.jpg") }} width="119" height="106"alt="boton3" class="imghover">
+            </div>
+            <div class="boton4">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_rendiciones_aceptadas")}}' );" src={{ asset ("images/botonera2/images/r.aceptadas.jpg") }} width="119" height="106" alt="boton4" class="imghover">
+            </div>
+            <div class="boton5">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_rendiciones_atesoreria")}}' );" src={{ asset ("images/botonera2/images/r.tesoreria.jpg") }} width="119" height="106" alt="boton4" class="imghover">
+            </div>    
+            <div class="boton6">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("af_rendiciones_archivadas")}}' );" src={{ asset ("images/botonera2/images/r.archivadas.jpg") }}  width="119" height="106"alt="boton4" class="imghover">
+            </div>
+			 <div class="boton6">
+                <img onclick="efectosUnLoad('fade', '#panel-rendicion', '{{ path("sistema_rendiciones_pagado")}}' );" src={{ asset ("images/botonera2/images/r.pagadas.jpg") }}  width="119" height="106"alt="boton4" class="imghover">
+            </div> 
+          {#<a href="{{ path("sistema_rendiciones_pagado")}}"> Rendiciones Pagadas</a>#}
+        </div>
+        <div id="volver" class="volver anchoLargo" onclick="efectosUnLoad('slideaizquierda', '#panel-rendicion', '{{ path("af_home")}}' );">
+            <a>Volver</a>
+        </div>
+    </section>
+    <script>
+        efectosLoad('slideaizquierda', '#panel-rendicion' );
+        setTimeout('$(".imghover").imghover({suffix: "-over"})', 410);
+        
+    </script>  
+    
+{% endblock %}

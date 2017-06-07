@@ -1,0 +1,17 @@
+{% extends '::generalcofra.html.twig' %}
+
+{% block cuerpo %}
+<section>
+    
+    <h3>Seleccionar el Area con la cual desea trabajar</h3>
+    <form action="{{ path('te_seleccionar_sesionar') }}" method="post" id="login" style="width:auto;">
+    <select id="area_seleccionada" name="seleccionada">
+        {% for area in areas %}
+            <option value="{{ area.id }}">{{ area }}</option>
+        {% endfor %}
+    </select>
+    <input type="submit"  class="btn btn-login"  value="Ingresar" />
+    </form>
+
+</section>
+{% endblock %}

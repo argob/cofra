@@ -1,0 +1,194 @@
+{% extends 'MagypRendicionDeCajaBundle:Notificacion:base.html.twig' %}
+
+
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Notificaciones: </span>
+{#        <li onclick="location.href='{{ path('sistema_notificacion_nueva') }}';" class="agregar" title="Agregar Rendición">Agregar </li>	#}
+        
+        {% if is_granted('ROLE_AF') %}
+            <li onclick="location.href='{{path('af_notificaciones_home') }}';" class="atras" title="atras ">Atrás</li>
+        {% else %}	
+            <li onclick="location.href='{{path('home') }}';" class="atras" title="atras ">Atrás</li>	
+        {% endif %}	
+        
+        <li onclick="history.back()" class="volver" title="Volver ">Volver </li>	
+    
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+<style>
+		#colArea {
+			overflow:hidden;
+			background-color: #fff;
+			}
+	</style>
+<h1>Listado de Notificaciones</h1>
+
+<!--<h2>{{ area}} </h2>-->
+
+ 
+            {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                {% set path_action = path('sistema_notificacion_propias_tipo', { 'tipo': tipo}) %} 
+                {#% set path_autocompletar = 'sistema_busqueda_area_lista' %#}
+                {% set busqueda_nombre = 'notificacion' %}
+                {% block input_with "400px" %}
+            {% endembed %}
+
+
+
+<section>
+<div id="colArea" style="width: 1100px;">
+    {% if is_granted('ROLE_AF') %}
+    <div id="filtro">
+           <br/>
+	<select style="width: 250px">
+	    <option value="entrantes" {% if tipo == "entrantes" %}selected="true"{% endif %}>Entrantes</option>
+	    <option value="salientes" {% if tipo == "salientes" %}selected="true"{% endif %}>Salientes</option>
+	</select>
+            <br/>
+        <div style="float: right; margin-right: 10px">
+            <span><strong>Resultados: </strong>{{ notificaciones.totalItemCount}}</span>
+        </div>
+	    <script>
+	    
+	    $("#filtro select")[0].onchange = function(){
+		index = this.selectedIndex;
+		valor = this.options[index].value;
+		location.href = ("{{ path('sistema_notificacion_propias')}}" + "/" + valor);
+	    }
+	    
+	    </script>	    
+    </div>	   
+    {% endif %}	
+    <table id="notificaciones" name="notificaciones"  cellspacing="0" width="100%" class="records_list">
+    <thead>
+         <tr Style="background-color:#5FB2AE">
+            <th  Style="background-color:#5FB2AE">{{ knp_pagination_sortable(notificaciones, 'Fecha', 'noti.fecha') }}</th>
+            <th  Style="background-color:#5FB2AE">{{ knp_pagination_sortable(notificaciones, 'Contenido', 'noti.contenido') }}</th>
+            <th Style="background-color:#5FB2AE"> {{ knp_pagination_sortable(notificaciones, 'Asunto', 'noti.asunto') }}</th>
+            <th Style="background-color:#5FB2AE">{{ knp_pagination_sortable(notificaciones, 'Usuario', 'u.nombre') }}</th>
+            <th  Style="background-color:#5FB2AE">{{ knp_pagination_sortable(notificaciones, 'Origen', 'o.nombre') }}</th>
+            <th  Style="background-color:#5FB2AE">{{ knp_pagination_sortable(notificaciones, 'Destino', 'd.nombre') }}</th>
+            {% if  is_granted('ROLE_LOG') %}	
+                <th  Style="background-color:#5FB2AE">Evento</th>
+            {% endif %}	
+         </tr>
+    </thead>
+    <tbody>
+    {% if ( notificaciones | length > 0) %}
+        {%set pos = 0%}
+        {% for notificacion in notificaciones %}
+            {% if (notificacion.leido == 0 ) %}
+                {%set estilosextras = 'font-weight: bold;'%}
+            {% else %}
+                {%set estilosextras = ''%}
+            {% endif %}
+            <tr id="notifila{{pos}}" name="notifila{{pos}}" class="{{ cycle(["even", "odd"], loop.index) }}" {% if notificacion.tienelink %}style="{{estilosextras}}cursor: pointer"{%endif%} onclick="pintar({{pos}}, {{notificacion.id}})" > 
+                <td>{{ notificacion.fecha | date("d/m/Y, H:i:s ") }}</td>
+                <td style="width: 250px">{{ notificacion.contenido }}</td>
+                <td>{{ notificacion.asunto }}</td>
+                <td>{{ notificacion.usuario }}</td>
+                <td>{{ notificacion.usuario.area }}</td>
+                <td>{{ notificacion.destino }}</td>
+                <td class="link" style="display: none">{{ notificacion.link }}</td>
+                {% if  is_granted('ROLE_LOG') %}
+                    <td>
+                        {% if (notificacion.leido != 0 ) %}
+                            {% set evento_display = 'inline-block' %}
+                        {% else %}
+                            {% set evento_display = 'none' %}
+                        {% endif %}   
+                        <div style="display:{{evento_display}}; cursor:pointer;" id="eventonotificacion{{pos}}">
+                            <a href="{{ path('sistema_notificacion_eventos',{'id': notificacion.id } )}}"><img src="{{ asset ("images/form-botones/eventos.png") }}" width="31" height="32" alt="Evento" class="imghover" title="Registro de Eventos"></a>
+                        </div>
+                    </td>
+                {% endif %} 
+            </tr>
+            {%set pos = pos + 1%}
+        {% endfor %}
+    {% endif %}
+    
+    </tbody>
+</table>
+
+	
+            {% if ( notificaciones | length > 0) %}
+	    <div class="pagination">
+                <table align="center" id="paginador-tabla">
+                <tr>
+                    <td>{{ knp_pagination_render(notificaciones) }}</td>
+                </tr>
+		</table>                   
+	    </div>            
+            {% endif %}
+  <!--  <div style="margin-top:15px; margin-bottom:15px;">
+		        <span> 
+                    <button class="btn btn-default" onclick="location.href='{#{{ path('sistema_notificacion_nueva') }}#}';">Nueva Notificación</button>
+                    <button onclick="location.href='{{ path('af_notificaciones_home') }}';" class="btn btn-default">Atras</button>
+                    <button class="btn btn-default" onclick="history.back();">Volver</button>
+                </span>
+	</div>-->
+</div>
+</section>
+{% endblock %}
+
+{% block javascriptEspeciales %}
+
+{#error1
+<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/tinybox.js') }}" type="text/javascript"></script>
+#}
+
+
+<!-- script autocompletar -->
+<script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+<link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+
+<script>
+    $(document).ready(function(){
+	$("table tr").dblclick(function(){abrir(this);})
+    })
+    function abrir(tr){
+	link = $(tr).children(".link").html();
+	if( link.length >0)location.href = link;
+	//console.log("link es: " + link);
+    }
+    
+    function pintar(pos, idleido){
+        obj= document.getElementById ("notifila"+pos )
+		cantidad_lineas = $($('#notificaciones').children('tbody')).children().length
+		lineas = $($('#notificaciones').children('tbody')).children()
+		for(var i=0;i<cantidad_lineas;i++){			
+			if(i%2){
+                $(lineas[i]).attr('class', 'even');
+			}else{
+                $(lineas[i]).attr('class', 'odd');
+			}
+		}
+		//$(obj).css('background-color', '#666')
+		$(obj).attr('class', 'seleccionada');
+        var data = {request : $("#notifila"+pos).val()};
+        $.ajax({
+               type: "POST",
+               url: '/sistema/notificacion/marcarleido/'+idleido,
+               context: document.body
+               }).done(function() {
+                   $("#notifila"+pos).css("font-weight","");
+                   $("#eventonotificacion"+pos).show();
+        });
+	}
+    
+
+    
+    
+   
+    
+</script>
+
+
+{% endblock %}

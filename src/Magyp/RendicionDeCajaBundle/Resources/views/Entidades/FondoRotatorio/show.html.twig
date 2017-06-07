@@ -1,0 +1,49 @@
+<h1>FondoRotatorio</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Expediente</th>
+            <td>{{ entity.expediente }}</td>
+        </tr>
+        <tr>
+            <th>Nota</th>
+            <td>{{ entity.nota }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ entity.fecha }}</td>
+        </tr>
+        <tr>
+            <th>Beneficiario</th>
+            <td>{{ entity.beneficiario }}</td>
+        </tr>
+        <tr>
+            <th>Motivo</th>
+            <td>{{ entity.motivo }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('entidades_fondorotatorio') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('entidades_fondorotatorio_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('entidades_fondorotatorio_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

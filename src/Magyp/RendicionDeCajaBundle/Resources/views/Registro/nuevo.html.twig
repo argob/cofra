@@ -1,0 +1,104 @@
+{% extends 'MagypRendicionDeCajaBundle:Registro:base.html.twig' %}
+
+{#% form_theme form 'form_table_layout.html.twig' %#}
+
+{% block cuerpo %}
+<h1>Registro de Usuario</h1>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<section>
+	<div id="colIz">
+	</div>
+	<div id="colDe">
+		{% if error %}
+			<div>	
+				<span class="error">{{ error }}</span>
+			</div>
+		{% endif %}
+		
+		<form action="{{ path('registro_crear') }}" method="post" {{ form_enctype(form) }}>
+<div style="border:thin #FC6 solid; padding:0; margin:0;">
+<table border="0" cellspacing="0" style="height:300px; margin-top:0;">
+					<tr>
+						<td colspan="2" scope="row" class="botonFormulario" bgcolor="#FFCC66">Registro De Usuario</td>
+					</tr>
+					<tr>
+						<th>{{ form_label(form.username) }}:</th>
+						<td>{{ form_widget(form.username) }}</td>
+					</tr>
+					<tr>
+						<th>{{ form_label(form.password.first) }}:</th>
+						<td>{{ form_widget(form.password.first) }}</td>	
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.password.second) }}:</th>
+						<td>{{ form_widget(form.password.second) }}	</td>	
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.email.first) }}:</th>
+						<td>{{ form_widget(form.email.first) }}</td>		
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.email.second) }}:</th>
+						<td>{{ form_widget(form.email.second) }}</td>
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.nombre) }}:</th>
+						<td>{{ form_widget(form.nombre) }}</td>	
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.apellido) }}:</th>
+						<td>{{ form_widget(form.apellido) }}</td>		
+					</tr>
+					<tr>		
+						<th>{{ form_label(form.area) }}:</th>
+						<td>{{ form_widget(form.area) }}</td>			
+					</tr>
+                    <tr>		
+						<th>{{ form_label(form.programa) }}:</th>
+						<td>{{ form_widget(form.programa) }}</td>			
+					</tr>
+                    <tr>		
+						<th>{{ form_label(form.actividad) }}:</th>
+						<td>{{ form_widget(form.actividad) }}</td>			
+					</tr>
+					<tr>		
+						{{ form_rest(form) }}
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+					<tr>
+						<td colspan="2" scope="row">
+						<div style="white-space: nowrap" align="right">
+						<button type="submit" class="">Crear</button>
+						<button type="reset" class="">Limpiar</button>
+						<a href="{{ path('home') }}" ><button type="button" class="" >Cancelar</button></a>
+						</div>
+						</td>
+					</tr>
+</table>
+				
+  </form>
+	</div>
+</section>
+	{% endblock %}
+
+{% block javascripts %}
+	<script>
+		$(document).ready(function() {
+			$('#registro_email_email').bind('cut copy paste', function(event) {
+				event.preventDefault();
+				alert('No se permite copiar, ni pegar.')
+			
+			});
+			$('[id="registro_email_Confirmar email"]').bind('cut copy paste', function(event) {
+				event.preventDefault();
+				alert('No se permite copiar, ni pegar.')	
+			});	
+	});
+		</script>
+{% endblock %}

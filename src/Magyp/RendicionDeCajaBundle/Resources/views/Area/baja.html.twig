@@ -1,0 +1,84 @@
+{% extends 'MagypRendicionDeCajaBundle:Area:base.html.twig' %}
+
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Area: </span>
+        <li onclick="apprise('¿Usted esta seguro que desea dar de baja el area?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){if(r)document.location='{{path('af_area_bajaupdate',{'id' : area.id})}}';});" class="agregar">Confirmar Baja</li>	
+        <li onclick="parent.location='{{ path('af_area') }}'" class="volver"> Volver</li>
+    </div>	
+
+{% endblock %}
+
+{% block cuerpo %}
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:crear-modificar.html.twig" %}
+
+        {% block titulo %}  <br />{% endblock %}
+
+        {% block heightMarcoFoto 'style="height:415px; width:150px;"' %}
+
+        {% block imagenlateral %}  
+                <img src={{ asset ("images/lateral-area-editar.png")}} alt="ModificarÁrea" style="margin-top:35px; width:150px;" />
+        {% endblock %}
+
+        {% block titulo_formulario "CERRAR  CAJA DE ÁREA" %}	
+
+        {% block tabla_formulario %}
+            <table {#id="registroForm"#} border="0" cellspacing="3" align="center" style="height:auto !important; margin-top:20px; text-align: center;">
+                <tr>
+                    <td>Nombre de la caja una vez cerrada:</td>
+				</tr>
+				<tr>
+                    <td  style="font-weight: bold;">"{{area.nombre}} - CERRADA: {{ "now"|date("d/m/Y") }}"</td>
+                </tr>
+            </table>
+                
+            <h3>Los siguientes usuarios dejaran de tener acceso al sistema: </h3>
+            <table class="tablaUsuariosBaja" border="0" cellspacing="3" style="margin-top:0;">
+                <thead>
+                    <th>Usuario</th>
+                    <th>Apellido, Nombre</th>
+				</thead>
+
+                {% for usuariodelarea in usuariosdelarea %}
+                    <tr>		
+                        <td class="padding_derecho" align="right" Style=" width: 50%">{{ usuariodelarea.username }}</td>
+                        <td  align="left"   Style=" width: 50%">{{ usuariodelarea.apellido}}, {{usuariodelarea.nombre}}</td>		
+                    </tr>
+                {%endfor%}
+            </table>
+			
+			<div class="nota">
+				<b>*NOTA:</b> Recuerde que una vez creada la nueva caja, la anterior sera dada de baja y quedara en el historico. Los nuevos usuarios
+            de la caja nueva, tendran que ser asignados con el mismo circuito administrativo correspondiente a la asignacion de usuarios
+            de un area cualquiera.
+			</div>
+        {% endblock %}
+
+
+        {% block estilosEspeciales %}
+                <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+                <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+        {% endblock %}
+
+    {% endembed %}
+			
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,44 @@
+{% extends "::afcofra.html.twig" %}
+
+{% set paginaActual = 'Gestion' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Rendiciones : </span>
+        
+		<li onclick="parent.location='{{ path('af_rendiciones_home') }}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:lista2columnas.html.twig" %}
+
+    
+    {% block titulocentral "Rendiciones A Tesoreria" %}
+    {% block titulo_columna1 "Lista por Area" %}    
+    {% block titulo_columna2 "Listado de Rendicion" %}
+
+	    {% block accionTR %}
+	    function accionTR(tr){
+		    areaid = $.trim( $(tr).children('.id').html());
+		 //   console.log(tr);
+		    selecionar(tr);
+		    pintar(tr);
+		    ajax('/sistema/ajax/atesoreria/area/'+areaid);	
+		    
+	    }
+	    {% endblock %}
+    {% block botones %}	 
+		{#
+	<div class="botones-2columnas" >
+	    <a href="{{path('af_rendiciones_home')}}" style="text-decoration: none; color: #fff"><button class="btn btn-submit">Volver</button></a>
+	</div>
+#}
+    {% endblock %}
+    {% endembed %}
+	
+{% endblock %}	

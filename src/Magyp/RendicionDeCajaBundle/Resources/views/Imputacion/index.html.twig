@@ -1,0 +1,301 @@
+{% extends 'MagypRendicionDeCajaBundle:Imputacion:base.html.twig' %}
+
+{% block javascriptEspeciales %}
+   {#error1  <script language="javascript" type="text/javascript" src={{ asset ("js/jquery-1.8.0.min.js") }} ></script> #}
+    <script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+    <script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+    <script type="text/javascript" src="{{ asset('js/cofra.js')}}"></script>
+    <!--<script>
+        $(document).ready(function(){
+            $("tr :even").addClass("even");
+            $("tr :odd").addClass("odd");
+        });
+        $(function() {
+            $('img[data-hover]').hover(function() {
+                $(this)
+                    .attr('tmp', $(this).attr('src'))
+                    .attr('src', $(this).attr('data-hover'))
+                    .attr('data-hover', $(this).attr('tmp'))
+                    .removeAttr('tmp');
+            }).each(function() {
+                $('<img />').attr('src', $(this).attr('data-hover'));
+            });;
+        });
+    </script>-->
+{% endblock %}
+{#
+    <div style="margin:20px; text-align:center;" >
+        <span>
+            <a href="#" onclick="mostrarAgregar();" class="btn boton">Agregar</a>
+        </span>
+        <span>
+            <a href="{{ path ("home") }}" class="btn boton">Volver<a/>
+        </span>
+        <a href="{{path('sistema_imputacion_papelera',{ 'idarea': idarea})}}"><button class="btn boton">Papelera</button></a>
+    </div>
+#}
+{% block cabecera %}
+    {{ parent() }}
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Imputación: </span>
+        <li onclick="mostrarAgregar();" class="agregar" title="Agregar Rendición">Agregar </li>	
+        <li onclick="location.href = '{{path('sistema_imputacion_papelera',{ 'idarea': idarea})}}';" class="papelera">Papelera</li>
+        <li onclick="location.href='{{path('af_administracion_home') }}';" class="atras" title="atras ">Atrás</li>
+        <li onclick="history.back()" class="volver">Volver</li>
+    </div>	
+{% endblock %}
+	
+{% block cuerpo %}
+<section style="width:90%; margin-left:auto; margin-right:auto;">
+	<h1>Listado de Imputaciones</h1>
+    <div id="buscar" class="formulario" style="width: 500px; margin: auto">
+        <form action="{{ path ('imputacion')}}" method="GET">		
+            <input type="text" name="buscar" id="imputacion_id" style="width: 350px; display: inline-block">
+            <input type="hidden" name="idimputacion" id="idimputacion" style="display: inline-block">
+            <button type="submit" class="btn btn-default" style="width: 80px;display: inline-block; height:40px;">Buscar</button>
+        </form>
+    </div>
+    <div id="contenido-columnas">
+        <div id="centrador">
+            <div id="colIz">
+                <table width="100%" border="0" cellspacing="0" >
+                    <tr>
+                        <th scope="col" style="background-color:#5FB2AE; color:#fff">IMPUTACIONES</th>
+                    </tr>
+                </table>
+                <div id="colIzTabla">
+                    <table id="imputaciones"  width="100%" border="0" cellspacing="0" >
+                        <tr>
+                            <th scope="col" style="background-color:#dddddd; border-top: 1px solid #fff">{{ knp_pagination_sortable(paginador, 'Código', 'i.codigo') }}</th>
+                            <th scope="col" style="background-color:#dddddd;border-top: 1px solid #fff">{{ knp_pagination_sortable(paginador, 'Descripción', 'i.descripcion') }}</th>
+                            <th scope="col" style="background-color:#dddddd; border-top: 1px solid #fff">Acciones</th>
+                        </tr>
+                        {% for imputacion in paginador %}
+                            <tr>
+                                <td class="imp-codigo">
+                                    {{ imputacion.codigo }}
+                                </td>
+                                <td>
+                                    {{ imputacion.descripcion }}
+                                </td>
+                                <td Style="width:120px;">
+                                    <div class="img_mofificar" style="display:inline-block; cursor:pointer;" onclick="cargarModificar('{{ imputacion.id  }}','{{ imputacion.codigo  }}','{{ imputacion.descripcion  }}', '{{ imputacion.tipo.id  }}')">
+                                       <!-- <img src="{{ asset ("images/form-botones/editar.png") }}" width="31" height="32" alt="modificar" class="imghover" title="Modificar">-->
+                                    </div>
+                                    {#	
+                                    <form style="display:inline-block;" name="formborar{{ imputacion.id  }}" action="{{ path('imputacion_delete')}}" method="post" >
+                                            <div style="display:inline-block; cursor:pointer;" onclick="r=confirm('¿Usted esta seguro que desea borrarlo?');if (r==true) document.formborar{{ imputacion.id  }}.submit();">
+                                                    <input id="id_borrar" name="id_borrar"  type="hidden" value="{{ imputacion.id  }}">
+                                                            <img src={{ asset ("images/form-botones/form-borrar-32-2.png") }} width="31" height="32" alt="modificar" class="accion1" title="Eliminar">
+                                            </div>
+                                    </form>#}
+                                    <div class="img_borrar" style="display:inline-block; cursor:pointer;" onclick="apprise('¿Usted esta seguro que desea borrarlo?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){if(r)document.location='{{path('imputacion_borrar', {'id': imputacion.id})}}';});">
+                                        <!--<img src="{{ asset ("images/form-botones/borrar.png") }}" width="31" height="32" alt="modificar" class="imghover" title="Eliminar">-->
+                                    </div>	
+                                    {% if  is_granted('ROLE_LOG') %}	
+                                        <div class="img_eventos" style="display:inline-block; cursor:pointer;" onclick="document.location='{{ path('sistema_imputacion_eventos',{'id': imputacion.id } )}}'">
+                                        </div>	
+                                    {% endif %}	
+                                </td>
+                            </tr>
+                        {% else %}
+                            <span style="text-align: center">No se encontraron imputaciones</span>
+                        {% endfor %}
+                    </table>
+                </div>
+					{#
+                <table align="center" id="tablaDescripcion0">
+                </table>
+					#}
+                {#<div class="pagination"> #}
+                    <table align="center" id="paginador-tabla">
+                        <tr>
+                            <td> {{ knp_pagination_render(paginador) }}</td>
+                        </tr>
+                    </table>
+               {# </div> #}
+            </div>
+        </div>
+        <div id="colDe">
+            <table id="tablaDescripcion" width="100%" border="0" cellspacing="0" class="secundaria">
+                <tr>
+                    <th colspan="2" scope="col" style="background-color:#5FB2AE; color:#fff">ACCIONES</th>
+                </tr>
+            </table>
+            <form id="form_borrar" action="{{ path('imputacion_delete') }}" method="post" {{ form_enctype(borrar) }}>
+                <input id="id_borrar" name="id_borrar"  type="hidden" value="">
+            </form>
+            <div id="modificar" style="display: none">
+                <table width="100%" border="0" cellspacing="0">
+                    <tr>
+                        <th scope="col" style="background-color:#dddddd; border-top: 1px solid #fff">Modificar</th>
+                    </tr>
+                </table>
+                <form id="form_modificar" action="{{ path('imputacion_update') }}" method="post" {{ form_enctype(modificar) }}>
+                    <table border="0" cellspacing="5" class="acciones2">
+                        <tr>
+                            <td align="left">{{ form_label(modificar.codigo) }}:</td>
+                        </tr>
+                        <tr>
+                            <td align="left">{{ form_widget(modificar.codigo) }}</td>
+                        </tr>
+                        <tr>
+                            <td align="left">{{ form_label(modificar.descripcion) }}:</td>
+                        </tr>
+                        <tr>
+                            <td align="left">{{ form_widget(modificar.descripcion) }}</td>	
+                        </tr>
+                        <tr>		
+                            <td align="left">{{ form_label(modificar.tipo) }}:</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_widget(modificar.tipo) }}	</td>	
+                        </tr>
+                        <tr>		
+                            {{ form_rest(modificar) }}
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <button type="submit" class="btn btn-default" align="center">Guardar</button>
+                                    <button onclick="limpiar()" class="btn btn-default" align="center">Cancelar</button>
+                                </span>
+                            </td> 
+                        </tr>
+                    </table>
+                    <input id="id_modificar" name="id_modificar"  type="hidden" value="">
+                </form>
+            </div>
+
+            {#	Form Agregar	#}
+            <div id="agregar" style="display: none">
+                <table width="100%" border="0" cellspacing="0">
+                    <tr>
+                        <th scope="col" style="background-color:#F1EEEE;">Agregar</th>
+                    </tr>
+                </table>
+                <table width="100%" id="tablaDescripcion2" cellspacing="0">
+                </table>
+                <form action="{{ path('imputacion_create') }}" method="post" {{ form_enctype(agregar) }}>
+                    <table border="0" cellspacing="5" class="acciones2">
+                        <tr>   
+                            <td align="left">{{ form_label(agregar.codigo) }}:</td>
+                        </tr>
+                        <tr>
+                            <td align="left">{{ form_widget(agregar.codigo) }}</td>
+                        </tr>
+                        <tr>
+                            <td align="left">{{ form_label(agregar.descripcion) }}:</td>
+                        </tr>
+                        <tr>
+                            <td align="left">{{ form_widget(agregar.descripcion) }}</td>	
+                        </tr>
+                        <tr>		
+                            <td align="left">{{ form_label(agregar.tipo) }}:</td>
+                        </tr>
+                        <tr>
+                            <td>{{ form_widget(agregar.tipo) }}	</td>	
+                        </tr>
+                        <tr>		
+                            {{ form_rest(agregar) }}
+                        </tr>
+                        <tr>
+                            <td>
+                                <span>
+                                    <button type="submit" class="btn btn-default">Guardar</button>
+                                    <button onclick="limpiar()" class="btn btn-default">Cancelar</button>
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </form>
+            </div>
+        </div>
+    </div>			
+</section>
+<p></p>
+
+<script>
+   function mostrarAgregar(){
+        $("#agregar").show();
+        $("#modificar").hide();
+    }
+    
+    function cargarModificar(id, codigo, descripcion, tipo){
+        $("#imputacion_codigo").val(codigo);
+        $("#imputacion_descripcion").val(descripcion);
+        $("#imputacion_tipo").val(tipo);
+        $("#agregar").hide();
+        $("#modificar").show();
+        $("#id_modificar").val(id);
+    }
+    
+    function limpiar(){
+        $("#agregar").hide();
+        $("#modificar").hide();
+    }
+
+    $('.accion1').hover(function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/borrar-over.png') }}');
+    }, function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/borrar-over.png') }}');
+    });
+    $('.accion2').hover(function() {
+        $(this).attr('src', '{{ asset ('images/form-botones/editar-over.png') }}');
+    }, function() {
+        $(this).attr('src', '{{ asset ('images/form-botones/editar-over.png') }}');
+    });
+    $('.accion3').hover(function() {
+        $(this).attr('src', '{{ asset ('images/form-botones/evento-over.png') }}');
+    }, function() {
+	$(this).attr('src', '{{ asset ('images/form-botones/evento-over.png') }}');
+    });
+</script>
+
+<script>    
+
+    fnc = function(othis,suggestion){
+        $('#idimputacion').val(suggestion.data);
+        //console.log(suggestion.data)
+    }
+    autocompletarImputacion = new CofraAutocompletar('{{path('sistema_busqueda_imputacion_lista')}}','imputacion_id','', fnc);
+setTimeout('$(".imghover").imghover({suffix: "-over"})', 400);
+    
+    </script>
+<style>
+/* parche temporario */
+#colIz{
+    float: left;
+    height: 480px;
+    
+}
+#colDe{
+    float: left;
+    min-height: 480px;
+}
+#acomodador{
+    margin: auto;
+    
+}
+#centrador{
+    margin: auto;
+    width: 700px;
+    
+}
+
+ a{
+    text-decoration: none;
+    color:#000000;
+ }
+a:link{
+     text-decoration: none;
+     color:#000000;   
+}
+a:hover{
+     text-decoration: none;
+     color:#6b6b6b;
+}
+
+</style>
+{% endblock %}
+

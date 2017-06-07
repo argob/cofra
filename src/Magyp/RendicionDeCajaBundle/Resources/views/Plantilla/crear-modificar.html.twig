@@ -1,0 +1,31 @@
+
+
+
+{% block titulo %}
+<h1>Registro de Area Nueva</h1>
+{% endblock %}
+
+<section>
+    <div class="colIzFoto" {% block heightMarcoFoto "" %}>
+	{% block imagenlateral %}{% endblock %}
+    </div>
+    <div id="colDe-editar">
+	    <div>
+			<table class="tablaFormularios" width="100%" border="0" cellspacing="0" >
+				<tr>
+				<th scope="col"  align="center">{% block titulo_formulario "" %}</th>
+				</tr>
+			</table>
+                {% block tabla_formulario %}    
+
+				{% endblock %}
+                {% block botones %}    
+
+				{% endblock %}
+		</div>
+	</div>
+</section>
+
+{% block estilosEspeciales %}
+	<link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}

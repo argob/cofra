@@ -1,0 +1,157 @@
+{% extends 'MagypRendicionDeCajaBundle:Impresion:base.html.twig' %}
+
+{% block cuerpo %}
+
+<section>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div id="reportesCabecera">  
+        <ul>
+            <li>
+                <label>Area:</label>
+                {{area.nombre}}
+            </li>
+            <li>
+                <label>Responsable:</label>
+                {{area.responsable}}
+            </li>
+            <li>
+                <label>SubResponsable:</label>
+                {{area.subresponsable}}
+            </li>
+        
+        </ul>
+        <ul class="cabeceraMid">
+        </ul>
+        <ul class="cabeceraDe">
+            <li>
+                <label>Programa:</label>
+                {{area.programa}}
+            </li>
+            <li>
+                <label>Actividad:</label>
+                {{area.actividad}}
+            </li>
+	<li>
+                <label>{{ form_label(edit_form.expediente) }}:</label>
+                    {{ rendicion.expediente }}
+            </li>
+        </ul>
+			
+        <table class="impTablaIz">
+	</table>
+	<table  class="impTablaDe">
+		<tr>
+                <td >
+                     <label>{{ form_label(edit_form.fecha) }}:</label>
+                     {{rendicion.fecha | date("d/m/y")}}
+                </td>
+            </tr>
+	</table>
+        
+    </div>   
+    <br/>
+    <br/>
+    <br/>
+
+<div id="comprobantesDiv">	
+    <div class="cuerpo">	
+        <div id="comprobantesTabla">			
+            <table id="Comprobantes">
+                <thead>
+                    <tr class="tablaReporte">
+                        <th style="color:#fff;">Fecha</th>
+                        <th style="color:#fff;">N°.Comprobante</th>
+                        <th style="color:#fff;">Imputación</th>
+                        <th style="color:#fff;">Beneficiario</th>
+                        <th style="color:#fff;">Importe</th>
+                    </tr>
+                </thead>
+                <tbody>   
+                {% set nMaxFilas= 19 %}
+                {% set nCont= 0 %}
+                {% set nLeft= 230 %}
+                {% set nTopBase= 400 %}
+                {% set nTop= 400 %}
+                {% set nTamanoPagina= 430 %}
+                {% set nCantBarras= 0 %}
+                {% set nCorreccion= 230 %}
+                {% for imput, comprobanteDet in comprobantesDetalles %}
+                    {% for comprobante in comprobanteDet %}
+                        {% set nCont = nCont + 1 %}
+                        <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                            <td>{{ comprobante.fecha | date("d/m/y") }}</td>
+                            <td>{{ comprobante.numero }}</td>
+                            <td>{{ comprobante.imputacion }}</td>
+                            <td>{{ comprobante.proveedor }}</td>
+                            <td>{{ comprobante.importe }}</td>
+                        </tr>
+                        {% if nCont >= nMaxFilas%}
+                            
+                                    </tbody>
+                                </table>
+                            </div>
+                         </div>
+                            
+                            {% set nCantBarras = nCantBarras + 1 %}
+                            <div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+                                    <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+                            </div>
+                            <div id="pie" style=" padding-left:30mm; margin-top:{{nCorreccion}}mm"> 
+                            </div>
+                            <br/>
+                            {% set nTop= nTopBase + nCantBarras * nTamanoPagina %}
+                            {% set nMaxFilas= 29 %}
+                            {% set nCont= 0%}
+                            {% set nCorreccion= nCorreccion + 50%}
+                            
+                        <div class="cuerpo">	
+                            <div id="comprobantesTabla">			
+                            <table id="Comprobantes">
+                                <thead>
+                                    <tr class="tablaReporte">
+                                        <th style="color:#fff;">Fecha</th>
+                                        <th style="color:#fff;">N°.Comprobante</th>
+                                        <th style="color:#fff;">Imputación</th>
+                                        <th style="color:#fff;">Beneficiario</th>
+                                        <th style="color:#fff;">Importe</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                        {%endif%}   
+                    {% endfor %}
+                    {% set nCont = nCont + 1 %}
+                        <tr>
+                            <td colspan="3" ></td>
+                            <td class="subTotal">Sub-Total:</td>
+                            <td class="subTotalImporte">${{comprobantesSubtotales[imput]}}</td>
+                        </tr>
+                {% endfor %}
+                    <tr>
+                        <td colspan="5" ></td>
+                    </tr>
+                     <tr>
+                        <td colspan="4" class="totalImporte">Total:</td>
+                        <td class="total">${{total}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div> 
+
+</div>
+{%if nCantBarras == 0 %}
+    {% set nCorreccion= 0 %}
+{%endif%}
+<div id="pie" style=" padding-left:30mm; margin-top:{{nCorreccion}}mm"> 
+</div>
+<div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+    <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+</div>
+
+</section>
+{#<td>{% if comprobante.proveedor is not null %} {{ comprobante.proveedor}}{% endif %}</td> #}
+{% endblock %}

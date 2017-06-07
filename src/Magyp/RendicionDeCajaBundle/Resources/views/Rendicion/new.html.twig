@@ -1,0 +1,68 @@
+<html>
+<head>
+    <link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+    {# <link href="{{asset('css/base.css')}}" rel="stylesheet" type="text/css"> #}
+   {# <link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css"> #}
+	<link href="{{asset('css/basecofra.css')}}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+    <script src="/js/notify/src/jquery-ui.js" type="text/javascript"></script>
+    <script src="/js/notify/src/jquery.notify.js" type="text/javascript"></script>
+    <style>
+    body {
+	    padding:5px;
+	    height:auto;
+		overflow-y: hidden;
+		background-color:#fff;
+    }
+    </style>
+</head>
+<body>
+
+
+<div style="border: thin solid #000; padding: 5px; width: auto; margin:auto; height:275px; backgound-color:#fff;">
+<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+						<thead>
+							<tr>
+								<th style="background-color:#5fb2ae;">Nueva Rendición</th>
+							</tr>
+						</thead>
+					</table>
+<table class="tablaPopup" align="center" width="100%">
+	
+	<form action="{{ path('sistema_rendicion_create') }}" method="post" {{ form_enctype(form) }}>	
+	<tr>
+		<td align="right">
+		{{ form_label(form.fecha) }}:
+		</td>
+		<td align="left" colspan= "2">
+		{{ form_widget(form.fecha) }} 
+		</td>
+	</tr>
+		<td align="right">
+		{{ form_label(form.expediente) }}: 
+		</td>
+        <td align="left" Style="display: inline;  margin-left: 0;">
+		    <!--<select id="tipo_expediente" {{entity.esmodificable ? '' : 'disabled="true"' }}><option value="1">S05:</option></select>-->	{{ form_widget(form.expediente) }}
+		</td>
+        <td align="left" >
+	
+	    </td>
+	</tr>
+
+	
+	<tr>
+		<td colspan="2">
+		    {{ form_errors(form) }}
+		</td>
+	</tr>
+	{{ form_rest(form) }}
+	</table>
+	<div style="margin-left:auto; margin-right:auto; margin-top:20px; width: 100px;">
+	<button type="submit" class="btn btn-default" style="margin-left:auto; margin-right:auto;" >Agregar</button>
+	</div>
+</form>
+    
+</body>
+    
+</html>
+

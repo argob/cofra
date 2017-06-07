@@ -1,0 +1,77 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+{% set paginaActual = 'Buscador' %}
+	{% block javascriptEspeciales %}
+		<script type="text/javascript" src="{{ asset('js/imghover.js')}}"></script>
+	{% endblock %}
+		
+{% block cuerpo %}
+   <!-- <div id="superSuperior">
+        <h1>Buscador</h1>
+    </div> 
+              
+                <p>Ingrese el codigo de barras de la impresion que quiere buscar</p>
+    <form action="{{ path('af_buscador_general') }}" method="post">
+         
+        
+        <input type="text" name="codigodebarras" id="codigodebarras" maxlength="255" size="30" value=""/>
+         <button type="submit">Buscar</button>
+    </form>
+    <ul>
+        <li>
+            <a href="{{ path('af_home') }}">
+                Volver
+            </a>
+        </li>
+    </ul>   -->
+
+<section id="panel-home" style="background-image:none !important;" >
+    <div id="superSuperior" Style="background-color:#5FB2AE;">
+        <h1>Buscador</h1>
+   <br/>   
+    <div id="colIzPipGral" Style="background-color:#fff; width:480px; height:120px;
+	display:inline; color:black">
+     <h4>Ingrese el código de barras de la impresión que quiere buscar</h4>   
+    </div> <br/>   
+    </div>  
+        
+        <br/>      <br/>      <br/>   
+    <form action="{{ path('af_buscador_general') }}" method="post">
+         
+        
+        <input type="text" name="codigodebarras" id="codigodebarras" maxlength="255" size="30" value=""/>
+      <!--button type="submit">Buscar</button>-->
+         
+  
+         <input type="submit" style="width:60px;display: inline-block; font-size:16px;" value="Buscar">
+     </form>
+  
+       
+           <!-- <a class="btn boton" href="{{ path('af_home') }}">
+           
+               Volver
+            </a>-->
+            <br/>    <br/> 
+             <div id="volver" Style="background-color:#5FB2AE;" class="volver" onclick="efectosUnLoad('slideaizquierda', '#panel-notificacion', '{{ path("af_home")}}' );">
+                    <a href="{{ path("af_home")}}">Volver</a>
+             </div>
+     
+
+
+</section>
+  
+   
+ 
+    <script>
+        $("#codigodebarras").val("");
+        $("#codigodebarras").focus();
+    </script>
+    <script>
+    efectosLoad('slideaizquierda', '#panel-home' );
+    setTimeout('$(".imghover").imghover({suffix: "-over"})', 400);
+</script>
+
+    
+    
+    
+    
+{% endblock %}

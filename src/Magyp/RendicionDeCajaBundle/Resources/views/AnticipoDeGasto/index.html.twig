@@ -1,0 +1,74 @@
+{% extends 'MagypRendicionDeCajaBundle:AnticipoDeGasto:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Gastos: </span>
+        <li onclick="location.href = '{{ path('af_anticipodegasto_new') }}'" class="agregar">Nuevo Anticipo</li>
+		<li onclick="parent.location='{{ path('af_notasgenericas_home') }}'" class="volver">Volver</li>
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+    <section>   
+        
+               {% block titulotabla "Buscar un Anticipo de Gastos" %}
+        {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+            {% set path_action = path('af_anticipodegasto') %} 
+            {#% set path_autocompletar = 'sistema_busqueda_area_lista' %#}
+            {% set busqueda_nombre = 'anticipo_dg' %}
+            {% block input_with "400px" %}
+        {% endembed %}
+
+        {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+
+                {% block tabla %}
+
+                <table cellspacing="0" width="100%" class="records_list">
+                    <thead>
+                        <tr>
+                            <th>Expediente</th>
+                            <th>Nota</th>
+                            <th>Área</th>
+                            <th>Monto</th>
+                            <th>Motivo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for entity in entities %}
+                            <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                                <td>{{ entity.expediente }}</td>
+                                <td>{{ entity.nota }}</td>
+                                <td>{{ entity.area }}</td>
+                                <td>{{ entity.monto }}</td>
+                                <td>{{ entity.motivo }}</td>
+                                <td style="width: 100px;" >
+                                    <div>
+                                        <a href="{{ path('af_anticipodegasto_show', { 'id': entity.id }) }}"><img src="{{ asset('images/form-botones/ver.png') }}" class="accion3" title="Ver Datos" alt="Ver" style="cursor:pointer;" /></a>
+                                        <a href="{{ path('af_anticipodegasto_edit', { 'id': entity.id }) }}"><img src="{{ asset('images/form-botones/editar.png') }}" class="accion3" title="Modificar Datos" alt="Modificar" style="cursor:pointer;" /></a>
+                                    </div>						
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                {% if ( entities | length > 0) %}
+                   <div class="pagination">
+                       <table align="center" id="paginador-tabla">
+                           <tr>
+                               <td>{{ knp_pagination_render(entities) }}</td>
+                           </tr>
+                       </table>                   
+                   </div>            
+               {% endif %}
+            {% endblock %}
+
+            {% block botones %}
+                   {# <span><a href="{{ path('af_anticipodegasto_new') }}"  class="btn btn-default">Crear nuevo</a></span>  #}
+                    <span><a href="{{ path('af_notasgenericas_home') }}" class="btn btn-default">Volver</a></span>
+                   
+            {% endblock %}
+        {% endembed %}
+    </section>
+{% endblock %}

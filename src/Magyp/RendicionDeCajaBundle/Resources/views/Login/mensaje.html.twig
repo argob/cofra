@@ -1,0 +1,53 @@
+{% extends 'MagypRendicionDeCajaBundle:Login:base.html.twig' %}
+
+{% block cuerpo %}
+
+<style>
+table td {
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold", "Verdana";
+	}
+</style>
+
+<section class="login">
+    <div id="colIzLogin">
+	{% block imagen %}
+	<img src={{ asset ("images/lateral-atencion.jpg") }} width="150" height="300" alt="login" style="margin-top:35px;" />
+	{% endblock %}
+    </div>
+    <div id="colDeLogin">
+	<table class="tablaLogin" width="100%" border="0" cellspacing="0" align="center" style="background-color:#FCCD59; text-align:center; color:#FFF; margin-top:0;">
+	    <tr>
+		<th scope="col" style="text-align:center; heigh:20px; font-size:20px; background-color:#5fb2ae; color:#fff;">{% block titulo "" %}</th>
+	    </tr>
+	</table>
+	  
+	<form id="login">
+	    <table width="80%" style="margin-left:auto; margin-right:auto; " border="0" cellpadding="0" cellspacing="5" class="">
+		<tr>
+		    <td colspan="2" style="font-size:15px" align= "center">{% block mensaje "" %}</td>
+		</tr>
+		<tr>
+		    <td colspan="2"> </td>
+		</tr>
+		<tr>
+		    <td colspan="2"></td>
+		</tr>
+		<tr>
+		    <td align="center" colspan="2"></td>
+		</tr>
+                <tr>
+		    <td align="center" colspan="2"></td>
+		</tr>
+                <tr><br/>
+		    <td align="center" colspan="2"><span><input type="button" class="btn btn-default"   value="Continuar" onclick="location.href='{{path(continuar_link)}}'"></span></td>
+		</tr>
+	    </table>
+
+	</form>
+
+    </div>
+</section>
+
+
+{% endblock %}
+

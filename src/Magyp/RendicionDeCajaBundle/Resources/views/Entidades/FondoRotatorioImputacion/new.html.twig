@@ -1,0 +1,16 @@
+<h1>FondoRotatorioImputacion creation</h1>
+
+<form action="{{ path('entidades_fondorotatorioimputacion_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('entidades_fondorotatorioimputacion') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

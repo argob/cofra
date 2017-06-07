@@ -1,0 +1,19 @@
+{# variables path_autocompletar, path_action, busqueda_nombre #}
+
+<!--<link href="{{ asset('css/busqueda.css') }}" rel="stylesheet" type="text/css" media="screen">-->
+
+<div id="busqueda" style="margin-left:auto; margin-right:auto; display: inline;">    
+
+    <form action="{{path_action}}" method="GET" name="buscar"> 
+        <input type="search" name="{{busqueda_nombre}}_buscar" id="{{busqueda_nombre}}_buscar"   style="display: inline; padding:5px;width: {% block input_with "450px" %}" >
+       <input type="submit"   value="Buscar"   class="btn btn-default" style="display: inline; padding:5px; margin:auto; cursor:pointer;"   > 
+    </form>
+
+<script type="text/javascript" src="{{ asset('js/cofra.js')}}"></script>	
+<script>
+	
+{% if path_autocompletar is defined %}
+autocompletar_{{busqueda_nombre}} = new CofraAutocompletar('{{path(path_autocompletar)}}','{{busqueda_nombre}}_buscar');	
+{% endif %}
+</script>    
+</div>   

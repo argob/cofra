@@ -1,0 +1,54 @@
+{% if is_granted('ROLE_AF') %}
+    {% set basetwig= '::afcofra.html.twig' %}
+{% else %}	
+    {% set basetwig= '::generalcofra.html.twig' %}
+{% endif %}
+
+{% extends basetwig %}
+
+{% block titulo %}Usuario{% endblock %}
+
+{% block estilosEspeciales %}
+
+
+{% if is_granted('ROLE_AF') %}
+    {% set basetwig= '::afcofra.html.twig' %}
+    <link href="{{asset('css/af.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/general_para_af.css')}}" rel="stylesheet" type="text/css">
+    <!--<link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css">-->
+    <!--<link href="{{asset('css/popups.css')}}" rel="stylesheet" type="text/css">-->
+<!--<link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">-->
+
+{% else %}	
+    <link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('css/popups.css')}}" rel="stylesheet" type="text/css">
+
+<link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}
+
+{% set paginaActual = 'Notificacion' %}
+
+{% block javascriptEspeciales %}
+{#error1 <script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script>#}
+<script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/cofra.js')}}"></script>
+
+{# <script type="text/javascript" src="{{ asset('js/demo.js')}}"></script>  #}
+<link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+
+{% endblock %}

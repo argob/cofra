@@ -1,0 +1,52 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+{% set paginaActual = 'Notificacion' %}
+{% block estilosEspeciales %}
+<link href="{{asset('css/eventos.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block cuerpo %}
+<h2 style="color:#000;"> Eventos de Notificacion </h2>
+<section>
+				<div id="colCen">
+					<table class="tablaTitulo" align="center" width="100%">
+						<thead>
+							<tr>
+								<th style="background-color:#009896;">Modificaciones</th>
+							</tr>
+						</thead>
+					</table>
+						<ul style="display: inline">
+						{% if eventos | length == 0  %}No hay Eventos{% endif %}
+						{% for evento in eventos %}
+							<li style="display: inline">
+							{% set items = evento.listaDeCambios	%}
+								<table width="100%">
+									<th colspan="3">
+                                        {{evento.id}} - {{evento.NombreTipoEvento}} - Usuario: {{evento.usuario}} - Fecha: {{evento.fecha | date("h:i m/d/y")}}
+									</th>
+									{% for item in items %}
+										<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+
+											<th class="itemLabel">{{item.campo}}</th>
+											{% if item.soyEntidad == false %}
+											<td>{{item.anterior}}</td>
+											<td>{{item.nuevo}}</td>
+											{% endif %}
+
+											{% if item.soyEntidad == true %}
+											<td>{{item.entidad}}</td>
+											{% endif %}
+										</tr>
+									{% endfor %}	
+                          
+								</table>
+							</li>		
+						{% endfor %}
+                            
+						</ul>	
+                        </br> 
+                           <button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button>
+					</div>
+				</div>
+</section>
+{% endblock %}

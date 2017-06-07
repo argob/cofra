@@ -1,0 +1,76 @@
+<h1>Lista Rendicion</h1>
+
+<div style="float: left">
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fecha</th>
+            <th>Expediente</th>
+            <th>Totalrendicion</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for rendicion in rendiciones %}
+        <tr >
+			<div onclick="ajax('/sistema/comprobante/{{rendicion.id}}/show')">
+            <td><a href="{{ path('rendicion_show', { 'id': rendicion.id }) }}">{{ rendicion.id }}</a></td>
+            <td>{% if rendicion.fecha %}{{ rendicion.fecha|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>{{ rendicion.expediente }}</td>
+            <td>{{ rendicion.totalRendicion }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('rendicion_show', { 'id': rendicion.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('rendicion_edit', { 'id': rendicion.id }) }}">edit</a>
+                    </li>
+					<li>
+						<button onclick="ajax('/sistema/comprobante/{{rendicion.id}}/show')">Mostrar</button>
+                        
+                    </li>
+                </ul>
+            </td>
+			</div>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+</div>
+<div id="divajax" style="float: left; margin: 20px">
+ hola
+</div>
+{#error1
+<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script>
+#}
+<script>
+	var seleccionado;
+	function selecionar(obj){
+		seleccionado = $($(obj).children()[0]).children().html();
+	}	
+	function ajax_arg(ruta){
+		if(isFinite(seleccionado)){
+			$.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   
+		}else{
+			alert('seleccione un item');
+		}	
+
+	}
+	function ajax(ruta){
+			$.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   	
+	}	
+	function dibujar(data){
+
+			$('#divajax').html('');
+			$('#divajax').html(data);
+
+	}
+</script>

@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery-barcode.js') }}" type="text/javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Anticipos de Gastos</title>
+<link href="{{ asset('css/reporte.css') }}" rel="stylesheet" type="text/css" media="screen"/>
+<link rel="shortcut icon" href=" {{ asset ('images/favicon.ico') }}" />
+</head>
+        
+<body>
+<div id="contenedor">
+    <div id="cabecera">
+	<div class="membretes">
+		<div class="leyenda">
+                    <span>"{{leyenda.anio|date('Y')}} - {{leyenda.leyenda}}"</span>
+                </div>
+                <div class="area">
+                    <span class="texto_ministerio">Ministerio de Agroindustria</span>
+                    <span class="texto_area">{{areamembrete}}</span>
+                </div>		
+	</div>
+        <div class="datos">
+            <table class="cudap">
+                <tr>
+                    <th  scope="row"><label>CUDAP:</label> </th>
+                        <td>{{anticipodegastos.expediente}}</td>
+                </tr>
+                <tr>
+                    <th scope="row"><label>NOTA RC N°:</label> </th>
+                        <td>{{anticipodegastos.nota}}</td>        
+                </tr> 
+            </table>
+         </div>
+ 
+         <div class="lugar">BUENOS AIRES, </div>
+   </div>
+        
+   <div id="cuerpo"style="margin-top:50mm;">
+            {#Señor#}<br/>
+            Dirección General de Administración<br/>
+            {#Lic. Ricardo Ariel Rotsztein#}<br/>
+            S_________/_________D.-
+
+        <div class="parrafo">
+            Pase a la COORDINACIÓN ÁREA TESORERIA de la DIRECCIÓN GENERAL de ADMINISTRACIÓN del MINISTERIO DE AGRICULTURA GANADERÍA Y PESCA, 
+            el expediente referenciado, solicitando se proceda al pago que a continuación se detalla:
+        </div>
+        <table class="tablaCabecera">
+            <tr>
+               <td colspan='2'style=" padding-top: 10mm">
+                   <strong>EMITE:</strong>
+                   MINISTERIO DE AGRICULTURA GANADERÍA Y PESCA.
+               </td>
+            </tr>
+            <tr>
+               <td colspan='2'style=" padding-top: 10mm">
+                   <strong>DEPENDENCIA:</strong> {{anticipodegastos.area}}
+               </td>
+            </tr>
+           <tr>
+               <td colspan='2'style=" padding-top: 10mm">
+                   <strong>BENEFICIARIO:</strong> {{anticipodegastos.area.responsable}}
+               </td>
+           </tr>
+           <tr>
+                <td>
+                   <strong>MOTIVO:</strong> 
+                </td>
+                   <td style=" padding-top: 6mm">
+                       AUTORIZASE por la presente a poner a disposición del {{anticipodegastos.area.responsable}} la suma de PESOS {{montoaletras | upper}}
+                    (${{anticipodegastos.monto}} ) en concepto de Anticipo de Gastos con cargo a rendir cuenta, destinados
+                {{ anticipodegastos.motivo }}
+               </td>
+           </tr>
+       </table>
+        <br/>
+       <div align="center" style=" padding-top: 15mm" >
+            <strong><u>RECUPERO FONDO ROTATORIO - TESORERIA MAGyP</u></strong>
+       </div>
+        <br/>
+        <br/>
+            <strong>TOTAL: $ {{anticipodegastos.monto}}</strong>
+        <br/>
+        <br/>
+        <br/>
+  </div>
+    <div id="pie" style=" padding-left:30mm">
+    
+        {{iniciales}}
+    <div id="codigodebarras" ></div>   
+    </div>
+		
+</div>
+        
+<script>
+    $("#codigodebarras").barcode("{{codigodebarras}}", "code128");     
+</script>
+</body>
+</html>

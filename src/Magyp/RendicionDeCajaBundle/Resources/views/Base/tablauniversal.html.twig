@@ -1,0 +1,20 @@
+<h2 style="color:#000;"> Agergar un Comprobante </h2>
+
+
+<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+	<thead>
+		{% for item in info %}
+			<th style="background-color:#FC6;">{{ item.nombre }}</th>
+		{% endfor %}
+	</thead>
+	<tbody>
+		{% for fila in tabla %}
+		<tr>
+		    
+			{% for item in info %}
+			<td style="background-color:#FC6;">{{ cn.mostrar(fila,item) }}</td>
+			{% endfor %}	
+		</tr>
+		{% endfor %}	
+	</tbody>
+</table>

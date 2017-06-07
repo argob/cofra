@@ -1,0 +1,46 @@
+{% extends 'MagypRendicionDeCajaBundle:Leyenda:base.html.twig' %}
+
+
+{% block cuerpo %}
+
+	    {% embed 'MagypRendicionDeCajaBundle:Plantilla:papelera.html.twig' %}
+
+		{# {% block titulopapelera "Listado de Leyendas" %} #}
+		{% block titulotablapapelera "Leyendas Borradas" %}
+
+		{% block tabla %}
+			<table id="papelera"  width="100%" border="0" cellspacing="0">
+
+				<tr>
+					<th scope="col" style="display: none">Id</th>
+					<th scope="col">Leyenda</th>
+					<th scope="col">Año</th>
+					<th scope="col">Accion</th>
+				</tr>
+
+					{% for leyenda  in leyendas %}
+						<tr style="cursor: pointer;" class="{{ cycle(["even", "odd"], loop.index) }}">
+							<td style="display: none">{{ leyenda.id }}</a></td> 
+							<td>{{ leyenda.leyenda}}</td>
+							<td>{{ leyenda.anio | date('Y')}}</td>
+							<td><button onclick="irApagina('{{path('sistema_af_leyenda_restaurar',{ 'idleyenda':leyenda.id})}}',true)" class="btn btn-default"> Restaurar </button></td>	
+						</tr>
+					{% endfor %}
+
+			</table>
+		{% endblock %}
+
+		{% block botones %}
+		<button onclick="irApagina('{{path('sistema_af_leyenda')}}',true)" class="btn btn-default">Volver</button>
+		{% endblock %}
+
+		{% block estilosEspeciales %}
+			{{ parent() }}
+			<link href="{{asset('css/plantillas/papelera-verde.css')}}" rel="stylesheet" type="text/css">			
+		{% endblock %}
+	{% endembed %}
+
+{% endblock %}
+
+
+

@@ -1,0 +1,35 @@
+{% block estilosEspeciales %}
+
+{#<link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css" media="screen">#}
+<link href="{{asset('css/reporte_gral.css')}}" rel="stylesheet" type="text/css" media="screen">
+<link href="{{asset('css/impresionWeb.css')}}" rel="stylesheet" type="text/css" media="screen">
+<link href="{{ asset('css/reporte.css') }}" rel="stylesheet" type="text/css" media="Screen"/>
+
+{% endblock %}
+
+{% block javascriptEspeciales %}
+    <script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('js/jquery-barcode.js') }}" type="text/javascript"></script>
+{% endblock %}
+<section>
+    <div id="contenedor">
+        <div id="cabecera">
+            <div class="membretes">
+                <div class="leyenda">
+                    <span>"{{leyenda.anio|date('Y')}} - {{leyenda.leyenda}}"</span>
+                </div>
+                <div class="area">
+                    <span class="texto_ministerio">Ministerio de Agroindustria</span>
+                    <span class="texto_area">{{areamembrete}}</span>
+                </div>			
+            </div>
+        </div>
+        {% block cuerpo %}{% endblock %}    
+    </div>
+    <script>
+        
+        $("[id*=codigodebarras]").barcode("{{codigodebarras}}", "code128");    
+
+    </script>        
+        
+</section>

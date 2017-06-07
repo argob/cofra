@@ -1,0 +1,348 @@
+{% extends 'MagypRendicionDeCajaBundle:FondoRotatorio:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Fondo Rotatorio: </span>
+        
+		{#<li onclick="parent.location='{{ path('af_fondorotatorio_new') }}'" class="agregar">Nuevo</li> #}
+        <li onclick="parent.location='{{ path('af_notasgenericas_home') }}'" class="volver">Volver</li>                  
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+<br/>
+<div id="superSuperior">
+            <h1>Notas: Fondos Rotatorios</h1>
+        </div>
+<div class="divFormularios" style="width:650px;">
+	<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+    <thead>
+        <tr>
+            <th style="background-color:#5fb2ae; color:#fff;">Crear Fondo Rotatorio</th>
+        </tr>
+    </thead>
+	</table>
+    <form action="{{ path('af_fondorotatorio_create') }}" method="post" {{ form_enctype(form) }}>
+        <table class="tablaFormularios" width="100%" cellspacing="2">
+            <tr>
+                <td class="padding_derecho" align="right" style=" width: 50%">{{ form_label(form.expediente) }}:</td>
+                <td align="left">{{ form_widget(form.expediente) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.nota) }}:</td>
+                <td align="left">{{ form_widget(form.nota) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.beneficiario) }}:</td>
+                <td align="left">{{ form_widget(form.beneficiario) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.motivo) }}:</td>
+                <td align="left">{{ form_widget(form.motivo) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.area) }}:</td>
+                <td align="left">{{ form_widget(form.area) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.programa) }}:</td>
+                <td align="left">{{ form_widget(form.programa) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.actividad) }}:</td>
+                <td align="left">{{ form_widget(form.actividad) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.fuentefinanciamiento) }}:</td>
+                <td align="left">{{ form_widget(form.fuentefinanciamiento) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.ug) }}:</td>
+                <td align="left">{{ form_widget(form.ug) }}</td>
+            </tr>
+            <tr>		
+                {{ form_rest(form) }}
+            </tr>
+        </table>
+     <br/>
+{% block tabla %}  
+        <div id="factura">
+            <table class="tablaFormularios" width="auto" cellspacing="2">
+				<thead>
+                    <tr>
+                         <th colspan="2">FACTURAS </th>
+					</tr>
+				</thead>
+				<tr>
+					<td><p></p></td>
+				</tr>
+					<tr>
+						<td> <label>Tipo: </label></td>
+						<td>
+							<select id="tipofactura" name="tipofactura[0]" required="required" >
+								{% for tipofactura in tipofacturas %}
+									<option value="{{ tipofactura.id }}">{{ tipofactura }}</option>
+								{% endfor %}
+							</select>
+						</td>
+					</tr>
+                <tr>
+                    <td> <label>Número:</label></td>
+                    <td> <input type="text" id="numerofactura0" name="numerofactura[0]" required="required"></td>
+                </tr>
+                <tr>
+                    <td> <label>Monto: </label></td>
+                    <td>
+                        <input type="text" id="montofactura0" name="montofactura[0]" required="required">
+                    </td>
+                </tr>
+            </table>
+        </div>
+			<ul>
+				<li>
+					<input class="btn btn-default" type="button" value= "Agregar" id="agregarfactura">
+					<input class="btn btn-default" type="button" value= "Borrar" id="borrarfactura">
+				</li>
+			</ul>
+	 
+        <table  class="tablaFormularios" width="100%" cellspacing="2">
+			<thead>
+                    <tr>
+                         <th colspan="2">Tipo de Factura</th>
+					</tr>
+			</thead>
+			<tr>
+				<td><p></p></td>
+			</tr>
+            <tr>
+                <td> <label>Tipo: </label></td>
+                <td>
+                    <select multiple="multiple" size="3" id="retenciontipofactura" name="retenciontipofactura[]" required="required" >
+                        {% for retenciontipo in retenciontipos %}
+                            <option value="{{ retenciontipo.id }}">{{ retenciontipo }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+               <td colspan="2" class="nota">*NOTA: Para marcar más de una tipo de factura presione la tecla Ctrl y haga click en los atributos necesarios. <br/>Para desmarcar los atributos seleccionados vuelva a marcar con la tecla Ctrl apretada.</td>
+            </tr>
+            
+            <tr>
+                <td>
+					<div id="ivatexto" style="display: none"> <label>Monto RET.IVA: </label></div></td>
+                <td>
+                    <div id="ivacampo" style="display: none"><input type="text" id="montoiva" name="montoiva"></div>
+                </td>
+            </tr>
+            <tr>
+                <td align="right"><div id="gananciatexto" style="display: none"> <label>Monto RET.Ganancia:</label></div></td>
+                <td align="left">
+                    <div id="gananciacampo" style="display: none"><input type="text" id="montoganancia" name="montoganancia"></div>
+                </td>
+            </tr>
+        
+            <tr>
+                <td align="right" id="resoluciontexto" style="display: none" > <label>Monto RET.RES.GRAL1784AF: </label></td>
+                <td align="left"  id="resolucioncampo" style="display: none" ><input type="text" id="montoresolucion" name="montoresolucion">
+                </td>
+            </tr>
+            
+            
+        </table>
+ 
+    
+    
+        <div id="imputacion">
+            <table class="tablaFormularios" width="100%" cellspacing="2">
+                 <thead>
+                    <tr>
+                         <th colspan="2">Imputaciones</th>
+					</tr>
+			</thead>
+			<tr>
+				<td><p></p></td>
+			</tr>
+                    <td><label>Imputación:</label></td>
+                    <td>
+                        <select id="imputacion0" name="imputacion[0]" required="required">
+                            {% for imputacion in imputaciones %}
+                                <option value="{{ imputacion.id }}">{{ imputacion }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                </tr>
+                <tr>
+                    <td> <label>Monto:</label></td>
+                    <td>
+                        <input type="text" id="montoimputacion0" name="montoimputacion[0]" required="required">
+                    </td>
+                </tr>
+           </table>
+        </div>
+			<ul>
+				<li>
+				<input class="btn btn-default" type="button" value= "Agregar" id="agregarimputacion">
+				<input  class="btn btn-default" type="button" value= "Borrar" id="borrarimputacion">
+				</li>
+			</ul>           
+	 </div>
+	 <div class="enviarForm">
+		<ul>
+			<li>
+				<button class="btn btn-default" type="submit">Crear Nota</button>
+			{#	<a  class="btn btn-volver" href="{{ path('af_fondorotatorio') }}">Volver</a> #}
+			</li>
+		</ul>
+	 </div>
+
+<script>
+    var idfactura = 0;
+    var idimputacion = 0;
+    $("#agregarimputacion").click(function () {
+        idimputacion++;
+		
+		agregaraimputacion= " <div class='separador' ></div>";
+        agregaraimputacion+= "  <table  class='tablaFormularios' width='100%' cellspacing='2' id='tablaimputacion"+idimputacion+"' >";
+        agregaraimputacion+= "            <tr>";
+        agregaraimputacion+= "                <td align='right'><label>Imputación:</label></td>";
+        agregaraimputacion+= "                <td align='left'>";
+        agregaraimputacion+= "                    <select id='imputacion"+idimputacion+"' name='imputacion["+idimputacion+"]' required='required'>";
+        agregaraimputacion+= "                        {% for imputacion in imputaciones %}";
+        agregaraimputacion+= "                            <option value='{{ imputacion.id }}'>{{ imputacion }}</option>";
+        agregaraimputacion+= "                        {% endfor %}";
+        agregaraimputacion+= "                    </select>";
+        agregaraimputacion+= "                </td>";
+        agregaraimputacion+= "            </tr>";
+        agregaraimputacion+= "            <tr>";
+        agregaraimputacion+= "                <td align='right'> <label>Monto:</label></td>";
+        agregaraimputacion+= "                <td align='left'>";
+        agregaraimputacion+= "                    <input type='text' id='montoimputacion"+idimputacion+"' name='montoimputacion["+idimputacion+"]' required='required' >";
+        agregaraimputacion+= "                </td>";
+        agregaraimputacion+= "            </tr>";
+        agregaraimputacion+= "        </table>";
+        $("#imputacion").append(agregaraimputacion);
+
+    });
+    
+    $("#borrarimputacion").click(function () {
+        if (idimputacion >= 1 ){
+            $("#tablaimputacion"+idimputacion).remove();
+            idimputacion--;
+        }
+    });
+    
+    $("#agregarfactura").click(function () {
+        idfactura++;
+        
+		agregarafactura= " <div class='separador'></div>";
+        agregarafactura+= "  <table class='tablaFormularios' width='100%' cellspacing='2' id='tablafactura"+idfactura+"' >";
+        agregarafactura+= "        <tr>";
+        agregarafactura+= "            <td colspan= '2'></td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "<tr>";
+        agregarafactura+= "    <td align='right'> <label>Tipo:</label></td>";
+        agregarafactura+= "    <td align='left'>";
+        agregarafactura+= "        <select id='tipofactura"+idfactura+"' name='tipofactura["+idfactura+"]' required='required' >";
+        agregarafactura+= "            {% for tipofactura in tipofacturas %}";
+        agregarafactura+= "                <option value='{{ tipofactura.id }}'>{{ tipofactura }}</option>";
+        agregarafactura+= "            {% endfor %}";
+        agregarafactura+= "        </select>";
+        agregarafactura+= "    </td>";
+        agregarafactura+= "</tr>";
+        //agregarafactura+= "        <tr>";
+        //agregarafactura+= "            <td>Tipo</td>";
+        //agregarafactura+= "            <td>";
+        //agregarafactura+= "                <select id='retenciontipofactura"+idfactura+"' name='retenciontipofactura["+idfactura+"][]'  multiple size='3' required='required' >";
+        //agregarafactura+= "                    {% for retenciontipo in retenciontipos %}";
+        //agregarafactura+= "                        <option value='{{ retenciontipo.id }}'>{{ retenciontipo }}</option>";
+        //agregarafactura+= "                    {% endfor %}";
+        //agregarafactura+= "                </select>";
+        
+        //agregarafactura+= "        <tr>";
+        //agregarafactura+= "            <td></td><td>*NOTA: Para marcar más de una tipo de factura presione la tecla Ctrl y haga click en los atributos necesarios. <br/>Para desmarcar los atributos seleccionados vuelva a marcar con la tecla Ctrl apretada.</td>";
+        //agregarafactura+= "        </tr>";
+    
+        //agregarafactura+= "            </td>";
+        //agregarafactura+= "        </tr>";
+        agregarafactura+= "        <tr>";
+        agregarafactura+= "            <td align='right'><label>Número:</label></td>";
+        agregarafactura+= "            <td align='left'>";
+        agregarafactura+= "                <input type='text' id='numerofactura"+idfactura+"' name='numerofactura["+idfactura+"]' required='required' >";
+        agregarafactura+= "            </td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "        <tr>";
+        agregarafactura+= "            <td align='right'><label>Monto:</label></td>";
+        agregarafactura+= "            <td align='left'>";
+        agregarafactura+= "                <input type='text' id='montofactura"+idfactura+"' name='montofactura["+idfactura+"]' required='required' >";
+        agregarafactura+= "            </td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "  </table>";
+        $("#factura").append(agregarafactura);
+    });
+    
+    $("#borrarfactura").click(function () {
+        if (idfactura >= 1 ){
+            $("#tablafactura"+idfactura).remove();
+            idfactura--;
+        }
+    });
+   
+    $("#retenciontipofactura").change(function() {
+        valores= new Array();
+        valores[1] = -1;
+        valores[2] = -1;
+        valores[3] = -1;
+        $('#retenciontipofactura :selected').each(function(pos, selected){
+            valores[$(selected).val()] = $(selected).val(); 
+        });
+        pos= 1;
+        while (pos <= 3){
+            switch (valores[pos]){
+                case '1':
+                    $('#ivatexto').show();
+                    $('#ivacampo').show();
+                    $("#montoiva").prop("required", true);
+                break;
+                case '2':
+                    $('#gananciatexto').show();
+                    $('#gananciacampo').show();
+                    $("#montoganancia").prop("required", true);
+                break;
+                case '3':
+                    $('#resoluciontexto').show();
+                    $('#resolucioncampo').show();
+                    $("#montoresolucion").prop("required", true);
+                break;
+                default:
+                    switch (pos){
+                        case 1:
+                            $('#ivatexto').hide();
+                            $('#ivacampo').hide();
+                            $("#montoiva").prop("required", false);
+                        break;
+                        case 2:
+                            $('#gananciatexto').hide();
+                            $('#gananciacampo').hide();
+                            $("#montoganancia").prop("required", false);
+                        break;
+                        case 3:
+                            $('#resoluciontexto').hide();
+                            $('#resolucioncampo').hide();
+                            $("#montoresolucion").prop("required", false);
+                        break;
+                        default:
+                    } 
+            }
+            pos++;
+        }
+        
+    });
+            
+       
+</script>
+    	 <br/>
+        {% endblock %}   
+{% endblock %}

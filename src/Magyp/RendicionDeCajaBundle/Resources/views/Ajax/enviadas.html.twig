@@ -1,0 +1,23 @@
+<table id="tabla2" class="principal" width="100%" border="0" cellspacing="0">	
+					
+    <thead>
+	    <th scope="col" style="display: none">Id</th>
+	    <th scope="col">Fecha</th>
+	    <th scope="col">Expediente</th>
+	    <th scope="col">Total Rendicion</th>
+     </thead>
+     <tbody>
+    {% for rendicion in rendiciones %}
+
+		    <tr id="trcito{{rendicion.id}}" style="cursor: pointer;" class="{{ cycle(["even", "odd"], loop.index) }}">
+			    <td class="id" style="display: none">{{ rendicion.id }}</td> 
+		    <td>{% if rendicion.fecha %}{{ rendicion.fecha|date('Y-m-d') }}{% endif %}</td>
+		    <td>{{ rendicion.expedienteCompleto }}</td>
+		    <td>$ {{ rendicion.totalRendicion }}</td>
+
+	    </tr>
+    {% endfor %}
+    {% if rendiciones is null %} vacia
+    {% endif %}	
+    </tbody>
+</table>

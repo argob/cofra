@@ -1,0 +1,113 @@
+{% extends 'MagypRendicionDeCajaBundle:Liquidacion:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Liquidaciones : </span>
+		
+        {%if ( entity.rendicion.isAceptada )%}
+			<li onclick="parent.location='{{ path('sistema_liquidacion_edit', { 'id': entity.id, 'idrendicion': idrendicion }) }}'" class="editar">Modificar</li>                      
+		{% endif%}
+		{% if ( is_granted("ROLE_AF_IMPRIMIR") ) %}
+			 <li onclick="parent.location='{{ path('imprimir_liquidacion_pdf', { 'idliquidacion': entity.id, 'hash': hash }) }}'" class="imprimir">Imprimir</li>    
+		{% endif%}
+			{# <li onclick="parent.location='{{ path('sistema_liquidacion', { 'idrendicion': idrendicion}) }}'" class="imprimir">Imprimir</li> #}
+			 <li onclick="history.back()" class="volver">Volver</li>                 
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+        {% block bloqueCabecera %}
+<h1>Liquidación</h1>
+            <div id="tablacabecera">
+                <table class="bloquecabecera" cellspacing="0" width="100%"  style="border: thin solid #000;">
+                    <tbody>
+                        <tr>
+                            <td  colspan="6"Style="background-color:#5fb2ae; color:white;"> LIQUIDACIÓN </td>
+                        </tr>
+                        <tr>
+                            <td Style="text-align: right">Nota:</td>
+                            <th Style="text-align: left;padding-left:5px; " colspan="5" >{{ entity.nota }}</th>
+                        </tr>
+                        <tr>
+                            <td Style="text-align: right">Dependencia:</td>
+                            <th  colspan="5" Style="text-align: left; padding-left:5px;">{{ entity.area }}</th>
+                        </tr>
+                        <tr>
+                            <td Style="text-align: right">Beneficiario:</td>
+                            <th colspan="5" Style="text-align: left;padding-left:5px;" >{{ entity.beneficiario }}</th>
+                        </tr>
+                        <tr>
+                            <td Style="text-align: right;">Periodo Inicial:</td>
+                            <th Style="text-align: left;  width:200px;padding-left:5px;">{{ entity.periodoinicial|date('d-m-Y') }}</th>
+
+                            <td Style="text-align: right; width:200px;">Fuente de Financiamiento:</td>
+                            <th Style="text-align: left;padding-left:5px;">{{ entity.fuentefinanciamiento }}</th>
+
+                            <td Style="text-align: right; width:130px;">Actividad:</td>
+                            <th Style="text-align: left; width:250px; padding-left:5px;">{{ entity.actividad }}</th>
+                        </tr>
+                        <tr>
+                            <td Style="text-align: right">Período Final:</td>
+                            <th Style="text-align: left;padding-left:5px;">{{ entity.periodofinal|date('d-m-Y') }}</th>         
+                            <td Style="text-align: right; width:129px;padding-left:5px;">Ubicación Geográfica:</td>
+                            <th Style="text-align: left;padding-left:5px;">{{ entity.ug }}</th>
+                            <td Style="text-align: right; width:150px;">Iniciales:</td>
+                            <th Style="text-align: left; padding-left:5px;">{{ entity.responsable.nombre | slice(0, 1) }}{{ entity.responsable.apellido | slice(0, 1) }}</th>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endblock%}
+
+        {% block tabla %} 
+            <table  cellspacing="0" width="100%">
+                <tbody>
+                    <tr>
+                        <td style="background-color:#000000; color:#ffffff" colspan= "3">DETALLES</td>
+                    </tr>
+                    <tr>
+                        <th>Programa</th>
+                        <th>Imputacion</th>
+                        <th>SubTotal</th>
+                    </tr>
+                    {% for detalle in liquidaciondetalle %}
+                        <tr style="width:100%" align="center" class="{{ cycle(["even", "odd"], loop.index) }}">
+                            <td>{{ detalle.programa }}</td>
+                            <td>{{ detalle.imputacion }}</td>
+                            <td>{{ detalle.importesubtotal }}</td>
+                        </tr>
+                    {% endfor %}
+                    <tr>
+                        <td colspan="3" align="center" style="padding-top:50px; width:100%">
+                         {#
+                            {%if ( entity.rendicion.isAceptada )%}
+                                <a href="{{ path('sistema_liquidacion_edit', { 'id': entity.id, 'idrendicion': idrendicion }) }}">
+                                    <button type="button" class="btn btn-submit">Modificar</button>
+                                </a>
+                            {% endif%}
+                            {% if ( is_granted("ROLE_AF_IMPRIMIR") ) %}
+                                <a href="{{ path('imprimir_liquidacion_pdf', { 'idliquidacion': entity.id, 'hash': hash }) }}">
+                                    <button type="button" class="btn btn-submit">Imprimir</button>
+                                </a>
+                           
+                            {% endif%}      
+                               <a href="{{ path('sistema_liquidacion', { 'idrendicion': idrendicion}) }}">
+                                <button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button>
+                            </a>
+							#}
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            {% block estilosEspeciales %}
+                <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+                <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+                
+            {% endblock %}
+
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

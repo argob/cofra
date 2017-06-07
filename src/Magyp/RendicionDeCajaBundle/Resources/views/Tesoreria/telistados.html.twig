@@ -1,0 +1,62 @@
+{% extends 'MagypRendicionDeCajaBundle:Tesoreria:base.html.twig' %}
+	{% block javascriptEspeciales %}
+{#error1		<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script> #}
+
+	{% endblock %}
+{% set paginaActual = 'RC' %}
+{% block menu %}
+{% endblock %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px;">Acciones: </span>
+        
+		<li onclick="parent.location='{{ path('te_home') }}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+
+{% block cuerpo %}
+<section id="panel-exp">
+    <div id="panel-home">
+        <div class="panel-marco-af panelExp">
+            <div id="superSuperior" class="tituloExp">
+                <h1>Panel de Tesoreria - Expedientes</h1>
+            </div>
+			<div id="superior" class="textoIz">
+				<div class="boton2">
+					<img onclick="efectosUnLoad('fade', '#panel-exp', '{{ path("te_rendiciones_atesoreria")}}' );" src={{ asset("images/botonera2/images/exp-recibir.jpg") }} width="119" height="106" alt="boton2" class="imghover">
+				</div>
+				<div class="boton2">
+					<img onclick="efectosUnLoad('fade', '#panel-exp', '{{ path("te_rendiciones_aapagar")}}' );" src={{ asset("images/botonera2/images/exp-pagar.jpg") }} width="119" height="106" alt="boton2" class="imghover">
+				</div>
+				<div class="boton2">
+					<img onclick="efectosUnLoad('fade', '#panel-exp', '{{ path("te_rendiciones_apagado")}}' );" src={{ asset("images/botonera2/images/exp-pagados.jpg") }} width="119" height="106" alt="boton2" class="imghover">
+				</div>
+			</div>
+				
+				{#
+			<ul class="expListado">
+				<li>
+					<a href={{ path ("te_rendiciones_atesoreria") }} >Expedientes A <b>Recibir</b></a>
+				</li>
+				<li>
+					<a href={{ path ("te_rendiciones_aapagar") }} >Expedientes A <b>Pagar</b></a>
+				</li>
+				<li>
+					<a href={{ path ("te_rendiciones_apagado") }} >Expedientes <b>Pagados</b></a>
+				</li>
+			</ul>#}
+        </div>
+    </div>
+</section>
+
+<script>
+    efectosLoad('slideaderecha', '#panel-exp');
+    setTimeout('$(".imghover").imghover({suffix: "-over"})', 410);
+</script>
+
+{% endblock %}

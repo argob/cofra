@@ -1,0 +1,39 @@
+<h1>Leyenda list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Leyenda</th>
+            <th>Anio</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('entidades_leyenda_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.leyenda }}</td>
+            <td>{% if entity.anio %}{{ entity.anio|date('Y-m-d H:i:s') }}{% endif %}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('entidades_leyenda_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('entidades_leyenda_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('entidades_leyenda_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

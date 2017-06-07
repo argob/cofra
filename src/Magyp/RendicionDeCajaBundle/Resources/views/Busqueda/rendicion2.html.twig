@@ -1,0 +1,81 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+
+{% block estilosEspeciales %}
+<link href="{{asset('css/eventos.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block cuerpo %}
+<div id="busqueda" style="margin:auto; width: 500px">
+	<form action="{{path('sistema_busqueda_rendicion_buscada')}}" style="display: inline-block">
+		{#{ dump(form.expediente.vars['id']) }#}
+		<input type="text" name="expediente" id="expediente_id" style="width: 400px; display: inline">
+		<input type="hidden" name="rendicion_id" id="rendicion_id">
+		<input type="submit" value="Ir"  style="display: inline">
+                NOTA: Solo ingrese el numero de expediente sin el "exp-S05:"<br/>
+                Recuerde que tambien puede buscarlos por fecha.
+	</form>
+        <a href="{{ path('af_home') }}">
+           Volver
+        </a>
+</div>
+{% endblock %}
+
+
+
+{% block javascriptEspeciales %}
+{#error1 <script src="{{ asset('js/jquery-1.8.2.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script>#}
+<script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+
+{# <script type="text/javascript" src="{{ asset('js/demo.js')}}"></script>  #}
+<link href="{{asset('js/styles.css')}}" rel="stylesheet" type="text/css">
+<script>
+	var combo;
+$(function () {
+    'use strict';
+
+    // Load countries then initialize plugin:
+    $.ajax({
+        url: '{{path('sistema_busqueda_rendicion_lista')}}',
+        dataType: 'json'
+    }).done(function (source) {
+
+        var countriesArray = $.map(source, function (value, key) { return { value: value, data: key }; }),
+            countries = $.map(source, function (value) { return value; });
+
+        // Setup jQuery ajax mock:
+        $.mockjax({
+            url: '*',
+            responseTime:  200,
+            response: function (settings) {
+                var query = settings.data.query,
+                    queryLowerCase = query.toLowerCase(),
+                    suggestions = $.grep(countries, function(country) {
+                         return country.toLowerCase().indexOf(queryLowerCase) !== -1;
+                    }),
+                    response = {
+                        query: query,
+                        suggestions: suggestions
+                    };
+
+                this.responseText = JSON.stringify(response);
+            }
+        });
+    
+        $('#expediente_id').autocomplete({
+            lookup: countriesArray,
+            onSelect: function (suggestion) {
+				$('#rendicion_id').val(suggestion.data)
+				
+				
+				
+				
+				
+            }
+        });
+    });
+
+});
+</script>
+{% endblock %}

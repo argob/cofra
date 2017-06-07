@@ -1,0 +1,133 @@
+{% extends "MagypRendicionDeCajaBundle:Area:base.html.twig" %}
+
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Area: </span>
+        <li onclick="parent.location='{{ path('af_administracion_home') }}'" class="volver"> Volver</li>
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+   
+
+ {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+	
+        {% block busqueda %}
+             {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                {% set path_action = path('busqueda_area_cerrada') %} 
+                {% set path_autocompletar = 'sistema_busqueda_area_listacerrado' %}
+                {% set busqueda_nombre = 'area_cerrada' %}
+                {% block input_with "400px" %}
+            {% endembed %}
+        {% endblock %}
+
+        {% block titulotabla "Listado de Cajas Cerradas" %}
+
+	{% block tabla %}
+	<table  class="link" cellspacing="0" width="100%" style="min-width: 860px;">
+	    <thead>
+		<tr>
+			<th>{{ knp_pagination_sortable(areas, 'Nombre de Área', 'a.nombre') }}</th>		    
+			<th>{{ knp_pagination_sortable(areas, 'Responsable', 'resp.nombre') }}</th>		    
+                        <th>{{ knp_pagination_sortable(areas, 'SubResponsable', 'subresp.nombre') }}</th>		    
+		    <th>{{ knp_pagination_sortable(areas, 'Monto', 'a.monto') }}</th>		    
+		    <th>{{ knp_pagination_sortable(areas, 'Programa', 'prog.programa_id') }}</th>		    
+		    <th style="width:70px;">{{ knp_pagination_sortable(areas, 'Actividad', 'act.actividad_id') }}</th>		    
+		    <th>{{ knp_pagination_sortable(areas, 'UG', 'ug.numero') }}</th>		    
+		    <th style="width: 100px;">{{ knp_pagination_sortable(areas, 'Financiamiento', 'ff.ff_id') }}</th>		                        
+		    <th style="color: #000; width:70px;" >Acciones</th>
+		</tr>
+	    </thead>
+	    <tbody>
+	    
+	    {% for area in areas %}
+		<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+		    <td>{{ area.nombre}}</td>
+		    <td>{{ area.responsable }}</td>
+		    <td>{{ area.subresponsable }}</td>
+		    <td>$ {{ area.monto }}</td>
+		    <td>{{ area.programa }}</td>
+		    <td>{{ area.actividad}}</td>
+		    <td>{{ area.ug}}</td>
+		    <td>{{ area.ff}}</td>
+		    <td style="padding:0px;">
+                {% if  is_granted('ROLE_LOG') %}	
+                    <div style="display:inline-block; cursor:pointer;">
+                        <a href="{{ path('sistema_area_eventos',{'idArea': area.id } )}}"><img src="{{ asset ("images/form-botones/eventos.png") }}" width="31" height="32" alt="Evento" class="imghover" title="Registro de Eventos"></a>
+                    </div>	
+                {% endif %}	
+		    </td>
+		</tr>
+	    {% else %}
+		<tr class="odd"><td colspan="11">No se encontraron Áreas</td></tr>
+	    {% endfor %}
+	    </tbody>
+	</table>
+            {% if ( areas | length > 0) %}
+     <div class="pagination">
+                <table align="center" id="paginador-tabla" style="background-color:#fff !important;">
+                <tr>
+                    <td style="background-color:#fff !important;">{{ knp_pagination_render(areas) }}</td>
+                </tr>
+		</table>                   
+	    </div>            
+            {% endif %}
+	{% endblock %}	
+
+	{% block botones %}
+                 {# <span> <a href="{{ path('af_area_nueva') }} " class="btn btn-default">Nueva Área</a> </span> #}
+
+                 {# <span><a href="{{ path('af_administracion_home') }}" class="btn btn-default">Volver</a></span> #}
+
+
+
+	{% endblock %}
+
+
+    {% endembed %}
+
+<style>
+.tabla-verde {
+	font-size: 12px !important;
+	/*width: 1300px;*/
+	min-height:320px;
+    max-height:700px;
+	padding: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #000000;
+    text-decoration: none;
+    overflow-y: hidden;
+}
+.tabla-verde table th{
+	padding:3px; 
+	margin-bottom:10px;
+	/*background-color:#5fb2ae;*/
+    text-decoration: none;
+
+}
+.tabla-verde th a{
+    text-decoration: none;
+    color:#000000;
+
+
+
+}
+.tabla-verde table td{
+	padding:2px;
+	/*margin:10px;*/
+    text-decoration: none;
+ 
+}
+.tabla-verde   th{
+ 
+   color:white;
+   text-decoration: none;
+   background-color:#5FB2AE;
+ 
+       
+}
+</style>
+{% endblock %}

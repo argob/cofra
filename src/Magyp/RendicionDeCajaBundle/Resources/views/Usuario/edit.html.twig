@@ -1,0 +1,134 @@
+{% block estilosEspeciales %}
+<link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('css/af.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+<style>
+body {
+	padding:5px;
+	height:auto;
+	overflow:hidden;
+}
+select {
+	width:150px;
+	}
+.error2{
+color:#980000;
+/*display:block;*/
+font-size:11px;
+text-align:right;
+width:auto;
+}
+.tooltip {
+    display: inline;
+    position: relative;
+  }
+  .tooltip:hover:after {
+    /*bottom: 26px;*/
+    content: attr(title); /* este es el texto que será mostrado */
+   /* left: 20%;*/
+   bottom:26px;
+   right:0;
+    position: absolute;
+    z-index: 98;
+    /* el formato gráfico */
+   /* background: rgba(255,255,255, 0.2);*/ /* el color de fondo */
+   background-color:rgb(115, 115, 115);
+    border-radius: 5px;
+    color: #FFF; /* el color del texto */
+    font-family: Georgia;
+    font-size: 12px;
+    padding: 5px 15px;
+    text-align: center;
+    text-shadow: 1px 1px 1px #000;
+    width: 150px;
+	border: 2px solid rgb(255, 0, 0);
+	border-radius: 3px;
+	text-shadow: rgba(115, 115, 115, 0.4) 1px 1px 1px;
+	box-shadow: rgba(115, 115, 115, 0.4) 1px 1px 2px 0px;
+	color:#fff;
+  }
+  
+  .tooltip:hover:before {
+	bottom: 20px;
+    content: "";
+    right: 90%;
+    position: absolute;
+    z-index: 99;
+    /* el triángulo inferior */
+    border: solid;
+    border-color: rgb(255, 0, 0) transparent;
+    border-width: 8px 8px 0 8px;
+  }
+</style>
+{#error1 
+<script type="text/javascript" src="{{ asset('js/jquery-1.8.2.min.js')}}"></script>
+#}
+<div style="border: thin solid #000; padding: 5px; width: auto; margin:auto; height:95%;">
+<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+    <thead>
+        <tr>
+            <th style="background-color:#5fb2ae; color:#fff;">Datos de Usuario</th>
+        </tr>
+    </thead>
+</table>
+<form action="{{ path('usuario_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+    <table id="tablaPop" align="center" width="100%">
+	<tr>
+            <th style="text-align:right;">{{ form_label(edit_form.username) }}:</th>
+            <td>{{ form_widget(edit_form.username) }}</td>
+	    <td>{% set error = form_errors(edit_form.username) %}{% if error |length > 0 %}<span title="{{error | striptags}}" class="tooltip"><img src="{{ asset ('images/iconos/error2.png') }}" width="24px" height="24px"/></span>{% endif %}</td>
+        </tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.email.first) }}:</th>
+            <td>{{ form_widget(edit_form.email.first) }}</td>
+	    <td style="text-align:left;">{% set error = form_errors(edit_form.email.first) %}{% if error |length > 0 %}<span title="{{error | striptags}}" class="tooltip"><img src="{{ asset ('images/iconos/error2.png') }}" width="24px" height="24px"/></span>{% endif %}</td>
+        </tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.email.second) }}:</th>
+	    <td>{{ form_widget(edit_form.email.second) }}</td>
+	    <td style="text-align:left;">{% set error = form_errors(edit_form.email.second) %}{% if error |length > 0 %}<span title="{{error | striptags}}" class="tooltip"><img src="{{ asset ('images/iconos/error2.png') }}" width="24px" height="24px"/></span>{% endif %}</td>
+	</tr>
+        <tr>	    
+            <th style="text-align:right;">{{ form_label(edit_form.dni) }}:</th>
+            <td>{{ form_widget(edit_form.dni) }}</td>
+	    <td style="text-align:left;">{% set error = form_errors(edit_form.dni) %}{% if error |length > 0 %}<span title="{{error | striptags}}" class="tooltip"><img src="{{ asset ('images/iconos/error2.png') }}" width="24px" height="24px"/></span>{% endif %}</td>
+	</tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.nombre) }}:</th>
+            <td>{{ form_widget(edit_form.nombre) }}</td>
+	    <td style="text-align:left;">{% set error = form_errors(edit_form.nombre) %}{% if error |length > 0 %}<span title="{{error | striptags}}" class="tooltip"><img src="{{ asset ('images/iconos/error2.png') }}" width="24px" height="24px"/></span>{% endif %}</td>
+	</tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.apellido) }}:</th>
+            <td>{{ form_widget(edit_form.apellido) }}</td>
+	    <td style="text-align:left;">{% set error = form_errors(edit_form.apellido) %}{% if error |length > 0 %}<span title="{{error | striptags}}" class="tooltip"><img src="{{ asset ('images/iconos/error2.png') }}" width="24px" height="24px"/></span>{% endif %}</td>
+	</tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.area) }}:</th>
+            <td style="text-align:left;">{{ form_widget(edit_form.area) }}</td>
+	</tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.activo) }}:</th>
+            <td style="text-align:left;" >{{ form_widget(edit_form.activo) }}</td>
+	</tr>
+        <tr>		
+            <th style="text-align:right;">{{ form_label(edit_form.bloqueada) }}:</th>
+            <td  style="text-align:left;">{{ form_widget(edit_form.bloqueada) }}</td>
+	</tr>
+        <tr>	
+            <td colspan= "3">
+                {{ form_rest(edit_form) }}
+                <div style="margin-left:auto; margin-right:auto; margin-top:20px; width: 200px;">
+                    <button type="submit" class="btn btn-default" style="display:inline-block;">Guardar</button>
+			
+				</div>
+            </td>
+        </tr>
+    </table>
+</form>
+
+
+
+</div>

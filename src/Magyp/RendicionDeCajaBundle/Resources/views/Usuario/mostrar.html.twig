@@ -1,0 +1,125 @@
+{% if is_granted('ROLE_AF') %}
+    {% set basetwig= '::afcofra.html.twig' %}
+{% else %}	
+    {% set basetwig= '::generalcofra.html.twig' %}
+{% endif %}
+
+{% extends basetwig %}
+{% block estilosEspeciales %}
+
+   <!--<link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">-->
+  <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/registro.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+    
+    
+      <!-- <link href="{{asset('css/general_para_af.css')}}" rel="stylesheet" type="text/css">-->
+
+
+<link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+
+{% block cuerpo %}
+        
+
+<section>
+    <br/>
+ <!--<div class="colIzComprobante">
+	<img src={{ asset ("images/mis_datos.jpg") }} width="150" alt="login" style="margin-top:35px;" />
+</div>-->
+ 
+ <div class="datosUsuario">
+    <table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+    <thead>
+        <tr>
+            <th style="background-color:#5fb2ae; color:#fff;">Mis Datos</th>
+        </tr>
+    </thead>
+	</table>
+		 
+		 
+        	<!--<div class="modificarComprobante" style=" min-height:400px; max-height:600px " >-->      
+        <table  align="center" width="100%;" border="0">
+            <tr>
+                <td  class="padding_derecho"Style= "text-align:right;width:10% "> <label>Usuario:</label></td>
+                <td Style= "text-align:left; width:30%">{{ usuario.username }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" Style= "text-align:right"><label>Dni:</label></td>
+                <td Style= "text-align:left">{{ usuario.dni }}</td>
+            </tr>
+            <tr>
+                <td  class="padding_derecho" Style= "text-align:right"><label>Nombre:</label></td>
+                <td Style= "text-align:left">{{ usuario.nombre }}</td>
+            </tr>
+            <tr>
+                <td  class="padding_derecho" Style= "text-align:right"><label>Apellido:</label></td>
+                <td Style= "text-align:left">{{ usuario.apellido }}</td>
+            </tr>
+            <tr>
+                <td  class="padding_derecho" Style= "text-align:right"><label>E-mail:</label></td>
+                <td Style= "text-align:left">{{ usuario.email }}</td>
+            </tr>
+            <tr>
+                <td  class="padding_derecho" Style= "text-align:right"><label>Área:</label></td>
+                <td Style= "text-align:left">{{ usuario.area }}</td>
+            </tr>
+        </table><!--
+		<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+			<thead>
+				 <tr>
+					 <th style="background-color:#5fb2ae; color:#fff;">Cambiar Contraseña:</th>
+				 </tr>
+			 </thead>
+		</table>
+        <form  action="{{ path('usuario_update_password_mostrar', {"id" : usuario.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+        
+        -->
+        <!--
+            <table id="tabla-Comprobante"  width="100%">
+
+                <tr>
+                    <td  Style= "text-align:right;width:50% "><label>Contraseña Actual:</label></td>
+                    <td  align="left" Style= " width:50%; text-align:left;"> <input id="passwordanterior" class="passowrd_btn" type="password" required="required" name="passwordanterior"></td>
+                </tr>
+                <tr>
+                    <td  class="padding_derecho" Style= "text-align:right;width:50% "> {{ form_label(edit_form.password.first) }} </td>
+                    <td Style= "text-align:left;" id="inputs"> {{ form_widget(edit_form.password.first) }} </td>
+                </tr>
+                <tr>
+                    <td  class="padding_derecho"Style= "text-align:right;width:50% "> {{ form_label(edit_form.password.second) }} </td>
+                    <td  Style= "text-align:left;" id="inputs" Style= "width:50%"> {{ form_widget(edit_form.password.second) }} </td>
+                </tr>
+            </table>-->
+			<br/>
+			<ul>
+               <!--<li> 
+				   <button type="submit" class="btn btn-default">Guardar</button>
+			   </li>-->
+               <li> 
+					<a href="{{ path('home') }}">
+					<button type="button" class="btn btn-default">Volver</button></a>
+		       </li>
+                   {{ form_rest(edit_form) }}
+			</ul>
+	        </form>
+                
+   </div>
+</section>
+    <style>
+      td {
+       
+        }
+        
+        .modificarComprobante{
+          min-width:600px; 
+            
+             }
+         #inputs {
+       
+            
+             }
+    </style>   
+{% endblock %}
+

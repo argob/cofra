@@ -1,0 +1,92 @@
+{% extends 'MagypRendicionDeCajaBundle:ReintegroDeGasto:base.html.twig' %}
+	
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Reintegro: </span>
+        <li onclick="location.href = '{{ path('af_reintegrodegasto_new') }}'" class="editar">Nuevo Reintegro</li>
+		<li onclick="parent.location='{{ path('af_notasgenericas_home') }}'" class="volver">Volver</li>    
+    </div>	
+
+{% endblock %}			
+{% block cuerpo %}
+
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+
+        {% block titulotabla "Reintegro De Gasto" %}
+
+        {% block busqueda %}
+                {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                    {% set path_action = path('af_reintegrodegasto') %} 
+                    {% set busqueda_nombre = 'reintegrodegasto' %}
+                    {% block input_with "400px" %}
+                {% endembed %}
+        {% endblock %}
+
+        {% block tabla %}
+		<div class="reintegro">
+			<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+			<thead>
+				<tr>
+					<th style="background-color:#5fb2ae; color:#fff;">Nuevo Reintegro</th>
+				</tr>
+			</thead>
+			</table>
+        <table class="reintegroTabla" width="100%" cellspacing="0">
+               <thead>
+                   <tr>      
+                       <th>Expediente</th>
+                       <th>Nota</th>
+                       <th>Area</th>
+                       <th>Beneficiario</th>
+                       <th>Período inicial</th>
+                       <th>Período final</th>
+                       <th>Act.</th>
+                       <th>F.F</th>
+                       <th>UG</th>
+                       <th>Acciones</th>
+                   </tr>
+               </thead>
+               <tbody>
+               {% for entity in entities %}
+                   <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                       <td>{{ entity.expediente }}</td>
+                       <td>{{ entity.nota }}</td>
+                       <td>{{ entity.area }}</td>
+                       <td>{{ entity.beneficiario }}</td>
+                       <td>{% if entity.periodoinicial %}{{ entity.periodoinicial|date('d-m-Y') }}{% endif %}</td>
+                       <td>{% if entity.periodofinal %}{{ entity.periodofinal|date('d-m-Y') }}{% endif %}</td>
+                       <td>{{ entity.actividad }}</td>
+                       <td>{{ entity.fuentefinanciamiento }}</td>
+                       <td>{{ entity.ug }}</td>
+						<td style="width: 100px;" >
+							<div>
+								<a href="{{ path('af_reintegrodegasto_show', { 'id': entity.id }) }}"><img src="{{ asset('images/form-botones/ver.png') }}" class="accion3" title="Ver Datos" alt="Ver" style="cursor:pointer;" /></a>
+								<a href="{{ path('af_reintegrodegasto_edit', { 'id': entity.id }) }}"><img src="{{ asset('images/form-botones/editar.png') }}" class="accion3" title="Modificar Datos" alt="Modificar" style="cursor:pointer;" /></a>
+							</div>						
+						</td>    
+                   </tr>
+               {% endfor %}
+               </tbody>
+           </table>
+           {% if ( entities | length > 0) %}
+                <div class="pagination">
+                    <table align="center" id="paginador-tabla">
+                    <tr>
+                        <td>{{ knp_pagination_render(entities) }}</td>
+                    </tr>
+                    </table>                   
+                </div>            
+             {% endif %}
+        {% endblock %}
+
+        {% block botones %}
+				{#
+            <span><a href="{{ path('af_reintegrodegasto_new') }}"  class="btn btn-default">Crear un nuevo reintegro de gasto</a></span> 
+            <span><a href="{{ path('af_notasgenericas_home') }}" class="btn btn-default">Volver</a></span>
+				#}
+        {% endblock %}
+    {% endembed %}  
+			</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'MagypRendicionDeCajaBundle:Notificacion:base.html.twig' %}
+
+
+{% block cuerpo %}
+
+       
+        
+<ul>
+    {#<li><a href={{ path ("sistema_notificacion_ver") }} >Ver Notificaciones</a></li> #}
+    {#<li><a href={{ path ("sistema_notificacion_nueva") }} >Crear Notificacion</a></li>
+    <li><a href={{ path ("sistema_notificacion_propias") }} >Ver Mis Notificaciones</a></li>#}
+    {% if is_granted('ROLE_AF') %}
+    <li><a href={{ path ("af_notificaciones") }} >Notificaciones de Administracion Financiera</a></li>   
+    {% endif %}
+    {#<li><a href={{ path ("af_home") }} >volver</a></li>  #} 
+    
+    
+    
+</ul>
+{% endblock %}
+
+

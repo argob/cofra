@@ -1,0 +1,62 @@
+{% extends '::afcofra.html.twig' %}
+
+{% set paginaActual = 'Gestion' %}
+
+{% block titulo %}Historial{% endblock %}
+
+{% block estilosEspeciales %}
+<link href="{{asset('css/eventos.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+
+{% block cuerpo %}
+<h2 style="color:#000;">Historial administrativo del expediente</h2>
+<section>
+    <div id="colCen">
+        <table class="tablaTitulo" align="center" width="100%">
+            <thead>
+                <tr>
+                    <th style="background-color:#009896;">Circuito</th>
+                </tr>
+            </thead>
+        </table>
+        <ul style="display: inline">
+        {% if eventos | length == 0  %}No hay datos disponibles{% endif %}
+        {% for evento in eventos %}
+            {% if ( (evento.NombreTipoEvento == 'Cambio de Estado' ) or ( evento.NombreTipoEvento =='Nuevo'  ) ) %} 
+                <li style="display: inline">
+                {% set items = evento.listaDeCambios	%}
+                    <table width="100%">
+                        <th colspan="3">
+                        M" de Referencia: {{evento.id}} - Usuario: {{evento.usuario}} - Fecha: {{evento.fecha | date("m/d/y h:i")}}
+                        </th>
+                        {% if (evento.NombreTipoEvento == 'Nuevo' )%}
+                            <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                                <td colspan="2" >Nuevo</td>
+                            </tr>
+                        {%else%}
+                            {% for item in items %}
+                                    <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                                        {% if item.soyEntidad == false %}
+                                        <td>{{item.anterior}}</td>
+                                        <td>{{item.nuevo}}</td>
+                                        {% endif %}
+
+                                        {% if item.soyEntidad == true %}
+                                        <td>{{item.entidad}}</td>
+                                        {% endif %}
+                                    </tr> 
+                            {% endfor %}	
+                        {%endif%}
+                    </table>
+                </li>		
+            {% endif %}
+        {% endfor %}
+        </ul>		
+    </div>
+    <div class="evento-botones">
+        <div style="margin-left:auto; margin-right:auto; margin-top:20px; width: 100px;">
+            <button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button>
+        </div>
+    </div>
+</section>
+{% endblock %}

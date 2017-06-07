@@ -1,0 +1,58 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+	{% block javascriptEspeciales %}
+{#error1		<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script> #}
+
+	{% endblock %}
+{% set paginaActual = 'RC' %}
+{% block menu %}
+{% endblock %}
+
+{% block cuerpo %}
+<section>
+	<div id="panel-home">
+		<div class="panel-marco-af">
+		<div id="superSuperior">
+			<h1>Panel de Administración</h1>
+		</div>
+		<div id="superior">
+			<div class="boton1af">
+				<img onclick="efectosUnLoad('fade', '#panel-home', '{{ path("af_buscador_general_pip")}}' );" src={{ asset("images/botonera2/images/buscador.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+			</div>
+			<div class="boton2af">
+				<img onclick="efectosUnLoad('slideaderecha', '#panel-home', '{{ path("af_administracion_home")}}' );" src={{ asset("images/botonera2/images/administracion.jpg") }} width="245" height="105" alt="boton9" class="imghover">
+			</div>
+		</div>
+		<div id="medio">
+			<div class="boton3af">
+				<img onclick="efectosUnLoad('slideaderecha', '#panel-home', '{{ path("af_notificaciones_home")}}' );" src={{ asset ("images/botonera2/images/notificacion.jpg") }} width="120" height="105" alt="boton3" class="imghover">
+			</div>
+			<div class="boton4af">
+				<img onclick="efectosUnLoad('slideaderecha', '#panel-home', '{{ path("af_notasgenericas_home")}}' );" src={{ asset ("images/botonera2/images/notas.jpg") }} width="120" height="105" alt="boton4" class="imghover">
+			</div>
+			<div class="boton5af">
+				<img onclick="efectosUnLoad('slideaderecha', '#panel-home', '{{ path("af_rendiciones_home")}}' );" src={{ asset("images/botonera2/images/rendiciones.jpg") }} width="120" height="105" alt="boton5" class="imghover">
+			</div>
+			<div class="boton6af">
+				<a href="{{ asset("manuales/Manual COFRA RC.pdf") }}" target="_blank"><img src={{ asset("images/botonera2/images/manual.jpg") }} width="120" height="105" alt="boton7" class="imghover"></a>
+			</div>
+			<br/>
+			{% if ( is_granted("ROLE_GENERAL") ) %}
+				<div id="volver" class="volver" onclick="efectosUnLoad('slideaderecha', '#panel-home', '{{ path("home")}}' );">
+					<a>Panel General</a>
+				</div> 
+			{% else %}        
+				<div id="volver" class="volver"  >
+				</div> 
+			{% endif %}
+			</div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    efectosLoad('slideaderecha', '#panel-home');
+    setTimeout('$(".imghover").imghover({suffix: "-over"})', 410);
+</script>
+
+{% endblock %}

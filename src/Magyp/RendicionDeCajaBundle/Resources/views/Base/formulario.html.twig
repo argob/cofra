@@ -1,0 +1,24 @@
+<h2 style="color:#000;"> {% block titulo "" %} </h2>
+
+<section>
+	 <div class="colIzComprobante">
+	<img src={{ asset ("images/notificacion_nueva.jpg") }} width="150" height="300" alt="login" style="margin-top:35px;" />
+    </div>     
+	<div class="modificarComprobante">
+		                     <table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+								<thead>
+									<tr>
+										<th>{% block titulotabla %}{% endblock %}</th>
+									</tr>
+								</thead>
+							 </table>
+		        {% block formulario %}
+                        {% endblock %}		
+		<div style="margin-left:auto; margin-right:auto; margin-top:20px;">
+			{% block botones %}
+			{% endblock %}
+		</div>			
+	 </div>
+		
+</section>
+

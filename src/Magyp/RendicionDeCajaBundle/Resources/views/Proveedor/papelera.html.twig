@@ -1,0 +1,54 @@
+{% extends 'MagypRendicionDeCajaBundle:Proveedor:base.html.twig' %}
+
+{% block cuerpo %}
+    {% embed 'MagypRendicionDeCajaBundle:Plantilla:papelera.html.twig' %}
+        {% block titulotablapapelera "PAPELERA DE PROVEEDORES" %}
+
+        {% block tabla %}
+            <table id="papelera" style="overflow-y: scroll; height: auto; width:100%" cellspacing="0" >
+                <thead> 
+                    <tr>
+                        <td style="display: none">Id</td>
+                        <td  style="background-color:#dddddd;">Fecha</td>            
+                        <td style="width:300px;background-color:#dddddd">Razón Social</td>
+                        <td  style="background-color:#dddddd;">Cuit</td>
+                        <td  style="background-color:#dddddd;">Acción</td>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for proveedor in proveedores%}
+                    <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                        <td style="display: none">{{ proveedor[0].id }}</td>
+                        <td>{{ proveedor[1]| date('d/m/y H:i:s')}}</td> 
+                        <td>{{ proveedor[0].descripcion }}</td>
+                        <td>{{ proveedor[0].cuit }}</td>
+                        <td>
+                            {% if proveedor[0].esRestaurable(proveedor[1]) %}
+                                <button onclick="irApagina('{{path('sistema_proveedor_restaurar',{ 'idproveedor':proveedor[0].id})}}',true)" class="btn btn-default"> Restaurar </button>
+                            {% else %}
+                                <span>Eliminado</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}
+        {% block botones %}
+          
+                {% if is_granted('ROLE_LOG') %}
+                    <button onclick="irApagina('/sistema/proveedor/'+seleccionado+'/eventos',0)" class="btn btn-default">Eventos</button> 
+                {% endif %}
+                      <button onclick="irApagina('/sistema/proveedor/',true)" class="btn btn-default">Volver</button>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+         
+{% block javascriptEspeciales %}
+    <!-- js especiales -->
+    {{ parent() }}
+    {% include 'MagypRendicionDeCajaBundle:Proveedor:base.js.twig' %}
+    <!-- fin js especiales -->
+{% endblock %}
+
+

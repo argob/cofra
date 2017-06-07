@@ -1,0 +1,57 @@
+{% extends 'MagypRendicionDeCajaBundle:Liquidacion:base.html.twig' %}
+
+
+{% block cuerpo %}
+
+{% embed 'MagypRendicionDeCajaBundle:Plantilla:papelera.html.twig' %}
+
+{% block titulopapelera "Listado de Liquidaciones" %}
+{% block titulotablapapelera "Liquidaciones Borradas" %}
+
+{% block tabla %}
+	<table class="principal" width="100%" border="0" cellspacing="0">
+
+		<tr>
+			<th scope="col" style="display: none">Id</th>
+			<th scope="col" Style="background-color:#dddddd">Expediente</th>
+			<th scope="col" Style="background-color:#dddddd">Nota</th>
+			<th scope="col" Style="background-color:#dddddd">Período inicial</th>
+			<th scope="col" Style="background-color:#dddddd">Período final</th>
+			<th scope="col" Style="background-color:#dddddd">Fuente financiamiento</th>
+			<th scope="col" Style="background-color:#dddddd">UG</th>
+			<th scope="col" Style="background-color:#dddddd">Iniciales</th>
+			<th scope="col" Style="background-color:#dddddd">Acción</th>  
+		</tr>
+
+			{% for liquidacion  in liquidaciones %}
+				<tr style="cursor: pointer;" class="{{ cycle(["even", "odd"], loop.index) }}">
+				    <td style="display: none">{{ liquidacion.id }}</a></td> 
+				    <td>{{ liquidacion.expediente }}</td>
+				    <td>{{ liquidacion.nota }}</td>
+				    <td>{% if liquidacion.periodoinicial %}{{ liquidacion.periodoinicial|date('d-m-Y') }}{% endif %}</td>
+				    <td>{% if liquidacion.periodofinal %}{{ liquidacion.periodofinal|date('d-m-Y') }}{% endif %}</td>				    
+				    <td>{{ liquidacion.ug }}</td>
+				    <td>{{ liquidacion.fuentefinanciamiento }}</td>
+				    <td>{{ liquidacion.responsable.nombre | slice(0, 1) }}{{  liquidacion.responsable.apellido | slice(0, 1) }}</td>
+				    <td><button onclick="irApagina('{{path('sistema_liquidacion_restaurar',{ 'idliquidacion':liquidacion.id})}}',true)" class="btn btn-default"> Restaurar </button></td>	
+				</tr>
+			{% endfor %}
+
+	</table>
+{% endblock %}
+
+{% block botones %}
+    <button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button>
+{% endblock %}
+
+		{% block estilosEspeciales %}
+			{{ parent() }}
+			<link href="{{asset('css/plantillas/papelera-verde.css')}}" rel="stylesheet" type="text/css">			
+		{% endblock %}
+
+{% endembed %}
+
+{% endblock %}
+
+
+

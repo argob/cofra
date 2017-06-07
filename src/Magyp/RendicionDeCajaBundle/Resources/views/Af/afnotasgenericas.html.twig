@@ -1,0 +1,34 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+
+{% set paginaActual = 'Notas' %}
+
+{% block cuerpo %}
+    <section id="panel-notas">
+        <div id="superSuperior">
+            <h1>Notas Genéricas</h1>
+        </div>
+        <div id="superior">
+            <div class="boton1">  
+                <img onclick="efectosUnLoad('fade', '#panel-notas', '{{ path("af_anticipodegasto")}}' );" src={{ asset("images/botonera2/images/anticipo.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+            </div>
+             <div class="boton2">   
+                <img onclick="efectosUnLoad('fade', '#panel-notas', '{{ path("af_fondorotatorio")}}' );" src={{ asset("images/botonera2/images/pago.jpg") }} width="245" height="105" alt="boton9" class="imghover">
+            </div>
+        </div>
+        <div id="medio">
+            <div class="boton10">
+                 <img onclick="efectosUnLoad('fade', '#panel-notas', '{{ path("af_reintegrodegasto")}}' );"  src={{ asset("images/botonera2/images/reintegro.jpg") }} width="492px" height="105" alt="boton9" class="imghover"class="imghover">
+            </div>
+            <br/>
+            
+            <div id="volver" class="volver" onclick="efectosUnLoad('slideaizquierda', '#panel-notas', '{{ path("af_home")}}' );">
+                <a>Volver</a>
+            </div>
+        </div>	
+    </section>
+    <script>
+        efectosLoad('slideaizquierda', '#panel-notas' );
+        setTimeout('$(".imghover").imghover({suffix: "-over"})', 410);
+    </script>
+
+{% endblock %}

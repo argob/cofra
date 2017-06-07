@@ -1,0 +1,28 @@
+
+<table class="records_list" id="Comprobantes" class="secundaria" cellspacing="0" >
+    <thead>
+        <tr>
+            
+            <th Style=" width:200px;background-color:#ddd ">Número</th>
+            <th style="width:300px;background-color:#ddd ">Descripción</th>
+            <th Style="background-color:#ddd ">Importe</th>
+            <th Style="background-color:#ddd ">Imputación</th>
+            <th Style=" width:300px;background-color:#ddd ">Proveedor</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+    {% for comprobante in comprobantes %}
+        <tr class="{{ cycle(["even", "odd"], loop.index) }}" >
+
+
+            <td>{{ comprobante.numero }}</td>
+            <td>{{ comprobante.descripcion }}</td>
+            <td>{{ comprobante.importe }}</td>
+            <td>{{ comprobante.imputacion }}</td>
+            <td>{{ comprobante.proveedor }}</td>
+
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

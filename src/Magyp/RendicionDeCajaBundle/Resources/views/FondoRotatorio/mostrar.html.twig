@@ -1,0 +1,175 @@
+{% extends 'MagypRendicionDeCajaBundle:FondoRotatorio:base.html.twig' %}
+
+{% block cuerpo %}
+
+<div class="acciones" style="margin-top:0px;">   
+    <span style="margin-right: 25px; vertical-align: middle;">Acciones de Rendición: </span>
+    <li class="editar" onclick="location.href='{{ path('af_fondorotatorio_edit', { 'id': fondorotatorio.id }) }}'"><span class="labelbotonrendicion" >Modificar</span></a> </li>	
+    <li {% if ( is_granted("ROLE_AF_IMPRIMIR") ) %}
+       class="imprimir" onclick="location.href='{{ path('imprimir_fondorotatorio_pdf', { 'idfondorotatorio': fondorotatorio.id, 'hash': hash }) }}'">
+            <span class="labelbotonrendicion" >Imprimir</span>
+    {% endif %}   
+    </li>
+    <li class="volver"  onclick="location.href='{{ path('af_fondorotatorio') }}'">
+        <span class="labelbotonrendicion" >Volver</span>
+    </li>
+</div>	
+   {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+        {% block bloqueCabecera %}
+            <div id="tablacabecera" style="border: 0;">
+                <table  class="fondoRotatorio1" width="100%" cellspacing="2">
+                    <tbody>  
+						<tr>
+							<th colspan="3" class="tablaTitulo th" style="background-color:#5FB2AE;">Fondo Rotatorio</th>
+						</tr>
+                        <tr> 
+                            <th Style="background-color:#dddddd; color:#000"> <label>Expediente:</label> </th>
+							<th Style="background-color:#dddddd; color:#000"> <label>Beneficiario:</label></th>
+
+                            <th Style="background-color:#dddddd; color:#000"> <label>UG: </label></th>
+                        </tr>
+						<tr>
+                           <td >{{ fondorotatorio.expediente }}</td>
+                            <td >{{ fondorotatorio.beneficiario }}</td>
+
+							<td >{{ fondorotatorio.ug }}</td>
+                        </tr>
+						<tr>
+                            <th  Style="background-color:#dddddd; color:#000"> <label>Área:</label></th>
+							<th  Style="background-color:#dddddd; color:#000"> <label>Programa:</label></th>
+							<th  Style="background-color:#dddddd; color:#000"> <label>Actividad: </label></th>
+                        </tr>
+                        <tr>
+							<td >{{ fondorotatorio.area }}</td>
+                            <td >{{ fondorotatorio.programa }}</td>
+                            <td >{{ fondorotatorio.actividad }}</td>
+                        </tr>
+                        <tr>
+                            <th Style="background-color:#dddddd; color:#000"> <label>Nota: </label></th>
+							<th Style="background-color:#dddddd; color:#000"> <label>Motivo: </label></th>
+							<th Style="background-color:#dddddd; color:#000"> <label>FF:</label></th>
+                        </tr>
+                        
+                        <tr>
+                            <td  >{{ fondorotatorio.nota }}</td>
+                            <td  >{{ fondorotatorio.motivo }}</td>
+							<td >{{ fondorotatorio.fuentefinanciamiento }}</td>
+                        </tr>
+                        
+						
+                        
+                       
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        {% endblock%}
+        {% block tabla %} 
+            <table class="fondoRotatorio1" cellspacing="2" width="100%" >
+                <tbody>
+                      <td style="background-color:#5FB2AE; color:white; font-weight: bold" colspan= "13">FACTURAS</td>
+                    <tr>
+
+                    </tr>
+                    <tr>
+                        <th Style="background-color:#dddddd; color:#000"> <label>Tipo </label></h>
+                        <th Style="background-color:#dddddd; color:#000"> <label>Número </label></th>
+                        <th Style="background-color:#dddddd; color:#000"> <label>Monto </label></th>
+                    </tr>
+                        {% for factura in fondorotatoriofacturas %}
+                        <tr>
+                            <td>{{ factura.tipofactura }}</td>
+                            <td>{{ factura.numero }}</td>
+                            <td>{{ factura.monto }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="fondoRotatorio1" cellspacing="2" width="100%">
+                <tbody>
+                     <td style="background-color:#5FB2AE; color:white; font-weight: bold" colspan= "13">RETENCIÓN</td>
+                    {% for retencion in retencionestipos %}
+                        <tr>
+                            <th Style="background-color:#dddddd; color:#000"> <label>Tipo: </label></th>
+							<th Style="background-color:#dddddd; color:#000"> <label>Monto: </label></th>
+                            
+                        </tr>
+                        <tr>
+                            <td >
+                               {{ retencion.retenciontipo.descripcion }}
+                            </td>
+                            <td>
+                                {{ retencion.monto }}
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <table class="fondoRotatorio1" cellspacing="2" width="100%">
+                <tbody>
+                        <td style="background-color:#5FB2AE;  color:white; font-weight: bold" colspan= "13">IMPUTACIÓN</td>
+                    <tr>
+                        <th Style="background-color:#dddddd; color:#000"> <label>Tipo </label></th>
+                        <th Style="background-color:#dddddd; color:#000"> <label>Monto </label></th>
+                    </tr>
+                     {% for fondorotatorioimputacion in fondorotatorioimputaciones %}
+                            <tr>
+                                <td>{{ fondorotatorioimputacion.imputacion.codigo }}</td>
+                                <td>{{ fondorotatorioimputacion.monto }}</td>
+                            </tr>
+                        {%endfor%}
+                </tbody>
+            </table>
+{#
+            <table  class="bloquecabecera" cellspacing="0" width="100%" align="center">
+                <tbody>
+                    <tr>
+                        <td>
+                            <span>   
+                                <a  class="btn btn-default" href="{{ path('af_fondorotatorio_edit', { 'id': fondorotatorio.id }) }}">
+                                    Modificar
+                                </a>
+                            </span> 
+                            {% if ( is_granted("ROLE_AF_IMPRIMIR") ) %}
+                                <span>
+                                    <a class="btn btn-default"  href="{{ path('imprimir_fondorotatorio_pdf', { 'idfondorotatorio': fondorotatorio.id, 'hash': hash }) }}">
+                                        Imprimir
+                                    </a>
+                                </span>       
+                            {% endif %}    
+                            <form  action="{{ path('af_fondorotatorio_delete', { 'id': fondorotatorio.id }) }}" method="post"  Style=" width:80px;  display:inline-block;  ">
+                                {{ form_widget(delete_form) }}
+                                <button  class="btn btn-default"  type="submit">Borrar</button>
+                            </form>
+                            <span>  
+                                <a  class="btn btn-default"  href="{{ path('af_fondorotatorio') }}">
+                                    Volver
+                                </a>
+                            </span> 
+                        </td> 
+                     </tr>
+                </tbody>   
+            </table>
+#}
+            {% block estilosEspeciales %}
+                <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+                <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+            {% endblock %}
+            <style>             
+                a{
+                    text-decoration: none;
+                    color:#000000;
+
+                }
+                a:link{
+                    text-decoration: none;
+                    color:#000000;
+                }
+                a:hover{
+                    text-decoration: none;
+                    color:#000000;
+                }        
+            </style>
+        {% endblock %}
+    {% endembed %}     
+{% endblock %}

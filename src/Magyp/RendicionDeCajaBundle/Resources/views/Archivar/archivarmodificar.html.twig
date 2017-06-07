@@ -1,0 +1,38 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+	{% block javascriptEspeciales %}
+	{#error1	<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script> #}
+		<script type="text/javascript" src="{{ asset('js/imghover.js')}}"></script>
+	{% endblock %}
+{% block cuerpo %}
+    <form action="{{ path('af_archivar', { 'idrendicion': idrendicion }) }}" method="post">
+        <table cellspacing="0" border="0" width="auto" style="display: inline">
+            <tr>
+                <td  class="padding_derecho" align="right" >
+                    Número de Caja:
+                </td>
+                <td align="left" >
+                    <input type="text" name="numerocaja" id="numerocaja" maxlength="255" size="30" value="" required="required" />
+                </td>
+            </tr>
+            <tr>
+                <td align="right" >
+                    Liquidación Enviada a Tesoreria (código de barras)
+                </td>
+                <td align="left" >
+                    <input type="text" name="liquidacionenviada" id="liquidacionenviada" maxlength="255" size="30" value="" required="required" />
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <button type="submit">Archivar</button>
+                </td>
+        </table>
+    </form>
+    <ul>
+        <li>
+            <a href="{{ path('af_home') }}">
+                Volver
+            </a>
+        </li>
+    </ul>     
+{% endblock %}

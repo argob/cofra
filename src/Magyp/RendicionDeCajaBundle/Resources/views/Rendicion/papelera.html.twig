@@ -1,0 +1,47 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+
+
+{% block cuerpo %}
+
+	{% embed 'MagypRendicionDeCajaBundle:Plantilla:papelera.html.twig' %}
+
+
+		{% block titulotablapapelera "PAPELERA DE RENDICIONES" %}
+
+		{% block tabla %}
+			<table id="Rendicion" class="records_list" width="100%"  border="0" cellspacing="0">
+					
+						<tr>
+							<th scope="col" style="display: none">Id</th>
+							<th Style="background-color:#dddddd "  scope="col">Fecha</th>
+							<th  Style="background-color:#dddddd " scope="col">Expediente</th>
+							<th Style="background-color:#dddddd " scope="col">Total rendición</th>
+                            <th  Style="background-color:#dddddd " scope="col">Comprobantes</th>
+							<th Style="background-color:#dddddd "  scope="col">Contenido</th>
+							<th Style="background-color:#dddddd " scope="col">Acción</th>
+						</tr>
+												
+							{% for rendicion in rendiciones %}
+
+									<tr id="trcito{{rendicion.id}}" onclick="elegir({{rendicion.id}})" style="cursor: pointer;" class="{{ cycle(["even", "odd"], loop.index) }}">
+										<td style="display: none"><a href="{{ path('rendicion_show', { 'id': rendicion.id }) }}">{{ rendicion.id }}</a></td> 
+									<td>{% if rendicion.fecha %}{{ rendicion.fecha|date('Y-m-d') }}{% endif %}</td>
+									<td>{{ rendicion.expediente }}</td>
+									<td>$ {{ rendicion.totalRendicion }}</td>
+                                                                        <td>{{ rendicion.comprobantes | length }}</td>
+									<td><button onclick="irApagina('{{path('sistema_comprobante_papelera',{ 'idrendicion':rendicion.id})}}?refer=rendicion_papelera&id={{rendicion.id}}',true)" class="btn btn-default"> Ver </button></td>
+									<td><button onclick="irApagina('{{path('sistema_rendicion_restaurar',{ 'idrendicion':rendicion.id})}}',true)" class="btn btn-default"> Restaurar </button></td>	
+								</tr>
+							{% endfor %}
+				
+					</table>
+		{% endblock %}
+
+		{% block botones %}
+			<button onclick="irApagina('{{path('sistema_rendicion')}}',true)" class="btn btn-default">Volver</button>
+		{% endblock %}
+
+
+	{% endembed %}
+
+{% endblock %} 

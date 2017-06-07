@@ -1,0 +1,20 @@
+{% extends 'MagypRendicionDeCajaBundle:Login:mensaje.html.twig' %}
+
+{% block titulo  %}Atención Usuario{% endblock %}
+
+{% block mensaje  %}
+
+{% if doblesession %}
+<p>Se detectó otra sesión activa y se ha finalizado.</p>
+{% endif %}
+
+{% if otraubicacion %}
+<p>La sesión es diferente a su última ubicación. Por favor si no ha sido Usted cambie la contraseña.</p>
+{% endif %}
+
+
+
+{% endblock %}
+
+{# la direccion del boton coninuar esta en continuar_link que 
+se pasa a la plantilla padre#}

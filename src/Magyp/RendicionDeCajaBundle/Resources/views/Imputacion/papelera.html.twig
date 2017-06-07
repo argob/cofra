@@ -1,0 +1,55 @@
+{% extends 'MagypRendicionDeCajaBundle:Imputacion:base.html.twig' %}
+
+{% block cuerpo %}
+{% embed 'MagypRendicionDeCajaBundle:Plantilla:papelera.html.twig' %}
+
+		{% block titulopapelera " Papelera de Imputaciones" %}
+		{% block titulotablapapelera "Imputaciones Borradas" %}
+
+		{% block tabla %}
+			<table id="papelera" class="records_list" style="overflow-y: scroll;" cellspacing="0">
+				<thead>
+					<tr>
+						<th style="display: none">Id</th>
+						<th>Fecha</th>            
+						<th style="width:300px;">Descripcion</th>
+						<th>Codigo</th>
+						<th>Accion</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for imputacion in imputaciones%}
+					<tr class="{{ cycle(["even", "odd"], loop.index) }}">
+						<td style="display: none">{{ imputacion[0].id }}</td>
+						<td>{{ imputacion[1]| date('d/m/y H:i:s')}}</td> 
+						<td>{{ imputacion[0].descripcion }}</td>
+						<td>{{ imputacion[0].codigo }}</td>
+						<td>
+							{% if imputacion[0].esRestaurable(imputacion[1]) %}
+							<button onclick="irApagina('{{path('sistema_imputacion_restaurar',{ 'idimputacion':imputacion[0].id})}}',true)" class="btn btn-default"> Restaurar </button>
+							{% else %}
+							<span>Eliminado</span>
+							{% endif %}
+						</td>
+					</tr>
+				{% endfor %}
+				</tbody>
+			</table>
+		{% endblock %}
+
+		{% block botones %}
+	        <button onclick="irApagina('/sistema/imputacion/'+seleccionado+'/eventos',0)" class="btn btn-default">Eventos</button>   
+			<button onclick="irApagina('/sistema/imputacion/',true)" class="btn btn-default">Atras</button>
+            <button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button>
+		 
+           
+		{% endblock %}
+			
+		{% block estilosEspeciales %}
+			{{ parent() }}
+			<link href="{{asset('css/plantillas/papelera-verde.css')}}" rel="stylesheet" type="text/css">			
+		{% endblock %}	
+	{% endembed %}			
+			
+{% endblock %}
+			

@@ -1,0 +1,16 @@
+<h1>Rendicion creation</h1>
+
+<form action="{{ path('rendicion_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('rendicion') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

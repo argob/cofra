@@ -1,0 +1,117 @@
+{% extends 'MagypRendicionDeCajaBundle:AnticipoDeGasto:base.html.twig' %}
+{% block estilosEspeciales %}
+
+    <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/registro.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/general_para_af.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+{% endblock %}
+	
+	{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Gastos: </span>
+		<li onclick="parent.location='{{ path('af_notasgenericas_home') }}'" class="volver">Volver</li>    
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+
+	{% embed "MagypRendicionDeCajaBundle:Plantilla:crear-modificar.html.twig" %}
+
+		{% block titulo %}  
+		
+		{% endblock %}
+        {% block heightMarcoFoto 'style="height:412px"' %}
+
+		{% block imagenlateral %}  
+			<img src={{ asset ("images/anticipoGasto.jpg")}} width="150" height="300" alt="imagen" style="margin-top:35px;" />
+		{% endblock %}
+			
+		{% block titulo_formulario "NUEVO ANTICIPO DE GASTOS" %}	
+			
+		{% block tabla_formulario %}  
+            
+        <div class="" style=" min-height:350px; max-height:600px " >     
+            <form name="formanticipo" id="formanticipo" action="{{ path('af_anticipodegasto_create') }}" method="post" {{ form_enctype(form) }}>
+                <table id="tabla-Comprobante" border="0" align="center" width="100%; ">
+                    <tr>
+                        <td  class="padding_derecho"Style= "text-align:right;width:10% ">{{ form_label(form.expediente) }}:</td>
+                        <td Style= "text-align:left; width:20%">{{ form_widget(form.expediente) }}</td>
+                    </tr>
+                    <tr>		
+                        <td  class="padding_derecho"Style= "text-align:right;width:10% ">{{ form_label(form.nota) }}:</td>
+                        <td  Style= "text-align:left; width:20%">{{ form_widget(form.nota) }}</td>		
+                    </tr>
+                    <tr>		
+                        <td  class="padding_derecho"Style= "text-align:right;width:10% ">{{ form_label(form.area) }}:</td>
+                        <td Style= "text-align:left; width:20%" >{{ form_widget(form.area) }}</td>
+                    </tr>
+                    <tr>		
+                        <td  class="padding_derecho"Style= "text-align:right;width:10% ">{{form_label(form.monto) }}:</td>
+                        <td Style= "text-align:left; width:20%">{{ form_widget(form.monto) }}</td>	
+                    </tr>
+                    <tr>		
+                        <td  class="padding_derecho"Style= "text-align:right;width:10% ">{{form_label(form.motivo) }}:</td>
+                        <td Style= "text-align:left; width:20%">{{ form_widget(form.motivo) }}</td>	
+                    </tr>
+                    <tr>
+                        <td colspan="2">		
+                            {{ form_rest(form) }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" scope="row" align=" center">
+                            <div style="margin:0px;margin-top:30px; margin-bottom:30px;" align="center">   
+                                <button class="btn btn-default" type="submit">Crear</button>
+                            </div>  
+                        </td>
+                    </tr>
+              </table>  
+
+            </form>          
+        </div>             
+        {% endblock %}
+	
+
+		{% block estilosEspeciales %}
+			<link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+			<link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+            
+            
+    
+             <link href="{{asset('css/registro.css')}}" rel="stylesheet" type="text/css">
+             <link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+             <link href="{{asset('css/general_para_af.css')}}" rel="stylesheet" type="text/css">
+
+
+<link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+            
+		{% endblock %}
+	{% endembed %}
+    <style>
+      td {
+       
+        }
+        
+        .modificarComprobante{
+          min-width:400px; 
+            
+             }
+
+        #colDe-editar {
+            border: thin solid #000000;
+            height:401px;
+            width:300px;
+        }
+
+        #colDe-editar table th{
+
+
+        }
+         
+    </style>
+{% endblock %}

@@ -1,0 +1,116 @@
+{% extends 'MagypRendicionDeCajaBundle:AnticipoDeGasto:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Gastos: </span>
+        <li onclick="location.href = '{{ path('af_anticipodegasto_edit', { 'id': entity.id }) }}'" class="editar">Modificar</li>
+		{% if ( is_granted("ROLE_AF_IMPRIMIR") ) %}
+			<li onclick="parent.location='{{ path('imprimir_anticipodegastos_pdf', { 'idanticipodegastos': entity.id, 'hash': hash }) }}'" class="volver">Imprimir</li>
+		{% endif%}
+		<li onclick="parent.location='{{ path('af_notasgenericas_home') }}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:crear-modificar.html.twig" %}
+        {% block titulo %}  
+ 
+        {% endblock %}
+
+        {% block heightMarcoFoto 'style="height:412px"' %}
+            
+        {% block imagenlateral %}  
+            <img src={{ asset ("/images/anticipoGasto.jpg")}} alt="imagen" style="margin-top:35px;"/>
+        {% endblock %}
+
+        {% block titulo_formulario "ANTICIPO DE GASTOS"%}
+
+        {% block tabla_formulario %}    
+            <div class="" style=" min-height:350px; max-height:600px; width:100%; " > 
+            <table id="" class="reintegroForm">
+				<tr>
+					<td><h1></h1></td>
+				</tr>
+                <tr>
+                    <td><label>Expediente:</label></td>
+                    <td>{{ entity.expediente }}</td>
+                </tr>
+                <tr>
+                    <td><label>Nota:</label></td>
+                    <td>{{ entity.nota }}</td>
+                </tr>
+                <tr>
+                    <td><label>Área:</label></td>
+                    <td>{{ entity.area }}</td>
+                </tr>
+                <tr>
+                    <td><label>Monto:</label></td>
+                    <td>{{ entity.monto }}</td>
+                </tr>
+                <tr>
+                    <td><label>Motivo:</label></td>
+                    <td>{{ entity.motivo }}</td>
+                </tr>     
+                <tr>        
+					{#
+                    <td colspan="2" align=" center">
+                        <div style="margin:0px; margin-top:30px; margin-bottom:30px;" align="center">   
+                             <a  class= "btn btn-default" href="{{ path('af_anticipodegasto_edit', { 'id': entity.id }) }}">
+                                 Modificar
+                             </a>
+                            
+                           <span ><a  href="{{ path('af_anticipodegasto') }}" class="btn btn-default">Volver</a></span>
+                        </div>
+                   </td>
+#}
+                </tr>
+            </table>
+     </div>  
+        {% endblock %}
+        
+        {% block estilosEspeciales %}
+            <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+   
+        {% endblock %}
+    {% endembed %}            
+<style>
+                
+ a{
+ text-decoration: none;
+ color:#000000;
+  
+}
+a:link{
+ text-decoration: none;
+ color:#000000;
+    
+}
+a:hover{
+ text-decoration: none;
+ color:#000000;
+    
+}
+   .modificarComprobante{
+          min-width:400px; 
+            
+             }
+
+        #colDe-editar {
+            border: thin solid #000000;
+            height:401px;
+            width:400px;
+        }
+
+        #colDe-editar table th{
+
+
+        }
+
+
+ </style>
+{% endblock %}
+

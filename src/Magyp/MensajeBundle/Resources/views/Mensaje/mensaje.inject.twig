@@ -1,0 +1,132 @@
+{# para que funcione correctamente debe usar jQuery la pagina visualizada #}
+
+{#<script src="{{ asset('js/cofra.js') }}" type="text/javascript"></script>
+<script src="{{ asset('js/cofraUI.js') }}" type="text/javascript"></script>
+ver por q escapa las / con \x2f.
+#}
+
+
+
+
+{#
+lo paso a basecofra
+<script src="/js/notify/src/jquery-ui.js" type="text/javascript"></script>
+<script src="/js/notify/src/jquery.notify.js" type="text/javascript"></script>
+<script src="/js/cofra.js" type="text/javascript"></script>
+
+
+#}
+<link type="text/css" rel="stylesheet" href="/js/notify/ui.notify.css" />
+
+
+<div id="container" style="display:none">
+	{% if mensaje.template == 'mensajeCofra' %}
+	<div id="mensajeCofra">
+		<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+		<h1>#{title}</h1>
+		<p>#{text}</p>
+	</div>
+	{% endif %}	
+	{% if mensaje.template == 'Advertencia' %}
+	<div id="Advertencia">
+		<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+		<div style="float:left;margin:0 10px 0 0"><img src="/js/notify/{{mensaje.icono}}" alt="warning" /></div>
+		<h1>#{title}</h1>
+		<p>#{text}</p>
+	</div>
+	{% endif %}
+	{% if mensaje.template == 'Error' %}
+	<div id="Error">
+		<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+		<div style="float:left;margin:0 10px 10px 0; display:block;"><img src="/js/notify/{{mensaje.icono}}" alt="exito" width="48" /></div>
+		<div class="Error">
+		<h1>#{title}</h1>
+		<p>#{text}</p>
+		</div>
+	</div>
+	{% endif %}	
+	{% if mensaje.template == 'Exito' %}
+	<div id="Exito">
+		<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+		<div style="float:left;margin:0 10px 10px 0"><img src="/js/notify/{{mensaje.icono}}" alt="exito" width="48" /></div>
+		<h1>#{title}</h1>
+		<p>#{text}</p>
+	</div>
+	{% endif %}
+	{% if mensaje.template == 'error-box' %}
+	<div id="error-box">
+	    <script>alert('tenes un error');</script>
+		<a class="ui-notify-close ui-notify-cross" href="#">x</a>
+		<div style="float:left;margin:0 10px 10px 0"><img src="/js/notify/{{mensaje.icono}}" alt="exito" width="48" /></div>
+		<h1>#{title}</h1>
+		<p>#{text}</p>
+	</div>
+	{% endif %}	
+</div>	
+
+{% autoescape false %}
+    
+<script type="text/javascript">
+
+msg = function () {
+{#    	{% if mensaje.template is defined %}
+		{% if mensaje.template == 'Advertencia' %} objmensaje = ({ title:'{{mensaje.titulo}}', text:'{{mensaje.contenido}}',icon:'/js/notify/alert.png'}); 
+			    nuevoMensaje("{{( mensaje.template is defined  ? mensaje.template : 'mensajeCofra' )}}", objmensaje,{ expires:false});        
+		{% endif %}
+		    
+		{% if mensaje.template == 'Error' %}
+		    objmensaje = ({ title:'{{mensaje.titulo}}', text:'{{mensaje.contenido}}',icon:'/js/notify/alert.png'}); 
+		    nuevoMensaje("{{( mensaje.template is defined  ? mensaje.template : 'mensajeCofra' )}}", objmensaje,{ expires:false});        
+		{% endif %}
+		
+	{% else %}    
+		objmensaje = { title:'{{mensaje.titulo}}', text:'{{mensaje.contenido}}'};	
+		nuevoMensaje("{{( mensaje.template is defined  ? mensaje.template : 'mensajeCofra' )}}", objmensaje);
+	{% endif %}    
+#}
+	    {% if mensaje.icono is defined %}		    
+		icono = '/js/notify/{{mensaje.icono}}';
+		objmensaje = ({ title:'{{mensaje.titulo}}', text:'{{mensaje.contenido}}',icon:icono});
+		{% else %}
+		objmensaje = ({ title:'{{mensaje.titulo}}', text:'{{mensaje.contenido}}'});
+	    {% endif %}    
+	     {% if mensaje.opciones is defined %}		    
+		nuevoMensaje("{{mensaje.template}}", objmensaje,{ {{mensaje.opciones}} });
+		{% else %}
+		nuevoMensaje("{{mensaje.template}}", objmensaje);
+	    {% endif %}    
+};
+$(document).ready(function(){ msg()});
+
+$container = $("#container").notify();
+{#
+    daa =$(function(){
+	$container = $("#container").notify();
+	
+	$("#mensajeCofra").click(function(){
+		nuevoMensaje("mensajeCofra", { title:'Default Notification', text:'Example of a default notification.  I will fade out after 5 seconds'});
+	});
+	$("#chekenny").click(function(){
+		nuevoMensaje("chekenny", { title:'Warning!', text:'cofra evento!!. <a href="#" class="ui-notify-close">Close me.</a>', icon:'{{asset('js/notify/alert.png')}}' },{ 
+			expires:false
+		});
+	});
+	$("#mensajeCofra").click(function(){
+		nuevoMensaje("divError", { title:'Error en Autenticación', text:'El usuario o la contraseña son incorrectas'});
+	});
+	
+});
+#}
+function nuevoMensaje( template, vars, opts ){ 
+	return $container.notify("create", template, vars, opts);
+}
+{% if mensaje.posision is defined %}
+$('.ui-notify').css({ {{mensaje.posision}} ,'margin':'auto'})
+{% endif %}
+</script>
+
+
+   	
+
+
+{% endautoescape %}

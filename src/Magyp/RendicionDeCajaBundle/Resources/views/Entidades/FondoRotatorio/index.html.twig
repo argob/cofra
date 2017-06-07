@@ -1,0 +1,45 @@
+<h1>FondoRotatorio list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Expediente</th>
+            <th>Nota</th>
+            <th>Fecha</th>
+            <th>Beneficiario</th>
+            <th>Motivo</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('entidades_fondorotatorio_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.expediente }}</td>
+            <td>{{ entity.nota }}</td>
+            <td>{% if entity.fecha %}{{ entity.fecha }}{% endif %}</td>
+            <td>{{ entity.beneficiario }}</td>
+            <td>{{ entity.motivo }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('entidades_fondorotatorio_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('entidades_fondorotatorio_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('entidades_fondorotatorio_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

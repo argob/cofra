@@ -1,0 +1,189 @@
+{% extends 'MagypRendicionDeCajaBundle:ReintegroDeGasto:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Reintegro de : </span>
+        
+		<li onclick="parent.location='{{ path('af_reintegrodegasto' )}}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+<div class="nuevoReintegro">
+    <table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+    <thead>
+        <tr>
+            <th style="background-color:#5fb2ae; color:#fff;">Nuevo Reintegro</th>
+        </tr>
+    </thead>
+	</table>
+    <form action="{{ path('af_reintegrodegasto_create')  }}" method="post"  {{ form_enctype(form) }} >
+        <table id="registroForm" class="reintegroForm" border="0" cellspacing="3">
+            <tr>
+                <td>{{ form_label(form.expediente) }}:</td>
+                <td>{{ form_widget(form.expediente) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.nota) }}:</td>
+                <td>{{ form_widget(form.nota) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.area) }}:</td>
+                <td class="areaForm">{{ form_widget(form.area) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.beneficiario) }}:</td>
+                <td>{{ form_widget(form.beneficiario) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.periodoinicial) }}:</td>
+                <td>{{ form_widget(form.periodoinicial) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.periodofinal) }}:</td>
+                <td>{{ form_widget(form.periodofinal) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.actividad) }}:</td>
+                <td>{{ form_widget(form.actividad) }}</td>
+            </tr>
+            <tr>
+                <td style="font-size:14px;"><strong>Fuente de Financiamiento:</strong></td>
+                <td>{{ form_widget(form.fuentefinanciamiento) }}</td>
+            </tr>
+            <tr>
+                <td>{{ form_label(form.ug) }}:</td>
+                <td>{{ form_widget(form.ug) }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 align="right">Motivo:</h3>
+                </td>
+                <td>
+					<h3 style="color:#666 !important;">"Eleva Reintegro CAJA CHICA"</h3>
+                </td>
+            </tr>
+            <tr>		
+                {{ form_rest(form) }}
+            </tr>
+        </table>
+            
+    <hr/>
+        <div id="detalle">
+            <table align="center" class="nuevoReintegroForm2">
+                <tr>
+                    <td>
+                        Programa
+                    </td>
+                    <td>
+                       <select id="programa_detalle0" name="programa_detalle[0]">
+                            {% for programa in programas %}
+                                <option value="{{ programa.id }}">{{ programa }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        Imputacion
+                    </td>
+                    <td>
+                        <select id="imputacion_detalle0" name="imputacion_detalle[0]">
+                            {% for imputacion in imputaciones %}
+                                <option value="{{ imputacion.id }}">{{ imputacion }}</option>
+                            {% endfor %}
+                        </select>
+                    </td>
+                    <td>
+                        SubTotal
+                    </td>
+                    <td>
+                        <input type="text" class="subTotal" id="subtotal_detalle0" name="subtotal_detalle[0]" maxlength="255" size="20" value=""/>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <table align="center" >
+            <tr>
+                <td colspan= "2">
+                    <hr/>
+                    <input type="button" value= "Agregar" id="agregardetalle" class="btn btn-default">
+                    <input type="button" value= "Borrar" id="borrardetalle" class="btn btn-default">
+                </td>
+            </tr>
+        </table>
+        <hr/>
+		<ul class="reintegroListado">
+			<li>
+			{#	<a href="{{ path('af_reintegrodegasto' )}}" class="btn btn-default">Volver</a> #}
+			</li>
+			<li>
+				<button type="submit" class="btn btn-default">Crear</button>
+			</li>
+		</ul>
+    </form>
+<!--
+    <ul class="record_actions">
+        <li class="btn btn-default">
+            
+                Volver
+            </a>
+        </li>
+    </ul>
+-->
+  </div>
+<script>
+    var iddetalle= 0;
+    $("#agregardetalle").click(function () {
+        iddetalle++;
+        agregaradetalle= "<table id='tabladetalle"+iddetalle+"' align='center' >";
+        agregaradetalle+= "     <tr>";
+        agregaradetalle+= "         <td colspan ='6'>";
+        agregaradetalle+= "             <hr/>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "     </tr>";
+        agregaradetalle+= "     <tr>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             Programa";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "            <select id='programa_detalle"+iddetalle+"' name='programa_detalle["+iddetalle+"]'>";
+        agregaradetalle+= "                 {% for programa in programas %}";
+        agregaradetalle+= "                     <option value='{{ programa.id }}'>{{ programa }}</option>";
+        agregaradetalle+= "                 {% endfor %}";
+        agregaradetalle+= "             </select>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             Imputacion";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             <select id='imputacion_detalle"+iddetalle+"' name='imputacion_detalle["+iddetalle+"]'>";
+        agregaradetalle+= "                 {% for imputacion in imputaciones %}";
+        agregaradetalle+= "                     <option value='{{ imputacion.id }}'>{{ imputacion }}</option>";
+        agregaradetalle+= "                 {% endfor %}";
+        agregaradetalle+= "             </select>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             SubTotal";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             <input type='text' id='subtotal_detalle"+iddetalle+"' class='subTotal' name='subtotal_detalle["+iddetalle+"]' maxlength='255' size='20' value=''/>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "     </tr>";
+        agregaradetalle+= " </table>";
+       
+        $("#detalle").append(agregaradetalle);
+
+    });
+    
+    $("#borrardetalle").click(function () {
+        if (iddetalle >= 1 ){
+            $("#tabladetalle"+iddetalle).remove();
+            iddetalle--;
+        }
+    });
+    
+</script>
+    
+{% endblock %}

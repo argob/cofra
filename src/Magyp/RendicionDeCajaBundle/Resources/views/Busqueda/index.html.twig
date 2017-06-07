@@ -1,0 +1,13 @@
+{% extends 'MagypRendicionDeCajaBundle:Rendicion:base.html.twig' %}
+
+
+{% block cuerpo %}
+
+<div style="margin: 50px">
+<a href="{{path('sistema_busqueda_rendicion')}}"><button class="btn boton">Rendicion</button></a>
+<a href="{{path('sistema_busqueda_proveedor')}}"> <button  class="btn boton">Proveedor</button></a>
+<a href="{{path('sistema_busqueda_imputacion')}}" > <button class="btn boton">Imputacion</button></a>
+</div>
+
+
+{% endblock %}

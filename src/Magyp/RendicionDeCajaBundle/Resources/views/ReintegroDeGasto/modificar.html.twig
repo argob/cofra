@@ -1,0 +1,203 @@
+{% extends 'MagypRendicionDeCajaBundle:ReintegroDeGasto:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Reintegro de : </span>
+        
+		<li onclick="parent.location='{{ path('af_reintegrodegasto' )}}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+	<div class="nuevoReintegro">
+    <table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+    <thead>
+        <tr>
+            <th style="background-color:#5fb2ae; color:#fff;">Modificar Reintegro</th>
+        </tr>
+    </thead>
+	</table>
+    <form action="{{ path('af_reintegrodegasto_update', { 'id': reintegrodegasto.id }) }}" method="post"  {{ form_enctype(edit_form) }} >
+        <table id="registroForm" class="reintegroForm" border="0" cellspacing="3">
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.expediente) }}:</td>
+                <td>{{ form_widget(edit_form.expediente) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.nota) }}:</td>
+                <td>{{ form_widget(edit_form.nota) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.area) }}:</td>
+                <td class="areaForm" >{{ form_widget(edit_form.area) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.beneficiario) }}:</td>
+                <td>{{ form_widget(edit_form.beneficiario) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.periodoinicial) }}:</td>
+                <td>{{ form_widget(edit_form.periodoinicial) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.periodofinal) }}:</td>
+                <td>{{ form_widget(edit_form.periodofinal) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.actividad) }}:</td>
+                <td>{{ form_widget(edit_form.actividad) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.fuentefinanciamiento) }}:</td>
+                <td>{{ form_widget(edit_form.fuentefinanciamiento) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.ug) }}:</td>
+                <td>{{ form_widget(edit_form.ug) }}</td>
+            </tr>
+            <tr>
+                <td>
+                    <h3 align="right">Motivo:</h3>
+                </td>
+                <td>
+					<h3 style="color:#666 !important;">"Eleva Reintegro CAJA CHICA"</h3>
+                </td>
+            </tr>
+            <tr>		
+                {{ form_rest(edit_form) }}
+            </tr>
+        </table>
+        <hr/>
+        <div id="detalle">
+            {% set nPosDetalle = 0 %}
+            {% for reintegrodegastodetalle in reintegrodegastodetalles %}
+                <table align="center" >
+                    <tr>
+                        <td>
+                            Programa
+                        </td>
+                        <td>
+                           <select id="programa_detalle{{ nPosDetalle }}" name="programa_detalle[{{ nPosDetalle }}]">
+                                {% for programa in programas %}
+                                   {% if programa.id == reintegrodegastodetalle.programa.id %}
+                                        <option selected= "selected" value="{{ programa.id }}">{{ programa }}</option>
+                                   {%else%}
+                                        <option value="{{ programa.id }}">{{ programa }}</option>
+                                   {%endif%}
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            Imputacion
+                        </td>
+                        <td>
+                            <select id="imputacion_detalle{{ nPosDetalle }}" name="imputacion_detalle[{{ nPosDetalle }}]">
+                                {% for imputacion in imputaciones %}
+                                    {% if imputacion.id == reintegrodegastodetalle.imputacion.id %}
+                                        <option selected="selected" value="{{ imputacion.id }}">{{ imputacion }}</option>
+                                    {%else%}
+                                        <option value="{{ imputacion.id }}">{{ imputacion }}</option>
+                                    {%endif%}
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>
+                            SubTotal
+                        </td>
+                        <td>
+                            <input type="text" id="subtotal_detalle{{ nPosDetalle }}" name="subtotal_detalle[{{ nPosDetalle }}]" maxlength="255" size="20" value="{{reintegrodegastodetalle.importesubtotal}}"/>
+                        </td>
+                        <td colspan= "2">
+                            | Borrar <input type="checkbox" id="borrar_detalle{{ nPosDetalle }}" name="borrar_detalle[{{ nPosDetalle }}]" value="{{reintegrodegastodetalle.id}}">
+                            <input type="hidden" id="iddetalle{{ nPosDetalle }}" name="iddetalle[{{ nPosDetalle }}]" value= "{{ reintegrodegastodetalle.id }}">
+                        </td>
+                    </tr>
+                </table>
+                {% set nPosDetalle= nPosDetalle + 1 %}
+            {% endfor %}
+        </div>
+        <table align="center" >
+            <tr>
+                <td colspan= "2">
+                    <hr/>
+                    <input type="button" value= "Agregar" id="agregardetalle" class="btn btn-default">
+                    <input type="button" value= "Borrar" id="borrardetalle" class="btn btn-default">
+                </td>
+            </tr>
+        </table>
+        <hr/>
+		<ul class="record_actions" style="list-style-type: none; display:block; padding: 0;">
+        <li style="margin-left:auto; margin-right:auto; display: block; width:100px;">
+            <button type="submit" class="btn btn-default" style="">Guardar</button>
+        </li>
+		{#
+		<li style="display:inline-block;">
+            <a href="{{ path('af_reintegrodegasto' )}}" class="btn btn-default">
+                Volver
+            </a>
+        </li>
+		#}
+		</ul>
+    </form>
+
+    <input type="hidden" id="detallemaximo" name="detallemaximo" value= "{{ nPosDetalle }}">
+    
+<script>
+    var iddetalle= 0;
+    var iddetalle = $("#detallemaximo").val() - 1;
+    var iddetalleMinimo = $("#detallemaximo").val();
+    $("#agregardetalle").click(function () {
+        iddetalle++;
+        agregaradetalle= "<table id='tabladetalle"+iddetalle+"' align='center' >";
+        agregaradetalle+= "     <tr>";
+        agregaradetalle+= "         <td colspan ='6'>";
+        agregaradetalle+= "             <hr/>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "     </tr>";
+        agregaradetalle+= "     <tr>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             Programa";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "            <select id='programa_detalle"+iddetalle+"' name='programa_detalle["+iddetalle+"]'>";
+        agregaradetalle+= "                 {% for programa in programas %}";
+        agregaradetalle+= "                     <option value='{{ programa.id }}'>{{ programa }}</option>";
+        agregaradetalle+= "                 {% endfor %}";
+        agregaradetalle+= "             </select>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             Imputacion";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             <select id='imputacion_detalle"+iddetalle+"' name='imputacion_detalle["+iddetalle+"]'>";
+        agregaradetalle+= "                 {% for imputacion in imputaciones %}";
+        agregaradetalle+= "                     <option value='{{ imputacion.id }}'>{{ imputacion }}</option>";
+        agregaradetalle+= "                 {% endfor %}";
+        agregaradetalle+= "             </select>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             SubTotal";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "         <td>";
+        agregaradetalle+= "             <input type='text' id='subtotal_detalle"+iddetalle+"' class='subTotal' name='subtotal_detalle["+iddetalle+"]' maxlength='255' size='20' value=''/>";
+        agregaradetalle+= "         </td>";
+        agregaradetalle+= "     </tr>";
+        agregaradetalle+= " </table>";
+       
+        $("#detalle").append(agregaradetalle);
+
+    });
+    
+    $("#borrardetalle").click(function () {
+        if (iddetalle >= iddetalleMinimo ){
+            $("#tabladetalle"+iddetalle).remove();
+            iddetalle--;
+        }
+    });
+    
+</script>
+</div>
+{% endblock %}

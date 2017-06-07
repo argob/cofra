@@ -1,0 +1,49 @@
+<h1>AnticipoDeGasto</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Expediente</th>
+            <td>{{ entity.expediente }}</td>
+        </tr>
+        <tr>
+            <th>Nota</th>
+            <td>{{ entity.nota }}</td>
+        </tr>
+        <tr>
+            <th>Fecha</th>
+            <td>{{ entity.fecha|date('Y-m-d H:i:s') }}</td>
+        </tr>
+        <tr>
+            <th>Monto</th>
+            <td>{{ entity.monto }}</td>
+        </tr>
+        <tr>
+            <th>Motivo</th>
+            <td>{{ entity.motivo }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('anticipodegasto') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('anticipodegasto_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('anticipodegasto_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

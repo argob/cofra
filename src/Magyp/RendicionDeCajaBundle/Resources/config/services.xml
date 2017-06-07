@@ -1,0 +1,54 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="magyp_rendicion_de_caja.example.class">Magyp\RendicionDeCajaBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="magyp_rendicion_de_caja.example" class="%magyp_rendicion_de_caja.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    <services>	
+		<service id="cofra.listener.login" class="Magyp\RendicionDeCajaBundle\EventListener\LoginListener" scope="request">
+			<tag name="kernel.event_listener" event="security.interactive_login" method="onSecurityInteractiveLogin"/>
+			<argument type="service" id="security.context"/>
+	<!--	    <argument type="service" id="session"/>-->
+			<argument type="service" id="doctrine"/>
+			<argument type="service" id="request"/>
+
+		</service>
+<!--		<service id="cofra.listener.errorlogin" class="Magyp\RendicionDeCajaBundle\EventListener\LoginListener" scope="request">
+			<tag name="kernel.event_listener" event="security.authentication.failure" method="onErrorLogin"/>
+			<argument type="service" id="security.context"/>
+			<argument type="service" id="doctrine"/>	
+			<argument type="service" id="request"/>
+		</service>-->
+		<service id="cofra.login_suscriptor" class="Magyp\RendicionDeCajaBundle\EventListener\LoginSuscriptor" scope="request">
+			<tag name="kernel.event_subscriber" connection="default" />
+			<argument type="service" id="security.context"/>
+			<argument type="service" id="doctrine"/>	
+			<argument type="service" id="request"/>
+			<argument type="service" id="cofra.configuracion"/>
+		</service>
+		<service id="cofra.configuracion" class="Magyp\RendicionDeCajaBundle\Kernel\Configuracion" >
+			<argument>%cofra.arg_config%</argument>
+		</service>
+		<service id="cofra.kernel" class="Magyp\RendicionDeCajaBundle\Kernel\Cofra" scope="request">
+			<argument type="service" id="security.context"/>
+			<argument type="service" id="request"/>
+			<argument type="service" id="doctrine"/>
+		</service>
+		
+		
+	
+    </services>	
+</container>

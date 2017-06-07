@@ -1,0 +1,153 @@
+{% extends 'MagypRendicionDeCajaBundle:Impresion:base.html.twig' %}
+
+{% block cuerpo %}
+        
+
+        
+   <div class="precab">
+
+        <table class="cudap">
+            <tr>
+                <th scope="row" align="left"><label>CUDAP:</label> </th>
+                <td align="left">{{reintegrodegasto.expediente}}</td>
+            </tr>
+            <tr>
+                <th scope="row" align="left"><label>NOTA RC N°:</label> </th>
+                <td align="left">{{reintegrodegasto.nota}}</td>
+            </tr> 
+            <tr>
+                <td colspan="2">
+                    <br/><br/><br/>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2" align="left">
+                    BUENOS AIRES,
+                </td>
+            </tr>
+        </table>
+    </div>
+          
+    <div id="cuerpo" Style="margin-left:10px;margin-top:250px;">
+          
+        
+        {#Señor#}<br/>
+        Dirección General de Administración<br/>
+        {#Lic. Ricardo Ariel Rotsztein#}<br/>
+        S_________/_________D.-
+        <div class="parrafo" Style="margin-top:70px">Pase a la <strong>COORDINACIÓN ÁREA TESORERIA</strong> de la <strong>DIRECCIÓN GENERAL</strong> de <strong>ADMINISTRACIÓN del MINISTERIO DE AGRICULTURA, GANADERÍA Y PESCA</strong>, el expediente referenciado, solicitando se proceda al pago que a continuación se detalla:</div>
+
+        <div class="resumen">
+            <table width="100%" border="0" style="text-align:left;">
+                <tr>
+                    <td style="width:20mm;" align="left"><label>Dependencia:</label></td>
+                    <td align="left">{{reintegrodegasto.area}}</td>
+                </tr>
+                <tr>
+                    <td align="left"><label>Beneficiario:</label></td>
+                    <td align="left">{{reintegrodegasto.beneficiario}}</td>
+                </tr>
+                <tr>
+                    <td align="left"><label>Motivo:</label></td>
+                    <td align="left">Eleva Reintegro CAJA CHICA </td>
+                </tr>
+                <tr>
+                    <td align="left"><label>Período:</label></td>
+                    <td align="left">{{reintegrodegasto.periodoinicial| date("d/m/y")}} al {{reintegrodegasto.periodofinal| date("d/m/y")}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="cuadro">
+            <table width="100%" border="0" align="center" cellspacing="0">
+                <tr>
+                    <th colspan="4" scope="col">REINTEGRO DE CAJA CHICA - TESORERIA MAGyP</th>
+                </tr>
+                <tr class="subHeader">
+                    <td>Prog</td>
+                    <td>imp</td>
+                    <td>Ug</td>
+                    <td>Monto</td>
+                </tr>
+            {% set nMaxFilas= 32 %}
+            {% set nCont= 0 %}
+            {% set nLeft= 280 %}
+            {% set nTopBase= 400 %}
+            {% set nTop= 440 %}
+            {% set nTamanoPagina= 430 %}
+            {% set nCantBarras= 0 %}
+            {% set nCorreccion= 60 %}
+            {% for detalle in detalles %}
+                {% set nCont = nCont + 1 %}
+                <tr>
+                    <td>{{ "%s" | format(detalle.programa) }} </td>
+                    <td>{{detalle.imputacion.codigo}}</td>
+                    <td>({{reintegrodegasto.ug}})</td>
+                    <td  Style=" width:50%; text-align:right; padding-right:225px">${{detalle.importesubtotal}}</td>
+                </tr>
+                {% if nCont >= nMaxFilas%}
+               
+                        </table>
+                    </div>
+        
+                    {% set nCantBarras = nCantBarras + 1 %}
+                    <div id="fotercito" style=" width: 297mm;position:absolute;left:0mm;top:{{nTop-30}}mm;margin-left: 30mm;">
+                        <p>El presente gasto deberá ser imputado a: JUR.52 - ACT.{{reintegrodegasto.actividad}} - FUENTE FINANCIAMIENTO {{reintegrodegasto.fuentefinanciamiento}}.- UG.({{reintegrodegasto.ug}}) </p>
+                        <br/><br/><br/>{{ reintegrodegasto.responsable.nombre | slice(0, 1) }}{{ reintegrodegasto.responsable.apellido | slice(0, 1) }}
+                    </div>
+                    <div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+                        <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+                    </div>
+                    <div id="pie" style=" padding-left:30mm; margin-top:{{nCorreccion}}mm"> 
+                    </div>
+                    {% set nTamanoPagina= 530 %}
+                    {% set nTop= nTopBase + nCantBarras * nTamanoPagina %}
+                    {% set nMaxFilas= 44 %}
+                    {% set nCont= 0%}
+                    {% set nCorreccion= nCorreccion + 50%}
+        
+                    <div class="cuadro">
+                        <table width="100%" border="0" align="center" cellspacing="0">
+                            <tr>
+                                <th colspan="4" scope="col">REINTEGRO DE CAJA CHICA - TESORERIA MAGyP</th>
+                            </tr>
+                            <tr class="subHeader">
+                                <td>Prog</td>
+                                <td>imp</td>
+                                <td>Ug</td>
+                                <td>Monto</td>
+                            </tr>
+                
+                {% endif %}
+            {% endfor %}
+                <tr>
+                    <td colspan= "3">&nbsp</td>
+                    <td> </td>
+                </tr>
+                <tr>
+                    <td colspan= "4">&nbsp</td>
+                </tr>
+                <tr class="total">
+                    <td colspan="3"></td>
+                    <td>Total: $ {{total}}</td>
+                </tr>
+          </table>
+        </div>
+        
+    </div>
+{%if nCantBarras == 0 %}
+    {% set nCorreccion= 0 %}
+{%endif%}
+<div id="pie" style=" padding-left:30mm; margin-top:{{nCorreccion}}mm"> 
+</div>
+<div id="fotercito" style=" width: 297mm;position:absolute;left:0mm;top:{{nTop-30}}mm;margin-left: 30mm;">
+    <p>El presente gasto deberá ser imputado a: JUR.52 - ACT.{{reintegrodegasto.actividad}} - FUENTE FINANCIAMIENTO {{reintegrodegasto.fuentefinanciamiento}}.- UG.({{reintegrodegasto.ug}}) </p>
+    <br/><br/><br/>{{ reintegrodegasto.responsable.nombre | slice(0, 1) }}{{ reintegrodegasto.responsable.apellido | slice(0, 1) }}
+</div>
+<div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+    <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+</div>
+
+
+
+{% endblock %}

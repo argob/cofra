@@ -1,0 +1,203 @@
+{% extends 'MagypRendicionDeCajaBundle:Rendicion:base.html.twig' %}
+
+
+{% set paginaActual = 'Rendicion' %}
+
+{# magia kenny #}
+{% block cabecera %}
+    {{ parent() }}
+<div class="acciones" >
+    
+           <span style="margin-right: 25px; vertical-align: middle;">Acciones de Rendición: </span>
+			<li onclick="TINY.box.show({iframe:'{{path('sistema_rendicion_nueva')}}',boxid:'frameless',width:400,height:300,fixed:false,maskid:'greymask',maskopacity:30,closejs:function(){}})" class="agregar" title="Agregar Rendición"><span class="spanbotonrendicion" >Agregar</span></li>	
+			<li onclick="irApagina('/sistema/rendicion/detalle/'+seleccionado)" id="accion_editar"  class="editar" title="Editar Rendición" ><span class="spanbotonrendicion" >Editar</span></li>
+			<li onclick="borrar('/sistema/rendicion/borrar/'+seleccionado)" class="borrar" title="Borrar Rendición" ><span class="labelbotonrendicion" >Borrar</span></li>
+            <li onclick="irApagina('{{path('sistema_rendicion_papelera')}}',true)" class="papelera"  title="Papelera" ><span class="labelbotonrendicion" >Papelera</span></li>
+            <li onclick="irApagina('{{path('home')}}',true)" class="volver"  title="Volver"><span class="labelbotonrendicion" >Volver</span></li>
+            </div>	
+{% endblock %}
+
+{% block cuerpo %}
+<!--anterior
+<div class="acciones">
+			<button onclick="TINY.box.show({iframe:'{{path('sistema_rendicion_nueva')}}',boxid:'frameless',width:400,height:300,fixed:false,maskid:'greymask',maskopacity:30,closejs:function(){}})" class="btn boton">Agregar </button>	
+			<button onclick="irApagina('/sistema/rendicion/detalle/'+seleccionado)" class="btn boton">Editar</button>
+			<button onclick="irApagina('/sistema/rendicion/borrar/'+seleccionado)" class="btn boton">Borrar</button>
+            <button onclick="irApagina('{{path('home')}}',true)" class="btn boton">Volver</button>
+			<button onclick="irApagina('{{path('sistema_rendicion_papelera')}}',true)" class="btn boton">Papelera</button>
+</div>	
+-->
+
+    <div style="margin-top: 40px; text-align:center;">
+		<h1>Panel de Rendiciones</h1>
+        {% if is_granted('ROLE_AF') %}
+            <span class="titulo" style="font-size: 24px;">Área: {{area}}</span> 
+        {% endif %}
+
+    </div>
+        {% block busqueda %}
+            {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                {% set path_action = path('sistema_rendicion') %}
+
+                {% set busqueda_nombre = 'rendicion' %}
+                {% block input_with "400px" %}
+            {% endembed %}
+        {% endblock %}
+		<style>
+			table td { padding: 5px; text-align: center;}
+			table th { padding: 8px; text-align: center;}
+		</style>
+        
+	<section style="width:90%; margin-left:auto; margin-right:auto;">
+            
+		<div id="acomodador" style="min-width:1024px;">
+		<div id="colIz" style="margin-left:0px;">
+					<table class="tablaTitulo" align="center" width="100%">
+						<thead>
+							<tr>
+								<th style="background-color:#5FB2AE;">Listado de Rendición</th>
+							</tr>
+						</thead>
+					</table>
+				<div id="colIzTabla">
+					<table id="Rendicion" class="principal" width="400px" border="0" cellspacing="0">
+					
+						<tr>
+							<th scope="col" style="display: none">Id</th>
+							<th Style="background-color:#ddd " scope="col">Fecha</th>
+							<th  Style="background-color:#ddd " scope="col">Expediente</th>
+							<th  Style="background-color:#ddd " scope="col">Total</th>
+                                                        <th  Style="background-color:#ddd " scope="col">Estado</th>
+						</tr>
+                                                        {% if rendiciones is not null %} 
+                                                            {% for rendicion in rendiciones %}
+                                                                <tr id="trcito{{rendicion.id}}" onclick="elegir({{rendicion.id}})" style="cursor: pointer;" class="{{ cycle(["even", "odd"], loop.index) }}">
+                                                                    <td style="display: none"><a href="{{ path('rendicion_show', { 'id': rendicion.id }) }}">{{ rendicion.id }}</a></td> 
+                                                                    <td>{% if rendicion.fecha %}{{ rendicion.fecha|date('Y-m-d') }}{% endif %}</td>
+                                                                    <td>{{ rendicion.expedienteCompleto }}</td>
+                                                                    <td>$ {{ rendicion.totalRendicion }}</td>
+                                                                    <td>{{ rendicion.estadoNombre }}</td>
+                                                                </tr>
+                                                            {% endfor %}                               
+							{% endif %}	
+				
+					</table>
+				</div>
+		</div>
+                     <div id="colDe">
+						<table class="tablaTitulo" align="center" width="100%">
+						<thead>
+							<tr >
+								<th style="background-color:#5FB2AE;">Resúmen de Comprobantes</th>
+							</tr>
+						</thead>
+					</table>
+					<div id="colDeTabla">
+                        <div id="divajax">
+                           <p>Haga click en alguna Rendición para ver el listado de comprobantes</p>
+                        </div>
+		            </div>
+		</div>
+			
+	</div>
+            </section>
+{% endblock %}
+        
+        
+{% block javascriptEspeciales %}
+{#error1 <script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script> #}
+<script src="{{ asset('js/tinybox.js') }}" type="text/javascript"></script>
+
+<script>
+	var seleccionado;
+	
+	function selecionar(obj){
+		seleccionado = $($(obj).children()[0]).children().html();
+	}	
+	function ajax_arg(ruta){
+		if(isFinite(seleccionado)){
+			$.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   
+		}else{
+			alert('seleccione un item');
+		}	
+
+	}
+	function ajax(ruta){
+			resp = $.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   	
+                                          
+	}	
+	function dibujar(data){
+                        ssesid_actual = phpsessid();
+                        if(ssesid_actual != ssesid_original){ location.reload(); return; };
+			$('#divajax').html('');
+			$('#divajax').html(data);
+
+	}
+	function elegir( rendicionid){
+                obj= document.getElementById ("trcito"+rendicionid )
+		selecionar(obj);
+		pintar(obj);
+		ajax('/sistema/comprobante/rendicion/'+rendicionid);	
+	}
+	function irApagina(direccion,sinVerificar){
+			if(isFinite(seleccionado)|| sinVerificar == true){ // si no se selecciono ninguno no hace nada, seleccionado esta en undefined.
+				location.href = "http://" + location.host + direccion;
+			}
+	}
+	var global;
+	var tabla;
+	function pintar(obj){
+		global= obj;
+		cantidad_lineas = $($('#Rendicion').children('tbody')).children().length
+		lineas = $($('#Rendicion').children('tbody')).children()
+		for(var i=0;i<cantidad_lineas;i++){			
+			if(i%2){
+				$(lineas[i]).attr('class', 'odd');
+			}else{
+				$(lineas[i]).attr('class', 'even');
+				
+			}
+		}
+		//$(obj).css('background-color', '#666')
+		$(obj).attr('class', 'seleccionada');
+	
+	
+	}
+	
+        phpsessid = function (){
+            c = document.cookie
+            inicio = c.search('PHPSESSID');
+            aux = c.substring(inicio);            
+            return aux.substring(('PHPSESSID=').length,aux.search(' ') > 0 ? aux.search(' ') : aux.length);
+        }
+        ssesid_original = phpsessid();
+        
+	
+	function onload(){
+	    $('#Rendicion tr').dblclick(function(){$('#accion_editar').click() });
+	}
+	
+	$(document).ready(function(){onload();});
+        {#
+        $(document).ready(function(){
+        $("td").click(function () {
+        $(this).slideUp();
+        })
+        });
+        #}
+        function borrar(ruta){
+            if(isFinite(seleccionado)){
+                apprise('¿Esta seguro que desea borrar la rendicion seleccionada?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                    if(r)irApagina(ruta,0);
+                });
+            }	
+        }
+</script>
+
+{% endblock %}

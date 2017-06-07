@@ -1,0 +1,146 @@
+{% extends 'MagypRendicionDeCajaBundle:ReintegroDeGasto:base.html.twig' %}
+
+{% block cuerpo %}
+
+
+    {% block bloqueCabecera %}
+	<div class="nuevoReintegro">
+    <table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+    <thead>
+        <tr>
+            <th style="background-color:#5fb2ae; color:#fff;">Reintegro de Gastos</th>
+        </tr>
+    </thead>
+	</table>
+    <table  class="reintegroForm" width="100%" cellspacing="3">
+        <tbody>
+            <tr>
+                <td> <label> Expediente: </label> </td>
+                <td>{{ entity.expediente }}</td>
+            </tr>
+            <tr>
+                <td> <label> Nota: </label> </td>
+                <td>{{ entity.nota }}</td>
+            </tr>
+            <tr>
+                <td> <label> Área: </label> </td>
+                <td>{{ entity.area}}</td>
+            </tr>
+            <tr>
+                <td> <label> Beneficiario: </label> </td>
+                <td>{{ entity.beneficiario}}</td>
+            </tr>
+            <tr>
+                <td> <label> Período inicial:</label> </td>
+                <td>{{ entity.periodoinicial|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <td> <label> Período final: </label> </td>
+                <td>{{ entity.periodofinal|date('d-m-Y') }}</td>
+            </tr>
+            <tr>
+                <td> <label> Actividad: </label> </td>
+                <td>{{ entity.actividad}}</td>
+            </tr>
+            <tr>
+                <td><label> Fuente financiamiento:</label> </td>
+                <td>{{ entity.fuentefinanciamiento }}</td>
+            </tr>
+            <tr>
+                <td> <label> UG: </label> </td>
+                <td>{{ entity.ug}}</td>
+            </tr>
+        </tbody>
+    </table>
+ {% endblock%}
+
+
+    {% block tabla %} 
+    <table  class="" width="100%" cellspacing="0" style="padding:5px 5px 5px 5px;">
+        <tbody>
+            <tr>
+                <th colspan= "3" Style="background-color:#5FB2AE; color:white; font-weight: bold">DETALLES</th>
+            </tr>
+            <tr>
+                <th Style="background-color:#dddddd; color:#000">Programa</th>
+                <th Style="background-color:#dddddd; color:#000">Imputación</th>
+                <th Style="background-color:#dddddd; color:#000">SubTotal</th>
+            </tr>
+                {% for detalle in detalles %}
+                <tr>
+                    <td>{{ detalle.programa }}</td>
+                    <td>{{ detalle.imputacion }}</td>
+                    <td>{{ detalle.importesubtotal }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table> 
+         <table  class="" cellspacing="0" width="100%" align="center" style="margin-top:20px;">
+                <tbody>
+                    <tr>
+                        <td>
+							<a class="btn btn-default"  href="{{ path('af_reintegrodegasto_edit', { 'id': entity.id }) }}">
+								Modificar
+							</a>
+
+						{% if ( is_granted("ROLE_AF_IMPRIMIR") ) %}
+
+								<a  class="btn btn-default"  href="{{ path('imprimir_reintegrodegasto_pdf', { 'idreintegrodegasto': entity.id, 'hash': hash }) }}">
+									Imprimir
+								</a>
+
+						{% endif %}
+						  <a class="btn btn-default"  href="{{ path('af_reintegrodegasto') }}">
+								Volver
+							</a>
+                   </td> 
+                     </tr>
+                </tbody>   
+            </table>
+	    <div class="pagination">
+                <table align="center" id="paginador-tabla">
+                <tr>
+                    <td></td>
+                </tr>
+		</table>                   
+	    </div>            
+     
+{% endblock %}
+
+
+
+
+</div>
+{#
+<style>
+a:link {
+    color: #ffffff;
+    text-decoration: none;
+}
+a:link {
+    color: #ffffff;
+    text-decoration: none;
+}
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+    
+    #colListado {
+    border: 0;
+    font-size: 14px !important;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    min-width: 1100px;
+    overflow: auto;
+    padding: 5px;
+}
+    
+    
+    
+    </style>
+#}
+                
+            {% endblock %}

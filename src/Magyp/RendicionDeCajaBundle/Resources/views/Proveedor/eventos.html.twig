@@ -1,0 +1,21 @@
+{% extends 'MagypRendicionDeCajaBundle:Pantalla:eventos.html.twig' %}
+
+{% if is_granted('ROLE_AF') %}
+    {% set basetwig= '::afcofra.html.twig' %}
+    {% set paginaActual = 'Administracion' %}
+{% else %}	
+    {% set basetwig= '::generalcofra.html.twig' %}
+    {% set paginaActual = 'Proveedor' %}
+{% endif %}
+
+{% block titulo %}Eventos{% endblock %}
+
+{% block cuerpo %}
+    {% embed 'MagypRendicionDeCajaBundle:Plantilla:eventos.html.twig' %}
+        {% block tituloeventos "Eventos de Proveedor" %}
+            {% block botones %}
+                <button type=button class="btn btn-default" onclick="history.back()" style="margin-left:auto; margin-right:auto;" >Volver</button>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}
+

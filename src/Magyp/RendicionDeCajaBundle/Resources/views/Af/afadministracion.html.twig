@@ -1,0 +1,37 @@
+{% extends 'MagypRendicionDeCajaBundle:Af:base.html.twig' %}
+{% set paginaActual = 'Administracion' %}
+{% block cuerpo %}
+    <section id="panel-administracion" >
+        <div id="superSuperior">
+            <h1>Administración</h1>
+        </div>
+        <div id="superior">
+            <div class="boton1">
+                <img onclick="efectosUnLoad('fade', '#panel-administracion', '{{ path("imputacion")}}' );" src={{ asset("images/botonera2/images/imputaciones.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+            </div>
+             <div class="boton2">
+                <img onclick="efectosUnLoad('fade', '#panel-administracion', '{{ path("proveedor")}}' );" src={{ asset("images/botonera2/images/prov.jpg") }} width="245" height="105" alt="boton2" class="imghover">
+            </div>
+        </div>
+        <div id="medio">
+            <div class="boton3">
+                <img onclick="efectosUnLoad('fade', '#panel-administracion', '{{ path("af_area")}}' );" src={{ asset("images/botonera2/images/iconos-panel-cajaAbierta.jpg") }} width="119" height="106"alt="boton3" class="imghover">
+            </div>
+            <div class="boton4">
+                <img onclick="efectosUnLoad('fade', '#panel-administracion', '{{ path("af_area_cerradas")}}' );" src={{ asset ("images/botonera2/images/iconos-panel-cajaCerrada.jpg") }} width="119" height="106" alt="boton4" class="imghover">
+            </div>
+            <div class="boton2">
+                <img onclick="efectosUnLoad('fade', '#panel-administracion', '{{ path("sistema_af_leyenda")}}' );" src={{ asset ("images/botonera2/images/leyenda.jpg") }} width="245" height="105" alt="boton4" class="imghover">
+            </div>
+        </div>
+
+        <div id="volver" class="volver" onclick="efectosUnLoad('slideaizquierda', '#panel-administracion', '{{ path("af_home")}}' );">
+            <a>Volver</a>
+        </div>     
+    </section>
+
+    <script>
+        efectoConImghover('slideaizquierda', '#panel-administracion' );
+        setTimeout('$(".imghover").imghover({suffix: "-over"})', 410);
+    </script>     
+{% endblock %}

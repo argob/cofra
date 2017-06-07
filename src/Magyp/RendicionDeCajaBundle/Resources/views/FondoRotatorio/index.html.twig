@@ -1,0 +1,91 @@
+{% extends 'MagypRendicionDeCajaBundle:FondoRotatorio:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Fondo Rotatorio: </span>
+        
+		<li onclick="parent.location='{{ path('af_fondorotatorio_new') }}'" class="agregar">Nuevo</li>
+        <li onclick="parent.location='{{ path('af_notasgenericas_home') }}'" class="volver">Volver</li>                  
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+
+          
+    
+    
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+
+	{% block titulotabla "Listado de Fondos Rotatorios" %}
+	
+        {% block busqueda %}
+            {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                    {% set path_action = path('af_fondorotatorio') %} 
+                    {% set busqueda_nombre = 'fondorotatorio' %}
+                    {% block input_with "400px" %}
+            {% endembed %}
+        {% endblock %}
+	
+
+        {% block tabla %}
+
+            <table cellspacing="0" width="100%" class="records_list">
+                <thead>
+                    <tr>
+                        <th>Expediente</th>
+                        <th>Nota</th>
+                        <th>Beneficiario</th>
+                        <th>Motivo</th>
+                        <th>Área</th>
+                        <th>Programa</th>
+                        <th>Actividad</th>
+                        <th>FF</th>
+                        <th>UG</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for entity in entities %}
+                        <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                            <td>{{ entity.expediente }}</td>
+                            <td>{{ entity.nota }}</td>
+                            <td>{{ entity.beneficiario }}</td>
+                            <td>{{ entity.motivo }}</td>
+                            <td>{{ entity.area }}</td>
+                            <td>{{ entity.programa }}</td>
+                            <td>{{ entity.actividad }}</td>
+                            <td>{{ entity.fuentefinanciamiento }}</td>
+                            <td>{{ entity.ug }}</td>
+                            <td style="width: 100px;" >
+                                <div>
+                                    <a href="{{ path('af_fondorotatorio_show', { 'id': entity.id }) }}"><img src="{{ asset('images/form-botones/ver.png') }}" class="imghover" title="Ver Datos" alt="Ver" style="cursor:pointer;" /></a>
+                                    <a href="{{ path('af_fondorotatorio_edit', { 'id': entity.id }) }}"><img src="{{ asset('images/form-botones/editar.png') }}" class="imghover" title="Modificar Datos" alt="Modificar" style="cursor:pointer;" /></a>
+                                </div>						
+                            </td>                    
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            {% if ( entities | length > 0) %}
+                <div class="pagination">
+                    <table align="center" id="paginador-tabla">
+                        <tr>
+                            <td>{{ knp_pagination_render(entities) }}</td>
+                        </tr>
+                    </table>                   
+                </div>            
+            {% endif %}
+        {% endblock %}
+    	   
+        {% block botones %}
+		{#
+            <span><a href="{{ path('af_fondorotatorio_new') }}"  class="btn btn-default">Nuevo </a></span> 
+              <span><a href="{{ path('af_notasgenericas_home') }}" class="btn btn-default">Volver</a></span>
+			  #}
+        {% endblock %}
+    {% endembed %}
+    
+{% endblock %}

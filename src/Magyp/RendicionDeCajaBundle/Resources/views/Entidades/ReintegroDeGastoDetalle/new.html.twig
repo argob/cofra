@@ -1,0 +1,16 @@
+<h1>ReintegroDeGastoDetalle creation</h1>
+
+<form action="{{ path('sistema_entidades_reintegrodegastodetalle_create') }}" method="post" {{ form_enctype(form) }}>
+    {{ form_widget(form) }}
+    <p>
+        <button type="submit">Create</button>
+    </p>
+</form>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('sistema_entidades_reintegrodegastodetalle') }}">
+            Back to the list
+        </a>
+    </li>
+</ul>

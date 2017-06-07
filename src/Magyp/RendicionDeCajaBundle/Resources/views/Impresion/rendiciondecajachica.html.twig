@@ -1,0 +1,29 @@
+{% extends 'MagypRendicionDeCajaBundle:Impresion:base.html.twig' %}
+
+{% block cuerpo %}
+    <div class="lugar">BUENOS AIRES, </div>
+        
+    <div id="cuerpo"  Style:margin-left:10px >
+        {#Señor#}<br/>
+        Dirección General de Administración<br/>
+        {#Lic. Ricardo Ariel Rotsztein#}<br/>
+        S_________/_________D.-
+
+        <div class="parrafo">
+        Me dirijo a usted a fin de elevar la Rendicion de Caja Chica por la suma de $ {{total}}
+        ( {{montoaletras}} ) que tramita por Expte. Nº {{expediente}}.
+        </div>
+    
+        <div class="parrafo">
+        Sin otro particular, saludo a usted atentamente.
+        </div>
+
+    </div>
+
+    {% set nLeft= 230 %}
+    {% set nTop= 400 %}
+    {% set nCantBarras= 0 %}
+    <div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+        <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+    </div>
+{% endblock %}

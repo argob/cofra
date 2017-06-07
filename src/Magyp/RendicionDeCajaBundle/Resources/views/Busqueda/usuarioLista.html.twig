@@ -1,0 +1,12 @@
+{
+{%for usuario in usuarios %}"{{usuario.id}}":"{{usuario.apellido}}",
+{% endfor %}
+{%for usuario in usuarios %}"email{{usuario.id}}":"{{usuario.email}}",
+{% endfor %}
+{%for usuario in usuarios %}"user{{usuario.id}}":"{{usuario.username}}",
+{% endfor %} "ZZ" : "ultimo"
+
+}
+ 
+
+{#saque {{usuario.nombre}}  por que para el script actual no funciona con dos campos en el mismo item #}

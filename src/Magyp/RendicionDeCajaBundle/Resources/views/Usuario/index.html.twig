@@ -1,0 +1,201 @@
+{% extends 'MagypRendicionDeCajaBundle:Usuario:base.html.twig' %}
+
+{% block cuerpo %}
+<h1>Listado de Usuarios</h1>
+            {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                {% set path_action = path('usuario_busqueda') %} 
+                {% set path_autocompletar = 'sistema_usuario_lista' %}
+                {% set busqueda_nombre = 'usuario' %}
+                {% block input_with "400px" %}
+            {% endembed %}
+<section>
+<div id="colListado">
+<table cellspacing="0" width="100%">
+    <thead>
+        <tr>
+{#            <th>Usuario</th>
+            <th>Dni</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>E-mail</th>
+            <th>Area</th>
+            <th>Activo</th>
+            <th>Bloqueada</th>
+            <th>Acciones</th>
+ #}
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Usuario', 'u.username') }}</th>
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Dni', 'u.dni') }}</th>
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Nombre', 'u.nombre') }}</th>
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Apellido', 'u.apellido') }}</th>
+            <th style="background:#5fb2ae; color:white"> {{ knp_pagination_sortable(usuarios, 'E-mail', 'u.email') }}</th>
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Área', 'area.nombre') }}</th>
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Activo', 'u.activo') }}</th>
+            <th style="background:#5fb2ae; color:white">{{ knp_pagination_sortable(usuarios, 'Bloqueada', 'u.bloqueada') }}</th>
+            <th style="background:#5fb2ae; color:white">Acciones</th>
+            
+        </tr>
+    </thead>
+    <tbody>
+    {% if (usuarios | length > 0) %}
+    {% for usuario in usuarios %}
+        <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+            <td>{{ usuario.username }}</td>
+            <td>{{ usuario.dni }}</td>
+            <td>{{ usuario.nombre }}</td>
+            <td>{{ usuario.apellido }}</td>
+            <td>{{ usuario.email }}</td>
+            <td>{{ usuario.area }}</td>
+            <td>{% if (usuario.activo == 1 )%} Si {%else%} No {%endif%} </td>
+            <td>{% if (usuario.bloqueada == 1 )%} Si {%else%} No {%endif%} </td>
+            <td>
+			<img src="{{ asset('images/iconos/accion_permisos.png') }}" title="Cambio de Permisos" alt="Permisos" style="cursor:pointer;" onclick="TINY.box.show({iframe:'{{ path('front_gestionusuario_editarpermisos', { 'id': usuario.id }) }}',boxid:'frameless',width:400,height:300,fixed:false,maskid:'greymask',maskopacity:30,closejs:function(){cierre()}})"/>
+			<img src="{{ asset('images/iconos/accion_modificar.png') }}" title="Modificar Datos" alt="Modificar" style="cursor:pointer;" onclick="TINY.box.show({iframe:'{{ path('usuario_edit', { 'id': usuario.id }) }}',boxid:'frameless',width:450,height:435,fixed:false,maskid:'greymask',maskopacity:30,closejs:function(){cierre()}})"/>
+			<!--<img src="{{ asset('images/iconos/accion_clave.png') }}" title="Cambio de Clave" alt="Cambio de Clave" style="cursor:pointer;" onclick="TINY.box.show({iframe:'{{ path('usuario_edit_password', { 'id': usuario.id }) }}',boxid:'frameless',width:400,height:300,fixed:false,maskid:'greymask',maskopacity:30,closejs: function(){cierre()}})"/>-->
+            </td>
+        </tr>
+    {% endfor %}
+    {% else %}
+        <tr class="odd"><td colspan="11" >no se encontro nada</td></tr>
+    {% endif %}
+    </tbody>
+</table>
+            {% if ( usuarios | length > 0) %}
+	    <div class="pagination">
+                <table align="center" id="paginador-tabla">
+                <tr>
+                    <td>{{ knp_pagination_render(usuarios) }}</td>
+                </tr>
+		</table>                   
+	    </div>            
+            {% endif %}	<div style="margin-top:15px; margin-bottom:15px;">
+		<span>
+			<a href="{{ path('usuario_new') }}" class="btn btn-default">
+				Nuevo Usuario
+			</a>
+		</span>
+	</div>
+        
+</div>
+</section>
+{% endblock %}
+
+{% block javascriptEspeciales %}
+
+{#error1 <script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script> #}
+<script src="{{ asset('js/tinybox.js') }}" type="text/javascript"></script>
+
+
+<script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+<link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+ 
+<style>
+a:link {
+    color: #ffffff;
+    text-decoration: none;
+}
+a:link {
+    color: #ffffff;
+    text-decoration: none;
+}
+a {
+    color: #ffffff;
+    text-decoration: none;
+}
+    
+    #colListado {
+    border: thin solid #000;
+    font-size: 12px !important;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%;
+    min-width: 1100px;
+    overflow: auto;
+    padding: 5px;
+	background-color:#fff;
+}
+    
+    
+    
+    </style>
+
+<script>
+    Recargar = false;
+function cierre(){     
+    if(Recargar){location.reload();}   
+}
+    </script>
+<script>
+	var seleccionado;
+	function selecionar(obj){
+		seleccionado = $($(obj).children()[0]).children().html();
+
+	}	
+	function ajax_arg(ruta){
+		if(isFinite(seleccionado)){
+			$.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   
+		}else{
+			alert('seleccione un item');
+		}	
+
+	}
+	function ajax(ruta){
+			$.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   	
+	}	
+	function dibujar(data){
+
+			$('#divajax').html('');
+			$('#divajax').html(data);
+
+	}
+	function elegir(obj){
+		selecionar(obj);
+		pintar(obj);
+		
+	}
+	function irApagina(direccion,sinVerificar){
+			if(isFinite(seleccionado)|| sinVerificar == true){ // si no se selecciono ninguno no hace nada, seleccionado esta en undefined.
+				location.href = "http://" + location.host + direccion;
+			}
+	}
+			
+	function elegir(obj){
+		selecionar(obj);
+		pintar(obj);		
+	}
+	var global;
+	var tabla;
+		function pintar(obj){
+			
+		global= obj;
+		cantidad_lineas = $($('#Comprobantes').children('tbody')).children().length
+		lineas = $($('#Comprobantes').children('tbody')).children()
+		for(var i=0;i<cantidad_lineas;i++){			
+			if(i%2){
+				$(lineas[i]).attr('class', 'even');
+			}else{
+				$(lineas[i]).attr('class', 'odd');
+				
+			}
+		}
+		//$(obj).css('background-color', '#666')
+		$(obj).attr('class', 'seleccionada');
+	
+	
+	}
+	function mensaje(){
+
+	}
+
+</script>
+
+
+{% endblock %}
+

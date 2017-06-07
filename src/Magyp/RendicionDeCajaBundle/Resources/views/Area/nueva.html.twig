@@ -1,0 +1,88 @@
+{% extends 'MagypRendicionDeCajaBundle:Area:base.html.twig' %}
+
+{% block cuerpo %}
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:crear-modificar.html.twig" %}
+
+        {% block titulo %} <br /> {% endblock %}
+
+        {% block heightMarcoFoto 'style="height:415px"' %}
+
+        {% block imagenlateral %}  
+            <img src={{ asset ("/images/lateral-area.png")}} alt="NuevaÁrea" style="margin-top:35px;" />
+        {% endblock %}
+
+        {% block titulo_formulario "NUEVA ÁREA" %}	
+
+        {% block tabla_formulario %}  
+            <form action="{{ path('af_area_crear') }}" method="post" {{ form_enctype(form) }}>
+                <table id="registroForm" class="tablaFormularios" border="0" cellspacing="3" style="height:300px; margin-top:0;">
+					<tr>
+						<td><p></p></td>
+					</tr>
+                    <tr>
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.nombre) }}:</td>
+                        <td align="left">{{ form_widget(form.nombre) }}</td>
+                    </tr>
+                    <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.responsable) }}:</td>
+                        <td  align="left">{{ form_widget(form.responsable) }}</td>		
+                    </tr>
+                    <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(form.subresponsable) }}:</td>
+                        <td  align="left">{{ form_widget(form.subresponsable) }}</td>
+                    </tr>
+                    <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{form_label(form.monto) }}: </td>
+                        <td  align="left">{{ form_widget(form.monto) }}</td>	
+                    </tr>
+                    <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{form_label(form.programa) }}:</td>
+                        <td  align="left">{{ form_widget(form.programa) }}</td>	
+                    </tr>
+                    <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{form_label(form.actividad) }}:</td>
+                        <td  align="left"> {{ form_widget(form.actividad) }}</td>	
+                    </tr>
+                        <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{form_label(form.ff) }}:</td>
+                        <td  align="left">{{ form_widget(form.ff) }}</td>	
+                    </tr>
+
+                    <tr>		
+                        <td class="padding_derecho" align="right"Style=" width: 50%">{{form_label(form.ug) }}:</td>
+                        <td  align="left">{{ form_widget(form.ug) }}</td>	
+                    </tr>
+                    <tr>		
+                        {{ form_rest(form) }}
+                    </tr>
+                    <tr>
+                        <td colspan="2" scope="row">
+                            <div style="margin:10px;" align="center">
+                                <button type="submit" class="btn btn-default">Crear</button>
+                                <button type="button" class="btn btn-default" onclick="parent.location='{{ path('af_area')}}'">Volver</button>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </form>
+        {% endblock %}
+
+        {% block estilosEspeciales %}
+            <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+        {% endblock %}
+            
+    {% endembed %}
+            
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+

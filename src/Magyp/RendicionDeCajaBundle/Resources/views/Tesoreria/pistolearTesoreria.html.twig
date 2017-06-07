@@ -1,0 +1,37 @@
+{% extends '::tecofra.html.twig' %}
+
+{% set paginaActual = 'Gestion' %}
+{% block javascriptEspeciales %}
+    <script type="text/javascript" src="{{ asset('js/imghover.js')}}"></script>
+{% endblock %}
+
+{% block cuerpo %}
+    <section id="panel-home" style="background-image: none !important;" >
+		<div class="panel-marco-af">
+			<div id="superSuperior" Style="background-color:#1a76b5;">
+				<h1>Lector de Codigo de Barras</h1>
+			</div>  
+			<div id="colIzPipGral" Style="background-color:#fff; width:480px; display:block; color:black">
+				<p>Ingrese el código de barras de la liquidación que quiere buscar</p>   
+				<form action="{{ path('te_buscador_por_liquidacion') }}" method="post">
+					<input type="text" name="codigodebarras" id="codigodebarras" maxlength="255" size="20" value=""/>
+					<button type="submit" class="btn btn-submit">Buscar</button>
+				</form>
+			</div>  
+			<div id="volver" Style="background-color:#1a76b5; width:480px; padding:5px; margin-top:5px;" class="volver" onclick="efectosUnLoad('slideaizquierda', '#panel-notificacion', '{{ path("af_home")}}');">
+				<a style="color:#fff;" href="{{ path("te_home")}}">Volver</a>
+			</div>
+		</div>
+    </section>
+
+	<script>
+		$("#codigodebarras").val("");
+		$("#codigodebarras").focus();
+	</script>
+	<script>
+		efectosLoad('slideaizquierda', '#panel-home');
+		setTimeout('$(".imghover").imghover({suffix: "-over"})', 400);
+	</script>
+{% endblock %}
+
+

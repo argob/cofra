@@ -1,0 +1,232 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+
+
+{% block cuerpo %}
+<style>
+	.modificarComprobante {
+			background-color:#fff;
+			}
+		#tabla-Comprobante.inputSmall tr:first-child select {
+			padding: 3px;
+			font-size: 12px;
+			max-width: 60px !important;
+			min-width: 50px !important;
+			border: thin solid #CCC;
+			}
+</style>
+<br/>
+
+<section>
+    <div class="colIzComprobante">
+	<img src={{ asset ("images/lateral-comprobantes2.jpg") }} width="150" height="300" alt="login" style="margin-top:35px;" />
+    </div>
+	<div class="modificarComprobante" >
+		<table class="tablaTitulo" align="center" width="100%" style="margin-bottom:10px;">
+								<thead>
+									<tr>
+										<th class="titulo_tbl">MODIFICAR COMPROBANTE </th>
+									</tr>
+								</thead>
+		</table>
+		<table id="tabla-Comprobante" align="center" width="100%" class="inputSmall">
+			<form action="{{ path('sistema_comprobante_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }} name="Comprobante" id="Comprobante">
+
+			<tr style="text-align: left" >
+				<td align="right">
+				{{ form_label(edit_form.fecha) }}:
+				</td >
+				<td align="left">
+				{{ form_widget(edit_form.fecha) }} 
+				</td>
+			</tr>	
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(edit_form.tipofactura) }}:
+				</td >
+				<td align="left">
+				{{ form_widget(edit_form.tipofactura) }} 
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				{{ form_label(edit_form.numero) }}:
+				</td >
+				<td align="left">
+				{{ form_widget(edit_form.numero ) }}<div id="numerofacturaab" style="display:inline">-{{ form_widget(edit_form.numero2) }}</div> 
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				{{ form_label(edit_form.descripcion) }}: 
+				</td>
+				<td align="left">
+				{{ form_widget(edit_form.descripcion) }}
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				{{ form_label(edit_form.importe) }}: 
+				</td>
+				<td align="left">
+				{{ form_widget(edit_form.importe) }}
+				</td>
+			</tr>	
+			<tr>
+				<td align="right" style="width: 30%">
+					<label>Buscar Proveedor: </label>
+				</td>
+				<td align="left">
+				<input type="text" name="proveedor" id="proveedor_id" >
+				</td>
+			</tr>
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(edit_form.proveedor) }}: 
+				</td>
+				<td align="left">
+				{{ form_widget(edit_form.proveedor) }}
+				</td>
+			</tr>		
+			<tr>
+				<td align="right">
+				<label>Buscar Imputación: </label>
+				</td>
+				<td align="left">
+				<input type="text" name="imputacion" id="imputacion_id" ><button type=button onclick="TINY.box.show({iframe:'{{path('sistema_imputacion_referencia')}}',boxid:'frameless',width:840,height:505,fixed:false,maskid:'greymask',maskopacity:30,closejs:function(param){funcionReferencia(param);}})" class="btn_referencias" title="Palabras Claves">?</button>
+				</td>				
+			</tr>
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(edit_form.imputacion) }}: 
+				</td>
+				<td>
+				{{ form_widget(edit_form.imputacion)}}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">	
+					<!--<a href="" class="btn boton">Volver</a>-->
+				</td>
+			</tr>
+			{{form_rest(edit_form)}}
+			</table>
+		    </form>
+                  <div style="margin-left:auto; margin-right:auto; margin-top:20px;">
+			<button type="button" onclick="submitearMovilidadMenor()" class="btn btn-default" style="margin-left:auto; margin-right:auto;">Guardar</button>			
+			<button onclick="location.href = '{{path('sistema_rendicion_detalle', {'idrendicion' : rendicion.id})}}';" class="btn btn-default">Cancelar</button>
+		</div>   
+	</div>
+    <script>
+        function enableCampos(){
+            $('#magyp_rendiciondecajabundle_comprobantetype_tipofactura').prop('disabled', false);
+            $('#magyp_rendiciondecajabundle_comprobantetype_numero').prop('disabled', false);
+            $('#magyp_rendiciondecajabundle_comprobantetype_numero2').prop('disabled', false);
+            $('#magyp_rendiciondecajabundle_comprobantetype_proveedor').prop('disabled', false);
+            $('#proveedor_id').prop('disabled', false);
+        }
+        
+        function es371Acciones(){
+            var e = $("#magyp_rendiciondecajabundle_comprobantetype_imputacion");
+            var codigoimputacion = $("#magyp_rendiciondecajabundle_comprobantetype_imputacion :selected").text();
+            if ( codigoimputacion === '3.7.1' ) {
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero').val(0);
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero').prop('disabled', true);
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero2').val(0);
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero2').prop('disabled', true);
+                //$('#magyp_rendiciondecajabundle_comprobantetype_numero2').val('@');
+
+                $("#magyp_rendiciondecajabundle_comprobantetype_proveedor").find("option:contains('Movilidad Menor')").each(function(){
+                    if( $(this).text() === 'Movilidad Menor' ) {
+                       $(this).attr("selected","selected");
+                    }
+                });
+                $('#magyp_rendiciondecajabundle_comprobantetype_proveedor').prop('disabled', true);
+                $('#proveedor_id').prop('disabled', true);
+
+
+                $("#magyp_rendiciondecajabundle_comprobantetype_tipofactura").find("option:contains('Ticket')").each(function(){
+                     if( $(this).text() === 'Ticket' ) {
+                        $(this).attr("selected","selected");
+                     }
+                });
+                $('#magyp_rendiciondecajabundle_comprobantetype_tipofactura').prop('disabled', true);
+            }else{
+                enableCampos();
+            }
+        }
+        
+        es371Acciones();
+        
+        $("#magyp_rendiciondecajabundle_comprobantetype_imputacion").change(function() {
+            es371Acciones();
+        });
+        
+        function submitearMovilidadMenor (){
+            $('#magyp_rendiciondecajabundle_comprobantetype_tipofactura').prop('disabled', false);
+            $('#magyp_rendiciondecajabundle_comprobantetype_numero').prop('disabled', false);
+            $('#magyp_rendiciondecajabundle_comprobantetype_numero2').prop('disabled', false);
+            $('#magyp_rendiciondecajabundle_comprobantetype_proveedor').prop('disabled', false);
+            $('#proveedor_id').prop('disabled', false);
+            $('#imputacion_id').prop('disabled', false);
+            $('#Comprobante').submit();
+        }
+		var imputacionSeleccionada;
+        function funcionReferencia(){
+                        fnc();
+			$('#imputacion_id').val('');
+			
+			b = imputacionSeleccionada.split('-')[0];
+			//console.log(b);
+			$('select#magyp_rendiciondecajabundle_comprobantetype_imputacion').val(imputacionSeleccionada.split('-')[0]);
+			//alert(imputacionSeleccionada);
+		}        
+        var numeroparcial= $('#magyp_rendiciondecajabundle_comprobantetype_numero').val().split("-");
+        $('#magyp_rendiciondecajabundle_comprobantetype_numero').val(numeroparcial[0])
+        
+        /*
+        $("#magyp_rendiciondecajabundle_comprobantetype_tipofactura").change(function() {
+            var tf = $("#magyp_rendiciondecajabundle_comprobantetype_tipofactura");
+            var tipofacturacombo = $("#magyp_rendiciondecajabundle_comprobantetype_tipofactura :selected").text();
+            if ( tipofacturacombo === 'Ticket' ) {
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero2').val('@');
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero').attr('maxlength','8');
+                $('#numerofacturaab').hide();
+            }else{
+                $('#numerofacturaab').show();
+                $('#magyp_rendiciondecajabundle_comprobantetype_numero').attr('maxlength','4');
+                if ($('#magyp_rendiciondecajabundle_comprobantetype_numero2').val() === '@' ){
+                    $('#magyp_rendiciondecajabundle_comprobantetype_numero2').val('');
+                }
+            }
+        });
+        */
+        {% if (esticketcontroller == true ) %}
+            /*$('#numerofacturaab').show();
+            $('#magyp_rendiciondecajabundle_comprobantetype_numero2').val('@');
+            $('#numerofacturaab').hide();*/
+        {% endif %}
+    </script>    
+        
+        
+</section>
+{% endblock %}
+
+{% block javascriptEspeciales %}
+
+<script src="{{ asset('js/tinybox.js') }}" type="text/javascript"></script>
+<script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+<script type="text/javascript" src="{{ asset('js/cofra.js')}}"></script> 
+
+
+<link href="{{asset('js/styles2.css')}}" rel="stylesheet" type="text/css">
+<script>
+    fnc = function(){es371Acciones();};
+    autocompletarImputacion = new CofraAutocompletar('{{path('sistema_busqueda_imputacion_lista')}}','imputacion_id','{{edit_form.imputacion.vars['id']}}',fnc);
+    autocompletarImputacion = new CofraAutocompletar('{{path('sistema_busqueda_proveedor_lista')}}','proveedor_id','{{edit_form.proveedor.vars['id']}}');
+</script>
+{% endblock %}
+
+{#
+new CofraAutocomplete(path,textbox_id,combo_id)
+#}

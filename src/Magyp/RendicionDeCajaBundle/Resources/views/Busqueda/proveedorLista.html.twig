@@ -1,0 +1,19 @@
+{
+
+
+{%for proveedor in proveedores %}"{{proveedor.id}}" : "{{proveedor.cuit}} - {{proveedor}}",
+{% endfor %} "ZZ" : "ultimo"
+
+}
+{#
+{
+query:'Li',
+suggestions:['Elija una opcion'
+{%for proveedor in proveedores %},'{{proveedor}}'{% endfor %}
+],
+data:['000'
+{%for proveedor in proveedores %},'{{proveedor.id}}'{% endfor %}
+]
+}
+
+#}

@@ -1,0 +1,106 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+
+{% block cabecera %}{% endblock  %}
+
+{% block cuerpo %}
+
+    {% embed 'MagypRendicionDeCajaBundle:Base:formulario.html.twig' %}
+	{% block titulotabla "Datos TituloTabla" %}
+	{% block formulario %}
+		<table id="tablaModificar" align="center" width="500px">
+                        <form action="{{ path('sistema_comprobante_crear') }}" method="post" {{ form_enctype(form) }}  name="Comprobante">
+
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(form.fecha) }}:
+				</td >
+				<td>
+				{{ form_widget(form.fecha) }} 
+				</td>
+			</tr>	
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(form.tipofactura) }}:
+				</td >
+				<td>
+				{{ form_widget(form.tipofactura) }} 
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				{{ form_label(form.numero) }}:
+				</td >
+				<td>
+				{{ form_widget(form.numero) }} 
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				{{ form_label(form.descripcion) }}: 
+				</td>
+				<td>
+				{{ form_widget(form.descripcion) }}
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				{{ form_label(form.importe) }}: 
+				</td>
+				<td>
+				{{ form_widget(form.importe) }}
+				</td>
+			</tr>
+			<tr>
+				<td align="right">
+				Buscar Proveedor: 
+				</td>
+				<td>
+				<input type="text" name="proveedor" id="proveedor_id" style=" width: 250px">
+				</td>
+			</tr>			
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(form.proveedor) }}: 
+				</td>
+				<td>
+				{{ form_widget(form.proveedor) }}
+				</td>
+			</tr>
+			
+			<tr>
+				<td align="right">
+				Buscar: 
+				</td>
+				<td>
+				<input type="text" name="imputacion" id="imputacion_id" style=" width: 250px">
+				</td>
+			</tr>
+			<tr style="text-align: left">
+				<td align="right">
+				{{ form_label(form.imputacion) }}: 
+				</td>
+				<td>
+				{{ form_widget(form.imputacion)}}
+				</td>
+			</tr>
+			<tr>
+				<td colspan="2">
+					
+					<!--<a href="" class="btn boton">Volver</a>-->
+				</td>
+			</tr>
+			{{form_rest(form)}}
+			</form>
+
+			</table>
+	{% endblock %}
+	{% block botones %}
+	<button type="button" onclick="Comprobante.submit()" class="btn boton" style="margin-left:auto; margin-right:auto;">Crear</button>
+	<button onclick="location.href = '{{path('sistema_rendicion_detalle', {'idrendicion' : idrendicion})}}';" class="btn boton">Cancelar</button>
+	{% endblock %}
+    {% endembed %}
+{% endblock  %}
+
+
+
+

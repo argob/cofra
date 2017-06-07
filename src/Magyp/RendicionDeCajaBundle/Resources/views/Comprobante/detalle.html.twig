@@ -1,0 +1,416 @@
+{% extends 'MagypRendicionDeCajaBundle:Comprobante:base.html.twig' %}
+
+{% block cabecera %}
+    {{ parent() }}
+<style>
+		#datosExpediente select {
+			width:60px;
+		}
+		#comprobantesDiv {
+			background-color:#fff !important;
+			}
+		#datosExpediente  {
+		background-color:#fff !important;	
+			}
+		#banner #datosExpediente {
+		background-color:#000 !important;		
+			}
+		#datosExpediente .selectBlanco select {
+			background-color:#fff !important;
+			}
+		#magyp_rendiciondecajabundle_rendiciontype_fecha select{
+			background-color:#fff !important;	
+				}
+		.comprobantesTabla1	.comprobantesFecha select {
+			width:45px !important;
+			}
+		.comprobantesFecha {
+			width: 180px;
+			}
+			#datosExpediente select {
+				font-size:12px;
+			}
+		.comprobantesFecha select:nth-child(3)  {
+			width:70px !important;
+			}
+		.contieneExpLabel  input[type="text"] {
+			display: block !important;
+			width: 100% !important;
+			height: 30px !important;
+			padding: 4px 8px !important;
+			font-size: 12px !important;
+			line-height: 1.42857143 !important;
+			color: #555 !important;
+			background-color: #fff !important;
+			background-image: none !important;
+			border: 1px solid #ccc !important;
+			border-radius: 4px !important;
+			-webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+			box-shadow: inset 0 1px 1px rgba(0,0,0,.075) !important;
+			-webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s !important;
+			-o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+			transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s !important;
+		}
+		.datosExpTitulo {
+			background-color:#5FB2AE; color:#fff; padding:2px; margin-bottom:5px; margin-top:5px; font-size:18px;
+		}
+		.datosExpTituloInput {
+			border-bottom: thin solid #000; font-weight: bold; margin-bottom:5px;
+		}
+		.btn-exito {
+			background-color: #3d9799; color:#fff;
+		}
+		.textoBlanco {
+			color:#fff;
+		}
+	</style>
+	<link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" media="screen">
+    
+        {% block acciones %}
+			<div id="menucito" class="acciones">
+				{% set bbotonera = false %}
+				{% if is_granted('ROLE_AF') %}
+					{% set bbotonera = rendicion.esmodificablePorAF %}
+				{% else %}	
+					{% set bbotonera = rendicion.esmodificable %}
+				{% endif %}
+				{% if bbotonera == true %}
+					<li onclick="irApagina('/sistema/comprobante/nuevo/rendicion/{{idrendicion}}',true);" class="agregar" title="agregar"  ><Span class="spanbotoncomprobante" >Agregar </span></li>
+					<li onclick="irApagina('/sistema/comprobante/'+seleccionado+'/edit',0);" class="editar" title="Modificar" ><span class="spanbotoncomprobante" >Modificar </span></li>
+					<li onclick="borrar('/sistema/comprobante/'+seleccionado+'/borrar',0);" class="borrar"  title="Borrar"><span class="labelbotoncomprobante" >Borrar</span></li> 
+				{% endif %}
+				<li onclick="irApagina('{{path('sistema_comprobante_papelera',{ 'idrendicion':idrendicion})}}',true)" class="papelera"  title="Papelera"><span class="labelbotoncomprobante" >Papelera</span></li>
+				{% if is_granted('ROLE_LOG') %}
+					<li onclick="irApagina('/sistema/comprobante/'+seleccionado+'/eventos',0)" class="eventos" title="Eventos"><span class="labelbotoncomprobante" >Eventos</span></li>
+				{% endif %}
+				<li onclick="irApagina('{{path('sistema_rendicion_imprimir',{ 'idrendicion':idrendicion ,'tipo':1, 'hash':hash  } )}}',true)" class="imprimir" title="Imprimir"><span class="labelbotoncomprobante" >Imprimir</span></li>
+
+				<li onclick="irApagina('{{path('imprimir_notadecomida_pdf',{ 'idrendicion':idrendicion, 'hash':hash } )}}',true)" class="notadecomida" title="Imprimir Nota de Comida"><span class="labelbotoncomprobante" >Nota de Comida</span></li>
+
+				<li onclick="irApagina('{{path('imprimir_rendiciondecajachica_pdf',{ 'idrendicion':idrendicion, 'hash':hash } )}}',true)" class="rendicioncaja" title="Imprimir Rendición de caja"><span class="labelbotoncomprobante" >Rendición De Caja</span></li>
+
+				{% if rendicion.esmodificable %}
+					<li onclick="irApagina('{{path('sistema_estado_rendicion_enviada', { 'idrendicion':idrendicion })}}',true);" class="enviar1" title="Enviar"><span class="labelbotoncomprobante" >Enviar</span></li>
+				{% endif %}
+				{% if is_granted('ROLE_AF') %}
+					<li onclick="history.back()" class="volver" title="Volver"><label class="labelbotoncomprobante" >Volver</label></li>
+				{% else %}
+					{% if is_granted('ROLE_GENERAL') %}
+						<li onclick="irApagina('{{path('sistema_rendicion')}}',true);" class="volver"  title="Volver"><span class="labelbotoncomprobante" >Volver</span></li>
+					{% endif %}
+				{% endif %}
+		</div>
+        {% endblock %}	    
+    
+{% endblock %}
+
+{% block cuerpo %}
+
+{% if is_granted('ROLE_AF') %}
+    <span class="titulo" style="font-size: 20px;">Área: {{rendicion.area}}</span>
+{% endif %}
+
+<section>
+    
+{% block banner %}        
+    <div id="banner">
+        <div id="datosExpediente" class="textoBlanco">
+            Estado Actual: <strong>{{rendicion.estadoNombre}}</strong>
+            {% if is_granted('ROLE_AF') %}
+                {% if rendicion.esmodificable == false %}	 
+                    {% if is_granted('ROLE_AF') %}
+                        {% if rendicion.isApagado %}
+                            - Acciones: <button class="btn btn-exito" onclick="confirmarArchivada()">Archivar</button>
+                        {% elseif rendicion.isAceptada %}
+                                - Acciones: <button class="btn btn-danger" onclick="confirmarCorregir()">Enviar Para Corregir</button>
+                                <button class="btn btn-exito" onclick="confirmarATesoreria()">A Tesoreria</button>
+                        {% elseif rendicion.isEnviado %}
+                                - Acciones: <button class="btn btn-exito" onclick="confirmarAceptar()">Aceptar</button>	
+                                <button class="btn btn-danger" onclick="confirmarCorregir()">Enviar Para Corregir</button>
+                                {% elseif ((rendicion.isAtesoreria) or (rendicion.isArchivada)) %}
+                                     - La Rendición ya no se puede modificar. 
+                        {% endif %}
+                    {% else %}
+                        - La Rendición ya no se puede modificar. 
+                    {% endif %}
+                {% endif %}
+                - <a style="color:#FFFFFF; font-weight: bold;" href="{{path('sistema_rendicion_historial', { 'idrendicion': rendicion.id }) }}">Ver Historial</a>
+            {%else%}
+                {% if rendicion.esmodificable == false %}	
+                            - La Rendición ya no se puede modificar. 
+                {% endif %}
+            {% endif %}
+            {% if rendicion.isAcorregir == true %}	
+                - La Rendición se rechazo y es necesario alguna corrección. 
+                {% if rendicion.idultimanotificacion is not null %}<a href="{{path('sistema_notificacion_motivo_ver',{'idrendicion': idrendicion, 'idnotificacion' : rendicion.idultimanotificacion })}}" style="color:#fff"><strong>Ver Motivo</strong></a>{% endif %}  
+            {% endif %}            
+        </div>	
+    </div>	    
+{% endblock %}    
+<div id="datosExpediente">
+	{#
+    <table class="tablaTitulo" align="center" width="100%">
+        <thead>
+            <tr>
+                <th class="titulo_tbl">Datos de Expediente</th>
+            </tr>
+        </thead>
+    </table>
+ #}
+        <form action="{{ path('sistema_rendicion_update', { 'id': rendicion.id }) }} " method="post" {{ form_enctype(edit_form) }} style="display: inline">
+       {# <table cellspacing="0" border="0" width="auto" align="center">#}
+	   <div class="row">
+		   <div class="col-lg-12 col-md-12 col-sm-12" >
+			<h3 class="datosExpTitulo" >Datos de Expediente</h3>
+		   </div>
+		   <div class="col-lg-2 col-md-2 col-sm-2">
+			<div name="Responsable" class="datosExpTituloInput" >Responsable:</div>
+			<span>{{rendicion.responsable.username}}</span>
+		   </div>
+		   <div class="col-lg-3 col-md-3 col-sm-3">
+			<div name="Fecha" class="datosExpTituloInput">Fecha:</div>
+			<div>{{ form_widget(edit_form.fecha) }}</div>
+		   </div>
+		   <div class="col-lg-7 col-md-7 col-sm-7">
+			<div class="col-lg-8 col-md-8 col-sm-8">
+			<div name="Exp" class="datosExpTituloInput" >Expediente:</div>
+				<div class="contieneExpLabel">    
+					{% if rendicion.esmodificable %}	
+						{{ form_widget(edit_form.expediente) }}
+					{% else %}
+
+						{{ form_widget(edit_form.expediente, { 'attr' : {'disabled' : rendicion.esmodificable } }) }}
+					{% endif %}
+				</div>
+			</div>
+			<div class="col-lg-4 col-md-4 col-sm-4">
+				<div name="Exp" class="datosExpTituloInput" >Acción:</div>
+				 {{ form_rest(edit_form) }}
+				<div id="rendicion-guardar"> 
+					{% if rendicion.esmodificable %}
+						<button type="submit" class="btn btn-exito">Guardar</button>
+					{% endif %}
+				</div>
+			</div>
+		   </div>
+	   </div>
+	</form>
+			{#
+        <table class="comprobantesTabla1" cellspacing="0" border="0" width="800px"  class="selectBlanco">
+            <tr>
+                <td align="right">
+                        <label style="padding-right:10px;">Responsable:</label>
+                </td>
+                <td align="left"> 
+                        <span>{{rendicion.responsable.username}}</span>
+                </td>					
+                <td align="right" >
+                    {{ form_label(edit_form.fecha) }}:
+                </td>
+                <td align="left" class="comprobantesFecha"> 
+                    {{ form_widget(edit_form.fecha) }}    
+                </td>
+
+                <td align="right">
+                    {{ form_label(edit_form.expediente) }}:
+                </td>
+                
+                <td align="left">
+					asdsa266666
+   
+					#}
+                    {#<select id="tipo_expediente1" style=" width: auto;" {{rendicion.esmodificable ? '' : 'disabled="true"' }}><option  value="1">S05:</option></select>#}
+					{#<input type="text" placeholder="Ej: exp-2016-123456-apn-sstyc.+ha" />#}
+					
+			{#
+                    {% if rendicion.esmodificable %}	
+                        {{ form_widget(edit_form.expediente) }}
+                    {% else %}
+			
+                        {{ form_widget(edit_form.expediente, { 'attr' : {'disabled' : rendicion.esmodificable } }) }}
+                    {% endif %}	
+                </td>
+                <td>
+                    {{ form_rest(edit_form) }}
+				{#	<div id="rendicion-guardar"> #}
+			{#
+						 {% if rendicion.esmodificable %}
+						  <button type="submit" class="btn btn-default">Guardar</button>
+						 {% endif %}		
+		#}
+				{#	</div>		
+                </td>
+            </tr>
+        </table>
+	
+    </form>
+	#}	
+				
+{% block archivada %} 
+    {% if is_granted('ROLE_ARCHIVAR_MODIFICAR') %}
+        {% if rendicion.isArchivada %}
+            <hr/>
+            <form action="{{ path('af_archivar_modificar_role', {id:archivar.id} ) }} " method="post" style="display: inline">
+                <table cellspacing="0" border="0" width="auto" style="display: inline">
+                    <tr>
+                        <td colspan="2" align="left" Style="padding-top: 10px" >
+                            <label>  Número de Caja:</label>  {{archivar.caja}}
+                        </td>
+                    </tr>
+                </table>
+                <div id="rendicion-guardar" style="display: inline;">
+                    <div style="vertical-align: top; padding-top:5px;" >
+                        <button type="submit" class="btn btn-default">Modificar</button>
+                         <a  class="btn btn-default" href="{{ path('sistema_liquidacion_show', { 'id': archivar.liquidacion.id, 'idrendicion': archivar.rendicion.id }) }}">
+                            Ver Liquidación
+                        </a>        
+                    </div>				
+                </div>
+            </form>
+        {% endif%}
+    {% endif%}
+{% endblock %}    
+</div>
+
+{% include "MagypRendicionDeCajaBundle:Comprobante:listaextendida.html.twig" with {'comprobantes': comprobantes, 'linkpapelera' : path('sistema_comprobante_papelera',{ 'idrendicion':idrendicion})} %}
+
+
+<script>
+	// busco la tabla y le pongo los eventos a todos los tr.
+	cantidad = $($($('#Comprobantes').children()[1]).children()).length;
+	for(i=0;i<cantidad;i++){
+		$($($('#Comprobantes').children()[1]).children()[i]).click(function(){elegir(this)})
+	}
+	function irApagina(direccion,sinVerificar){
+			if(isFinite(seleccionado)|| sinVerificar == true){ // si no se selecciono ninguno no hace nada, seleccionado esta en undefined.
+				location.href = "http://" + location.host + direccion;
+			} else{
+				alert('Seleccione una opcion');
+			}
+	}
+	
+	var seleccionado;
+	function selecionar(obj){
+		
+		seleccionado = $($(obj).children()[0]).children().html();
+	}	
+</script>
+
+</section>
+{% endblock %}
+  
+        
+{% block javascriptEspeciales %}
+
+{#error1
+<script src="{{ asset('js/jquery-1.7.2.js') }}" type="text/javascript"></script> #}
+<script src="{{ asset('js/tinybox.js') }}" type="text/javascript"></script>
+
+<script>
+	var seleccionado;
+	function selecionar(obj){
+		seleccionado = $($(obj).children()[0]).children().html();
+
+	}	
+	function ajax_arg(ruta){
+		if(isFinite(seleccionado)){
+			resp = $.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   
+                        
+		}else{
+			alert('seleccione un item');
+		}	
+
+	}
+	function ajax(ruta){
+			$.post(ruta, 
+					null ,
+					function(data){ dibujar(data);}
+					);   	
+	}	
+	function dibujar(data){
+
+			$('#divajax').html('');
+			$('#divajax').html(data);
+
+	}
+	function elegir(obj){
+		selecionar(obj);
+		pintar(obj);
+		
+	}
+	function irApagina(direccion,sinVerificar){
+			if(isFinite(seleccionado)|| sinVerificar == true){ // si no se selecciono ninguno no hace nada, seleccionado esta en undefined.
+				location.href = "http://" + location.host + direccion;
+			}
+	}
+			
+	var global;
+	var tabla;
+		function pintar(obj){
+			
+		global= obj;
+		cantidad_lineas = $($('#Comprobantes').children('tbody')).children().length
+		lineas = $($('#Comprobantes').children('tbody')).children()
+		for(var i=0;i<cantidad_lineas;i++){			
+			if(i%2){
+				$(lineas[i]).attr('class', 'even');
+			}else{
+				$(lineas[i]).attr('class', 'odd');
+				
+			}
+		}
+		//$(obj).css('background-color', '#666')
+		$(obj).attr('class', 'seleccionada');
+	
+	
+	}
+	function mensaje(){
+
+	}
+	
+	function borrar(ruta){
+		if(isFinite(seleccionado)){
+            apprise('¿Esta Seguro que desea borrar el comprobante seleccionado?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                if(r)irApagina(ruta,0);
+            });
+        }
+	}
+        
+        
+    {% if is_granted('ROLE_AF') %}
+
+        function confirmarAceptar(){
+            apprise('¿Esta seguro que desea marcar esta Rendicion como Aceptada?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                if(r)irApagina('{{path('sistema_estado_rendicion_aceptar', { 'idrendicion':idrendicion })}}',true);
+            });
+        }
+        
+        function confirmarCorregir(){
+            apprise('¿Esta seguro que desea enviar esta Rendicion para Corregir?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                if(r)irApagina('{{path('sistema_estado_rendicion_acorregir', { 'idrendicion':idrendicion })}}',true);
+            });
+        }
+
+        function confirmarATesoreria() {
+            apprise('¿Esta seguro que desea enviar esta Rendicion a Tesoreria?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                if(r)irApagina('{{path('sistema_estado_rendicion_atesoreria', { 'idrendicion':idrendicion })}}',true);
+            });
+        }
+
+        function confirmarArchivada(){
+            apprise('¿Esta seguro que desea archivar esta Rendicio?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                if(r)irApagina('{{path('af_prearchivar_crear', { 'idrendicion':idrendicion })}}',true);
+            });
+        }
+    {% endif %}	
+</script>
+<style>
+a {
+	text-decoration:none;
+}
+</style>	
+{% endblock %}
+

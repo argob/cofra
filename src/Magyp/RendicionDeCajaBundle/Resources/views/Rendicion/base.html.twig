@@ -1,0 +1,27 @@
+{% if is_granted('ROLE_AF') %}
+    {% set basetwig= '::afcofra.html.twig' %}
+    {% set paginaActual = 'Gestion' %}
+
+{% else %}	
+    {% set basetwig= '::generalcofra.html.twig' %}
+    {% set paginaActual = 'Rendicion' %}
+{% endif %}
+
+{% extends basetwig %}
+
+
+{% block titulo %}Registro{% endblock %}
+
+{% block estilosEspeciales %}
+
+{% if is_granted('ROLE_AF') %}
+    {% set basetwig= '::afcofra.html.twig' %}
+    <link href="{{asset('css/af.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('css/general_para_af.css')}}" rel="stylesheet" type="text/css">
+
+
+{% else %}	
+ <link href="{{asset('css/rendicion.css')}}" rel="stylesheet" type="text/css">
+<link href="{{asset('css/tinybox-style.css')}}" rel="stylesheet" type="text/css">
+{% endif %}
+{% endblock %}

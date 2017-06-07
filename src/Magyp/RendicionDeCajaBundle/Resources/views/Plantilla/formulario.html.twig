@@ -1,0 +1,75 @@
+{% block formulario %}
+<h1>Registro de Area Nueva</h1>
+<section>
+     <div class="colIzComprobante">
+	<img src={{ asset ("images/fondo-registro-area2.jpg") }} width="150" height="300" alt="login" style="margin-top:35px;" />
+    </div>
+    <div id="colDe">
+
+	<form action="{{ path('af_area_crear') }}" method="post" {{ form_enctype(form) }}>
+	    <div style="border:thin #FC6 solid; padding:0; margin:0; height:407px;">
+		<table width="100%" border="0" cellspacing="0" style="padding:3px; margin-bottom:10px;">
+		    <tr>
+			<th scope="col" style="background-color:#FC6; text-align:center;" align="center">{% block titulo_formulario "" %}</th>
+		    </tr>
+		</table>
+                {% block tabla_formulario %}    
+		<table id="registroForm" border="0" cellspacing="3" style="height:300px; margin-top:0;">
+		    <tr>
+			<th>{{ form_label(form.nombre) }}:</th>
+			<td>{{ form_widget(form.nombre) }}</td>
+		    </tr>
+		    <tr>		
+			<th>{{ form_label(form.responsable) }}:</th>
+			<td>{{ form_widget(form.responsable) }}</td>		
+		    </tr>
+		    <tr>		
+			<th>{{ form_label(form.subresponsable) }}:</th>
+			<td>{{ form_widget(form.subresponsable) }}</td>
+		    </tr>
+		    <tr>		
+			<th>{{form_label(form.monto) }}:</th>
+			<td>{{ form_widget(form.monto) }}</td>	
+		    </tr>
+		    <tr>		
+			<th>{{form_label(form.programa) }}:</th>
+			<td>{{ form_widget(form.programa) }}</td>	
+		    </tr>
+		    <tr>		
+			<th>{{form_label(form.actividad) }}:</th>
+			<td>{{ form_widget(form.actividad) }}</td>	
+		    </tr>
+			<tr>		
+			<th>{{form_label(form.ff) }}:</th>
+			<td>{{ form_widget(form.ff) }}</td>	
+		    </tr>
+		    <tr>		
+			<th>{{form_label(form.ug) }}:</th>
+			<td>{{ form_widget(form.ug) }}</td>	
+		    </tr>
+		    <tr>		
+                        {{ form_rest(form) }}
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                        <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+			    <td colspan="2" scope="row">
+				<div style="margin:10px;" align="right">
+				    <button type="submit" class="btn boton">Crear</button>
+				    <button type="reset" class="btn boton">Limpiar</button>
+				    <a href="{{ path('af_area') }}" ><button type="button" class="btn boton" >Volver</button></a>
+				</div>
+			    </td>
+			</tr>
+		    </table>
+                    {% endblock %}
+                </div>
+	    </form>
+	</div>
+
+    </section>
+{% endblock %}

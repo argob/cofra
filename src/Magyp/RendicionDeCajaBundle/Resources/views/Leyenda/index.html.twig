@@ -1,0 +1,63 @@
+{% extends 'MagypRendicionDeCajaBundle:Leyenda:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Leyenda: </span>
+        <li onclick="location.href = '{{ path('sistema_af_leyenda_new') }}'" class="agregar">Nueva Leyenda</li>	
+        <li onclick="location.href = '{{ path ("sistema_af_leyenda_papelera") }}'" class="papelera">Papelera</li>
+        <li onclick="location.href='{{path('af_administracion_home') }}';" class="volver">Volver</li>
+       {# <li onclick="history.back()" class="volver">Volver</li> #}
+    </div>	
+{% endblock %}
+
+{% block cuerpo %}
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+		
+        {% block titulotabla "Listado de Leyendas" %}
+		
+        {% block tabla %}
+            <table cellspacing="0" width="100%">
+                <thead>
+                    <th >Leyenda</th>
+                    <th >Año</th>
+                    <th >Asignado</th>
+                    <th>Acciones</th>
+                </thead>
+                <tbody>
+                {% for entity in entities %}
+                    <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                        <td>{{ entity.leyenda }}</td>
+                        <td>{% if entity.anio %}{{ entity.anio|date('Y') }}{% endif %}</td>
+                        <td>{% if (entity.asignado == 1 )%} Si {%else%} No {%endif%} </td>
+                        <td>       
+                            <div style="display:inline-block; cursor:pointer;">					
+                                <a href="{{ path('sistema_af_leyenda_actual',{'id': entity.id } )}}"><img src="{{ asset ("images/form-botones/actual.png") }}" width="31" height="32" alt="asignar" class="imghover" title="asignar"></a>
+                            </div>
+
+                            <div style="display:inline-block; cursor:pointer;">					
+                                <a href="{{ path('sistema_af_leyenda_edit',{'id': entity.id } )}}"><img src="{{ asset ("images/form-botones/editar.png") }}" width="31" height="32" alt="modificar" class="imghover" title="modificar"></a>
+                            </div>
+                            <div style="display:inline-block; cursor:pointer;" onclick="apprise('¿Usted esta seguro que desea borrarlo?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){if(r)document.location='{{path('sistema_af_leyenda_borrar',{'idleyenda': entity.id } )}}';});">
+                                <img src="{{ asset ("images/form-botones/borrar.png") }}" width="31" height="32" alt="modificar" class="imghover" title="Eliminar">
+                            </div>
+                            {% if  is_granted('ROLE_LOG') %}
+                                <div style="display:inline-block; cursor:pointer;">
+                                    <a href="{{ path('sistema_leyenda_eventos',{'id': entity.id } )}}"><img src="{{ asset ("images/form-botones/eventos.png") }}" width="31" height="32" alt="eventos" class="imghover" title="eventos"></a>
+                                </div>   
+                            {% endif %}	
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% endblock %}	
+
+        {% block botones %}
+{#
+                <span><a href="{{ path('sistema_af_leyenda_new') }}"  class="btn btn-default">Nueva Leyenda</a></span>             
+               <span><a href="{{ path ("sistema_af_leyenda_papelera") }}"  class="btn btn-default">Papelera</a></span>
+#}
+               <span><a href="{{ path('af_administracion_home') }}" class="btn btn-default">Volver</a></span>
+        {% endblock %}
+    {% endembed %}
+{% endblock %}

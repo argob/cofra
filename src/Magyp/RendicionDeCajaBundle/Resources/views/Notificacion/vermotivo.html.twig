@@ -1,0 +1,27 @@
+{% extends 'MagypRendicionDeCajaBundle:Notificacion:base.html.twig' %}
+
+{% block cabecera %}{% endblock  %}
+
+{% block cuerpo %}
+
+    {% embed 'MagypRendicionDeCajaBundle:Base:formulario.html.twig' %}
+	{% block titulo "" %}
+	{% block titulotabla "Motivo" %}
+	{% block formulario %}
+        <span style="font-weight:bold;font-size: 14px; ">La rendicion se rechazo por que:</span>
+        <div id="contenedor-tabla" style="margin-top: 40px">
+            <p>{{ notificacion.motivo.contenido}}</p>
+                        </tr>
+                </table>
+        </div>
+	{% endblock %}
+	{% block botones %}
+	<button type="button" onclick="location.href='{{path('sistema_rendicion_detalle',{'idrendicion':idrendicion})}}'" class="btn boton" style="margin-left:auto; margin-right:auto;">Volver</button>
+	
+	{% endblock %}
+    {% endembed %}
+{% endblock  %}
+
+
+
+

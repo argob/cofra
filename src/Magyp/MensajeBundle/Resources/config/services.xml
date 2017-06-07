@@ -1,0 +1,38 @@
+<?xml version="1.0" ?>
+
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <!--
+    <parameters>
+        <parameter key="magyp_mensaje.example.class">Magyp\MensajeBundle\Example</parameter>
+    </parameters>
+
+    <services>
+        <service id="magyp_mensaje.example" class="%magyp_mensaje.example.class%">
+            <argument type="service" id="service_id" />
+            <argument>plain_value</argument>
+            <argument>%parameter_name%</argument>
+        </service>
+    </services>
+    -->
+    <services>
+ <service id="cofra.mensajelistener" class="Magyp\MensajeBundle\EventListener\MensajeCofraSubscriber">
+            <tag name="kernel.event_listener" event="cofra.mensajeflash_listener" method="onMensajeFlash" />
+	    <argument type="service" id="templating.engine.twig" />
+        </service>
+	<service id="cofra.mensajesubscriber" class="Magyp\MensajeBundle\EventListener\MensajeCofraSubscriber">
+            <tag name="kernel.event_subscriber" connection="default" />
+	    <argument type="service" id="templating.engine.twig" />
+        </service>
+	<service id="kernel.listener.your_listener_name" class="Magyp\MensajeBundle\EventListener\MensajeCofraSubscriber">
+	    <tag name="kernel.event_listener" event="kernel.response" method="onKernelResponseCofra" />
+	    <argument type="service" id="templating.engine.twig" />
+	</service>
+	<service id="cofra.mensaje_twigsubscriber" class="Magyp\MensajeBundle\EventListener\MensajeTwigCofraSubscriber">
+            <tag name="kernel.event_subscriber" connection="default" />
+	    <argument type="service" id="templating.engine.twig" />
+        </service>	
+    </services>
+</container>

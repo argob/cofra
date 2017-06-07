@@ -1,0 +1,14 @@
+{% extends 'MagypRendicionDeCajaBundle:Pantalla:eventos.html.twig' %}
+
+
+{% block titulo %}Eventos{% endblock %}
+
+{% block cuerpo %}
+    {% embed 'MagypRendicionDeCajaBundle:Plantilla:eventos.html.twig' %}
+	{% block tituloeventos "Eventos de Rendicion" %}
+	{% block botones %}
+	<button type=button class="btn btn-default" onclick="location.href = '{{ path('af_home')}}'" style="margin-left:auto; margin-right:auto;" >Volver</button>
+	{% endblock %}
+
+    {% endembed %}
+{% endblock %}

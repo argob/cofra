@@ -1,0 +1,87 @@
+{% extends 'MagypRendicionDeCajaBundle:Notificacion:base.html.twig' %}
+
+
+{% block cuerpo %}
+<style>
+.modificarComprobante, .modificarComprobante select, .modificarComprobante input {
+	background-color: #fff !important;
+	}
+
+	</style>
+    {% embed 'MagypRendicionDeCajaBundle:Base:formulario.html.twig' %}
+	{% block titulotabla "NUEVA NOTIFICACIÓN" %}
+	{% block formulario %}
+		<table id="tablaModificar" align="center" width="100%">        
+            <form action="{{path('sistema_notificacion_crear')}}" method="post" {{ form_enctype(form) }}  name="Comprobante">
+                <tr style="text-align: left">
+                    <td align="right">
+                    {{ form_label(form.asunto) }}:
+                    </td >
+                    <td>
+                    {{ form_widget(form.asunto) }} 
+                    </td>
+                </tr>
+                <tr style="text-align: left">
+                    <td align="right">
+                    {{ form_label(form.contenido) }}:
+                    </td>
+                    <td>
+                    {{ form_widget(form.contenido) }} 
+                    </td>
+                </tr>	
+                <tr style="text-align: left">
+                    <td align="right">
+                    {{ form_label(form.destino) }}:
+                    </td>
+                    <td>
+                    {{ form_widget(form.destino) }} 
+                    </td>
+                </tr>
+                <tr style="text-align: left;">
+                    <td align="right">
+                    </td >
+                    <td style="padding-top: 15px;">
+                        <button type="button" id="agregar-link" class="btn btn-default" style="margin-left:60px;">Agregar Link</button>
+                    </td>
+                </tr>
+
+                <tr style="text-align: left; display: none;" id="tr-link" >
+                    <div  style="display: none">
+                        <td align="right">
+                        {{ form_label(form.link) }}:
+                        </td >
+                        <td>
+                        {{ form_widget(form.link) }} 
+                        </td>
+                    </div>
+                </tr>	
+                {{form_rest(form)}}
+            </form>
+            <script>
+                $('#agregar-link').click(function(){$('#tr-link').toggle()} );
+                $('#agregar-motivo').click(function(){$('#tr-motivo').toggle()} );
+            </script>
+
+        </table>
+        <script>
+            $('#magyp_rendiciondecajabundle_notificaciontype_destino').prepend($('<option>', {
+                value: -1,
+                text: '-'
+            }));
+            $("#magyp_rendiciondecajabundle_notificaciontype_destino").find("option:contains('-')").each(function(){
+                if( $(this).text() === '-' ) {
+                   $(this).attr("selected","selected");
+                }
+            });
+        </script>
+	{% endblock %}
+	{% block botones %}
+	<button type="button" onclick="Comprobante.submit()" class="btn btn-default" style="margin-left:auto; margin-right:auto;">Crear</button>
+	<button onclick="location.href = '{{path('sistema_notificacion_propias')}}';" class="btn btn-default">Salir</button>
+	{% endblock %}
+    {% endembed %}
+{% endblock  %}
+
+
+
+

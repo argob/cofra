@@ -1,0 +1,192 @@
+{% extends 'MagypRendicionDeCajaBundle:Liquidacion:base.html.twig' %}
+
+{% block cuerpo %}
+    {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+        {% block bloqueCabecera %}
+<form action="{{ path('sistema_liquidacion_update', { 'idliquidacion': liquidacion.id, 'idrendicion': idrendicion  }) }}" method="post"  {{ form_enctype(form_liquidacion) }} >
+            <input type="hidden" name="idliquidacion" id="idliquidacion" value="{{liquidacion.id}}"/>
+            <input type="hidden" name="idrendicion" id="idrendicion" value="{{idrendicion}}"/>
+            <div id="tablacabecera">
+                <table class="bloquecabecera" cellspacing="0" width="100%"  >
+                   
+                    <tr> <td  colspan="6" Style="background-color:#5fb2ae; color:white;">LIQUIDACIÓN </td> </tr>
+                    <tr>
+                        <td align="right">
+                            Expediente:
+                        </td>
+                        <td align="left">
+                            {{liquidacion.expediente}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Nota:
+                        </td>
+                        <td align="left">
+                            <input type="text" name="liquidacion_nota" id="liquidacion_nota" maxlength="255" size="20" value="{{liquidacion.nota}}"/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Dependencia:
+                        </td>
+                        <td align="left">
+                            {{liquidacion.area}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Beneficiario:
+                        </td>
+                        <td align="left">
+                            {{liquidacion.beneficiario}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Motivo:
+                        </td>
+                        <td align="left">
+                            Eleva de caja chica
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Período:
+                        </td>
+                        <td  align="left">
+                            {{liquidacion.periodoinicial | date("d/m/y") }} al  {{liquidacion.periodofinal | date("d/m/y") }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Actividad:
+                        </td>
+                        <td align="left">
+                            {{liquidacion.actividad}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            Fuente de Financiamiento:
+                        </td>
+                        <td align="left">
+                            {{liquidacion.fuentefinanciamiento}}
+                        </td>
+                    </tr>
+                    <tr>
+                        <td align="right">
+                            UG:
+                        </td>
+                        <td align="left">
+                            {{liquidacion.ug}}
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        {% endblock%}
+
+        {% block tabla %} 
+            <table  class="bloquecabecera" cellspacing="0" width="100%" >
+                <tr>
+                    <td style="background-color:#000000;  color:#ffffff" colspan= "13">DETALLES</td>
+                </tr>
+                <tr>
+                    <th Style="background-color:#5fb2ae; color:#fff">Programa</th>
+                    <th Style="background-color:#5fb2ae;color:#fff">Imputacion</th>
+                    <th Style="background-color:#5fb2ae;color:#fff">SubTotal</th>
+                    <th Style="background-color:#5fb2ae;color:#fff">Borrar</th>
+                    <!--   <th Style="background-color:#5fb2ae;color:#fff" colspan="2">Transferir</th>-->
+                    <th Style="background-color:#DDDDDD">Transferir a programa</th>
+                    <th Style="background-color:#dddddd"> Monto a pasar</th>
+                </tr>
+                {% set pos = 0 %}
+                {% for detalle in detalles %}
+                    <tr>
+                        <!-- <td>
+                             Programa
+                         </td>-->
+                        <td>
+                            <select id="programa_detalle{{detalle.id}}" name="programa_detalle[{{detalle.id}}]">
+                                {% for programa in programas %}
+                                    {% if programa.id == detalle.programa.id %}
+                                        <option selected value="{{ programa.id }}">{{ programa }}</option>
+                                    {%else%}
+                                        <option value="{{ programa.id }}">{{ programa }}</option>
+                                    {%endif%}
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <!-- <td>
+                             Imputación
+                         </td>-->
+                        <td>
+                            {{detalle.imputacion}}
+                        </td>
+                        <!-- <td>
+                             SubTotal:
+                         </td>-->
+                        <td>
+                            {{detalle.importesubtotal}}
+                        </td>
+                        <!-- <td>
+                            | Borrar
+                        </td>-->
+                        <td>
+                            <input type="checkbox" id="borrar_detalle{{detalle.id}}" name="borrar_detalle[{{detalle.id}}]" value="{{detalle.id}}">
+                        </td>
+                        <!-- <td colspan= "2">
+                           =>
+                          </td>-->
+                        <!-- <td>
+                             Programa
+                         </td>-->
+                        <td>
+                            <select id="programa_detalle_trnasferir{{detalle.id}}" name="programa_detalle_trnasferir[{{detalle.id}}]">
+                                <option selected value="-1">-</option>
+                                {% for programa in programas %}
+                                    <option value="{{ programa.id }}">{{ programa }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <!--  <td>
+                              Monto a pasar:
+                              </td>-->
+                        <td>
+                            <input type="text" id="monto_detalle_transferir{{detalle.id}}" name="monto_detalle_transferir[{{detalle.id}}]" maxlength="255" size="6" value=""/>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan = "14">
+                            <hr/>
+                        </td>
+                    </tr>
+                    {% set pos = pos + 1 %}
+                {% endfor %}
+            </table>
+
+            <table align="center" >
+
+            </table>        
+            <p>
+                   <button   class="btn btn-default" type="submit">Guardar</button>
+                <a class="btn btn-default" href="{{ path('sistema_liquidacion', { 'idrendicion': idrendicion }) }}">
+                    Volver
+                </a>
+             
+            </p>
+</form>
+            {% block estilosEspeciales %}
+                <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+                <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+            {% endblock %}
+
+        {% endblock %}
+    {% endembed %}
+    <style>
+        td {
+            padding-left:5px;
+        }
+    </style>   
+{% endblock %}

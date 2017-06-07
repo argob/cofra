@@ -1,0 +1,86 @@
+{% extends 'MagypRendicionDeCajaBundle:Impresion:base.html.twig' %}
+
+{% block cuerpo %}
+    <div class="lugar">BUENOS AIRES, </div>
+    <div id="cuerpo" >
+        
+        {#Señor#}<br/>
+        Dirección General de Administración<br/>
+        {#Lic. Ricardo Ariel Rotsztein#}<br/>
+        S_________/_________D.-
+
+        <div class="parrafo">Por la presente apruébense los gastos, de conformidad con las facultades conferidas por el Decreto nº 1946 del 28 de octubre de 1986, relativo a gastos de comida por reuniones de trabajo.</div>
+        <div class="cuadro">
+            <table class="listado">
+                <tr>
+                    <th colspan="5" scope="col">NOTA DE COMIDA</th>
+                </tr>
+                <tr class="subHeader">
+                    <td>Fecha</td>
+                    <td>Nombre del establecimiento</td>
+                    <td>Nª factura</td>
+                    <td>Pesos</td>
+                    <td>Razón del Gasto</td>
+                </tr>
+                {% set nMaxFilas= 16 %}
+                {% set nCont= 0 %}
+                {% set nLeft= 230 %}
+                {% set nTopBase= 400 %}
+                {% set nTop= 400 %}
+                {% set nTamanoPagina= 430 %}
+                {% set nCantBarras= 0 %}
+                {% set nCorreccion= 160 %}
+                {% for comprobante in comprobantes %}
+                    {% set nCont = nCont + 1 %}
+                    <tr>
+                        <td> {{comprobante.fecha| date("d/m/y")}} </td>
+                        <td> {{comprobante.proveedor}} </td>
+                        <td> {{comprobante.numero}} </td>
+                        <td> {{comprobante.importe}} </td>
+                        <td> {{comprobante.descripcion}} </td>
+                    </tr>
+                    {% if nCont >= nMaxFilas%}
+                                </table>
+                            </div>
+                        </div>
+                        {% set nCantBarras = nCantBarras + 1 %}
+                            <div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+                                    <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+                            </div>
+                            <div id="pie" style=" padding-left:30mm; margin-top:{{nCorreccion}}mm"> 
+                            </div>
+                            <br/>
+                            {% set nTop= nTopBase + nCantBarras * nTamanoPagina %}
+                            {% set nMaxFilas= 24 %}
+                            {% set nCont= 0%}
+                            {% set nCorreccion= 60%}
+                            
+                            <div class="cuerpo">	
+                                <div class="cuadro">
+                                    <table class="listado">
+                                        <tr>
+                                            <th colspan="5" scope="col">NOTA DE COMIDA</th>
+                                        </tr>
+                                        <tr class="subHeader">
+                                            <td>Fecha</td>
+                                            <td>Nombre del establecimiento</td>
+                                            <td>Nª factura</td>
+                                            <td>Pesos</td>
+                                            <td>Razón del Gasto</td>
+                                        </tr>
+                    {%endif%}
+            {% endfor %}
+          </table>
+        </div>
+    </div>
+{%if nCantBarras == 0 %}
+    {% set nCorreccion= 0 %}
+{%endif%}
+<div id="pie" style=" padding-left:30mm; margin-top:{{nCorreccion}}mm"> 
+</div>
+<div id="fotercito" style=" position:absolute;left:{{nLeft}}mm;top:{{nTop}}mm;">
+    <div id="codigodebarras{{nCantBarras}}" style="position:float;float:right;"></div> 
+</div>
+
+        
+{% endblock %}

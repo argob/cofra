@@ -1,0 +1,298 @@
+{% extends 'MagypRendicionDeCajaBundle:Proveedor:base.html.twig' %}
+
+{% block javascriptEspeciales %}
+{#error1
+    <script language="javascript" type="text/javascript" src={{ asset ("js/jquery-1.8.0.min.js") }} ></script>
+#}
+    <script>
+        $(document).ready(function(){
+        $("#proveedores tr :even").addClass("even");
+        $("#proveedores tr :odd").addClass("odd");
+        });
+    </script>
+    <script type="text/javascript" src="{{ asset('js/jquery.autocomplete.js')}}"></script> 
+    <script type="text/javascript" src="{{ asset('js/jquery.mockjax.js')}}"></script> 
+    <script type="text/javascript" src="{{ asset('js/cofra.js')}}"></script>
+{% endblock %}
+ 
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Proveedor: </span>
+        <li onclick="mostrarAgregar();" class="agregar" title="Agregar Rendición">Agregar </li>	
+        <li onclick="location.href = '{{path('sistema_proveedor_papelera',{ 'idarea': idarea})}}';" class="papelera">Papelera</li>
+        {% if is_granted('ROLE_AF') %}
+            <li onclick="location.href='{{path('af_administracion_home') }}';" class="atras" title="atras ">Atrás</li>
+            <li onclick="history.back()" class="volver">Volver</li>
+        {% else%}
+            <li onclick="parent.location='{{ path ("home") }}'" class="volver">Volver</li>
+        {% endif %}
+    </div>	
+
+{% endblock %}
+
+{% block cuerpo %}
+	<style>
+		article {
+			padding:0px;
+			margin-top:0px;
+		}
+		table td {
+			{#//font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold" !important;#}
+			}
+	</style>	
+    <section style="width:90%; margin-left:auto; margin-right:auto;">
+		<div class="proveedores">
+		<h1>Listado de Proveedores</h1>
+			<div id="buscar" class="formulario" style="width: 600px; margin-left:auto; margin-right: auto; ">
+				<form action="{{ path ('proveedor')}}" method="GET">		
+					<input type="text" name="buscar" id="proveedor_id" style="display: inline-block; width: 350px">
+					<input type="hidden" name="idproveedor" id="idproveedor" style="display: inline-block">
+					<input type="submit" value="Buscar" class="btn btn-default" style="display: inline-block;">
+				</form>
+			</div>
+            <!--<div id="fondoIz">-->
+        <div id="contenido-columnas">
+            <div id="acomodador" style="width:800px; margin-left:auto; margin-right:auto;">
+                <div id="colIz" style="">
+                    <table  width="100%" border="0" cellspacing="0">
+                        <tr>
+                            <th colspan="3" style="background-color:#5FB2AE;color:#fff">PROVEEDORES</th>
+                        </tr>
+                        <tr>
+                            <th scope="col" style="background-color:#dddddd; width:80px;">{{ knp_pagination_sortable(proveedores, 'Cuit', 'p.cuit') }}</th>
+                            <th scope="col" style="background-color:#dddddd;">{{ knp_pagination_sortable(proveedores, 'Razón Social', 'p.descripcion') }}</th>		    
+                            <th scope="col" style="background-color:#dddddd; width:110px;">Acciones</th>
+                        </tr>
+                    </table>
+                    <div id="colIzTabla">
+                        <table id="proveedores" class="records_list" width="100%" border="0" cellspacing="0">
+                            {% for proveedor in proveedores %}
+                                <tr>
+                                    <td align="center">
+                                        {{ proveedor.cuit }}
+                                    </td>
+                                    <td style="width:50%; padding-left:0; ">
+                                        {{ proveedor.descripcion }}
+                                    </td>
+                                    <td>
+                                        <div id="img_modificar" style="display:inline-block; cursor:pointer;" onclick="cargarModificar('{{ proveedor.id  }}','{{ proveedor.descripcion  }}','{{ proveedor.cuit  }}');" title="Modificar">
+                                           <!-- <img src={{ asset ("images/form-botones/form-modificar-32.png") }} width="31" height="32" alt="modificar" class="accion2">-->
+                                        </div>
+                                        <div id="img_borrar" style="display:inline-block; cursor:pointer;" onclick="apprise('¿Usted esta seguro que desea borrarlo?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){if(r)document.location='{{path('proveedor_borrar', {'id': proveedor.id})}}';});" title="Eliminar">                                   
+                                              <!--  <img src={{ asset ("images/form-botones/form-borrar-32-2.png") }} width="31" height="32" alt="modificar" class="accion1">-->
+                                        </div>
+                                        {% if is_granted('ROLE_LOG') %}
+                                            <div id="img_eventos" style="display:inline-block; cursor:pointer;" onclick="document.location='{{ path('sistema_proveedor_eventos',{'id': proveedor.id } )}}';">
+                                               		 
+                                            </div>	
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </table>
+                    </div>
+                    <table align="center" id="tablaDescripcion0">
+
+                    </table>
+                    <div class="pagination">
+                        <table align="center" id="paginador-tabla">
+                            <tr>
+                                <td>{{ knp_pagination_render(proveedores) }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div id="colDe">
+                    <table id="tablaDescripcion" width="100%" border="0" cellspacing="0" class="secundaria">
+                        <tr>
+                            <th colspan="2" scope="col" style="background-color:#5FB2AE;color:#fff">ACCIONES</th>
+                        </tr>
+                    </table>
+
+                    <form id="form_borrar" action="{{ path('proveedor_delete') }}" method="post" {{ form_enctype(borrar) }}>
+                        <input id="id_borrar" name="id_borrar"  type="hidden" value="">
+                    </form>
+
+                    <div id="modificar" style="display: none">
+                        <table width="100%" border="0" cellspacing="0">
+                              <tr>
+                                <th scope="col" style="background-color:#dddddd;">Modificar</th>
+                              </tr>
+                        </table>
+                        <table width="100%" border="0" cellspacing="0" id="tablaDescripcion1">
+
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                        <form id="form_modificar" action="{{ path('proveedor_update') }}" method="post" {{ form_enctype(modificar) }}>
+                            <table width="100%" border="0" cellspacing="5" class="acciones2">
+                            
+                                <tr>
+                                    <td align="center">{{ form_label(modificar.cuit) }}:</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">{{ form_widget(modificar.cuit) }}</td>	
+                                </tr>
+                                <tr>
+                                    <td align="center">{{ form_label(modificar.descripcion) }}:</td>
+                                </tr>
+                                <tr>
+                                    <td align="center">{{ form_widget(modificar.descripcion) }}</td>	
+                                </tr>
+                                <tr>		
+                                    {{ form_rest(modificar) }}
+                                </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <button onclick="limpiar()" class="btn btn-default">Cancelar</button>
+                                        </span>
+
+                                    </td>
+                                </tr>
+                                <input id="id_modificar" name="id_modificar"  type="hidden" value="">
+                            </table>
+                        </form>
+                    </div>
+
+                    {#	Form Agregar	#}
+                    <div id="agregar" style="display: none">
+                        <table width="100%" border="0" cellspacing="0">
+                            <tr>
+                                <th scope="col" style="background-color:#dddddd;">Agregar</th>
+                            </tr>
+                        </table>
+                        <table width="100%" id="tablaDescripcion2" cellspacing="0">
+                            <tr>
+                                <td>&nbsp;
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                            </tr>
+                        </table>
+                        <form action="{{ path('proveedor_create') }}" method="post" {{ form_enctype(agregar) }}>
+                            <table width="100%" border="0" cellspacing="5" class="acciones2">
+                                <tr>
+                                    <td align="center">{{ form_label(agregar.cuit) }}:</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="95%">{{ form_widget(agregar.cuit) }}</td>	
+                                </tr>
+                                <tr>
+                                    <td align="center">{{ form_label(agregar.descripcion) }}:</td>
+                                </tr>
+                                <tr>
+                                    <td align="center" width="95%">{{ form_widget(agregar.descripcion) }}</td>	
+                                </tr>
+                                <tr>		
+                                    {{ form_rest(agregar) }}
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <span>
+                                            <button type="submit" class="btn btn-default">Guardar</button>
+                                            <button onclick="limpiar()" class="btn btn-default">Cancelar</button>
+                                        </span>
+                                    </td>
+                                </tr>
+                            </table>   
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            function mostrarAgregar(){
+                $('#agregar').show();
+                $('#modificar').hide();
+            }
+
+            function cargarModificar(id, descripcion, cuit){
+                $('#proveedor_descripcion').val(descripcion);
+                $('#proveedor_cuit').val(cuit);
+                $('#agregar').hide();
+                $('#modificar').show();
+                $('#id_modificar').val(id);
+            }
+
+            function limpiar(){
+                $('#agregar').hide();
+                $('#modificar').hide();
+            }
+            $('.accion1').hover(function() {
+                $(this).attr('src', '{{ asset ('images/form-botones/form-borrar-32-2-over.png') }}');
+                }, function() {
+                    $(this).attr('src', '{{ asset ('images/form-botones/form-borrar-32-2.png') }}');
+            });
+            $('.accion2').hover(function() {
+                  $(this).attr('src', '{{ asset ('images/form-botones/form-modificar-32-over.png') }}');
+                }, function() {
+                  $(this).attr('src', '{{ asset ('images/form-botones/form-modificar-32.png') }}');
+            });
+            $('.accion3').hover(function() {
+                    $(this).attr('src', '{{ asset ('images/form-botones/form-eventos-32-over.png') }}');
+                }, function() {
+                    $(this).attr('src', '{{ asset ('images/form-botones/form-eventos-32.png') }}');
+            });
+        </script>
+		
+	
+			<script>    
+				fnc = function(othis,suggestion){
+					$('#idproveedor').val(suggestion.data);
+					//console.log(suggestion.data)
+				};
+				autocompletarImputacion = new CofraAutocompletar('{{path('sistema_busqueda_proveedor_lista')}}','proveedor_id','', fnc);
+			</script>
+		</div>
+    </section>
+    <style>
+        #colIz{
+            float: left;
+            height: 480px;
+			margin-left: 0px;
+        }
+        #colDe{
+            float: left;
+            min-height: 480px;
+        }
+        #acomodador{
+            margin: auto;
+			width: 800px;
+        }
+        #centrador{
+            margin: auto;
+            width: 800px;
+			min-width: 800px;
+			border: thin solid #000;
+
+        }
+        a{
+            text-decoration: none;
+            color:#000000;
+           }
+        a:link{
+            text-decoration: none;
+            color:#000000;   
+           }
+         a:hover{
+            text-decoration: none;
+            color:#6b6b6b;
+           }
+
+        
+        
+        
+    </style>
+{% endblock %}

@@ -1,0 +1,45 @@
+<h1>Comprobante list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Numero</th>
+            <th>Descripcion</th>
+            <th>Importe</th>
+           
+            <th>Esespecial</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for comprobante in entities %}
+        <tr>
+            <td><a href="{{ path('sistema_comprobante_show', { 'id': comprobante.id }) }}">{{ comprobante.id }}</a></td>
+            <td>{{ comprobante.numero }}</td>
+            <td>{{ comprobante.descripcion }}</td>
+            <td>{{ comprobante.importe }}</td>
+           
+            <td>{{ comprobante.esEspecial }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('sistema_comprobante_show', { 'id': comprobante.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('sistema_comprobante_edit', { 'id': comprobante.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('sistema_comprobante_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

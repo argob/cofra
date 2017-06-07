@@ -1,0 +1,380 @@
+{% extends 'MagypRendicionDeCajaBundle:FondoRotatorio:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Fondo Rotatorio: </span>
+        <li onclick="parent.location='{{ path('af_fondorotatorio') }}'" class="volver">Volver</li>                  
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+   <form action="{{ path('af_fondorotatorio_update', { 'id': entity.id }) }}" method="post" {{ form_enctype(edit_form) }}>
+<div class="divFormularios" style="width:600px;">
+	<table class="tablaTitulo" style="width:100%; margin-bottom:10px;">
+		<tr>
+			<th style="background-color:#5FB2AE;">Modificar Fondo Rotatorio</th>
+		</tr>
+	</table>
+
+        <table class="tablaFormularios" width="100%" cellspacing="2">
+              
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.expediente) }}:</td>
+                <td align="left">{{ form_widget(edit_form.expediente) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.nota) }}:</td>
+                <td align="left">{{ form_widget(edit_form.nota) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.beneficiario) }}:</td>
+                <td align="left">{{ form_widget(edit_form.beneficiario) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.motivo) }}:</td>
+                <td align="left">{{ form_widget(edit_form.motivo) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.area) }}:</td>
+                <td align="left">{{ form_widget(edit_form.area) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.programa) }}:</td>
+                <td align="left">{{ form_widget(edit_form.programa) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.actividad) }}:</td>
+                <td align="left">{{ form_widget(edit_form.actividad) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right" Style=" width: 50%">{{ form_label(edit_form.fuentefinanciamiento) }}:</td>
+                <td align="left">{{ form_widget(edit_form.fuentefinanciamiento) }}</td>
+            </tr>
+            <tr>
+                <td class="padding_derecho" align="right"Style=" width: 50%">{{ form_label(edit_form.ug) }}:</td>
+                <td align="left">{{ form_widget(edit_form.ug) }}</td>
+            </tr>
+            <tr>		
+                {{ form_rest(edit_form) }}
+            </tr>
+        </table>
+     </div>      
+           
+       {% block tabla %}  
+          <div id="factura" style="margin-top:10px;">
+            {% set nPosFactura = 0 %}
+            {% for factura in fondorotatoriofacturas %}
+                <table class="fondoRotatorioModificar" width="100%" cellspacing="0">
+                        <tr>
+							<td  colspan="2" Style="background-color:#5FB2AE; color:white;">FACTURAS </td>
+						</tr>
+						<tr>
+							<td align="right"><label >Tipo:</label></td>
+							<td align="left">
+                            <select id="tipofactura{{ nPosFactura }}" name="tipofactura[{{ nPosFactura }}]" required="required" >
+                                {% for tipofactura in tipofacturas %}
+                                    {%if tipofactura == factura.tipofactura %}
+                                        <option selected="selected" value="{{ tipofactura.id }}">{{ tipofactura }}</option>
+                                    {%else%}
+                                        <option value="{{ tipofactura.id }}">{{ tipofactura }}</option>
+                                    {%endif%}
+                                {% endfor %}
+                            </select>
+							</td>
+						</tr>
+						<tr>
+							<td align="right"><label >Número:</label></td>
+							<td align="left">
+								<input type="text" id="numerofactura{{ nPosFactura }}" name="numerofactura[{{ nPosFactura }}]" required="required" value="{{factura.numero}}">
+                        </td>
+						</tr>
+                    <tr>
+                        <td align="right"><label >Monto:</label></td>
+                        <td align="left">
+                            <input type="text" id="montofactura{{ nPosFactura }}" name="montofactura[{{ nPosFactura }}]" required="required" value="{{factura.monto}}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td   Style="background-color:#F1EEEE" colspan= "2">
+                            Borrar <input type="checkbox" id="borrar_factura{{ nPosFactura }}" name="borrar_factura[{{ nPosFactura }}]" value="{{factura.id}}">
+                            <input type="hidden" id="idfondofactura{{ nPosFactura }}" name="idfondofactura[{{ nPosFactura }}]" value= "{{ factura.id }}">
+                        </td>
+                    </tr>
+
+                </table>
+                {% set nPosFactura= nPosFactura + 1 %}
+            {% endfor %}
+        </div>
+        <table class="fondoRotatorioModificar" width="100%" cellspacing="2">
+            <tr>
+                <td align="right" Style="background-color:#F1EEEE;"colspan= "2">
+                    <input class="btn btn-default" type="button" value= "Agregar" id="agregarfactura">
+                    <input  class="btn btn-default" type="button" value= "Borrar" id="borrarfactura">
+                </td>
+            </tr>
+        
+         </table>
+            <table class="fondoRotatorioModificar" width="100%" cellspacing="2">
+                  <tr> <td  colspan="6" Style="background-color:#5FB2AE; color:white;">MONTO</td> </tr>
+            <tr>
+                <td align="right"><label>Tipo:</Label></td>
+                <td align="left">
+                    <select multiple="multiple" size="3" id="retenciontipofactura" name="retenciontipofactura[]" required="required" >
+                        {%for retenciontipo in retenciontipos %}
+                            {% if retenciontipo.id in fondorotatorioretenciones %}
+                                <option selected="selected" value="{{ retenciontipo.id }}">{{ retenciontipo }}</option>
+                            {%else%}
+                                <option value="{{ retenciontipo.id }}">{{ retenciontipo }}</option>
+                            {%endif%}
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            </table>
+			<table class="fondoRotatorioModificar" cellspacing="2">
+            <tr>
+                <td align="right"><div id="ivatexto" style="display: {{ivadisplay}}"><label>Monto RET.IVA:</label></div></td>
+                <td align="left">
+                    <div id="ivacampo" style="display: {{ivadisplay}}"><input type="text" id="montoiva" name="montoiva" value= "{{ivamonto}}"></div>
+                </td>
+            </tr>
+        
+            <tr>
+                <td align="right"><div id="gananciatexto" style="display: {{gananciadisplay}}"><label>Monto RET.Ganancia:</label></div></td>
+                <td align="left">
+                    <div id="gananciacampo" style="display: {{gananciadisplay}}"><input type="text" id="montoganancia" name="montoganancia" value= "{{gananciamonto}}"></div>
+                </td>
+            </tr>
+        
+            <tr>
+                <td align="right"><div id="resoluciontexto" style="display: {{resoluciondisplay}}"><label>Monto RET.RES.GRAL1784AF:</label></div></td>
+                <td align="left">
+                    <div id="resolucioncampo" style="display: {{resoluciondisplay}}"><input type="text" id="montoresolucion" name="montoresolucion" value= "{{resolucionmonto}}"></div>
+                </td>
+            </tr>
+            
+        </table>
+ 
+        <div id="imputacion">
+            {% set nPosImputacion = 0 %}
+            {% for fondorotatorioimputacion in fondorotatorioimputaciones %}
+                <table  class="fondoRotatorioModificar" width="100%" cellspacing="0">
+                         <tr> 
+							 <td  colspan="6" Style="background-color:#5FB2AE; color:white;"> <label>IMPUTACIONES </label> </td> 
+						 </tr>
+						<tr>
+							<td align="right"> <label>Imputación: </label></td>
+							<td align="left">
+								<select id="imputacion{{nPosImputacion}}" name="imputacion[{{nPosImputacion}}]" required="required">
+									{% for imputacion in imputaciones %}
+										{% if fondorotatorioimputacion.imputacion.id  == imputacion.id %}
+											<option selected= "selected" value="{{ imputacion.id }}">{{ imputacion }}</option>
+										{%else%}
+											<option value="{{ imputacion.id }}">{{ imputacion }}</option>
+										{% endif %}
+									{% endfor %}
+								</select>
+							</td>
+						</tr>
+                    <tr>
+                        <td align="right"> <label>Monto: </label></td>
+                        <td align="left">
+                            <input type="text" id="montoimputacion{{nPosImputacion}}" name="montoimputacion[{{nPosImputacion}}]" required="required" value="{{fondorotatorioimputacion.monto}}" >
+                        </td>
+                    </tr>
+                    <tr>
+                        <td  colspan= "2" Style="background-color:#F1EEEE" >
+                            Borrar <input type="checkbox" id="borrar_imputacion{{ nPosImputacion }}" name="borrar_imputacion[{{ nPosImputacion }}]" value="{{fondorotatorioimputacion.id}}">
+                            <input type="hidden" id="idifondoimputacion{{ nPosImputacion }}" name="idifondoimputacion[{{ nPosImputacion }}]" value= "{{ fondorotatorioimputacion.id }}">
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan= "2"></td>
+                    </tr>
+                 
+                </table>
+                {% set nPosImputacion = nPosImputacion + 1 %}
+            {%endfor%}
+        </div>
+           <table class="fondoRotatorioModificar" width="100%" cellspacing="0">
+           
+           
+              <tr>
+                <td  align="right" colspan= "2" Style="background-color:#F1EEEE; "> 
+                    <input class="btn btn-default" type="button" value= "Agregar" id="agregarimputacion">
+                    <input class="btn btn-default"  type="button" value= "Borrar" id="borrarimputacion">
+                </td>
+                    </tr>
+           
+           
+           
+           </table>
+           <br/>
+       <table class="fondoRotatorioGuardar" width="100%" cellspacing="0" style="border:0; background-color:transparent;">    
+            <tr>
+                <td >
+            <button  class="btn btn-default" type="submit">Guardar</button>
+      
+			{#
+            <a class="btn btn-default" href="{{ path('af_fondorotatorio') }}">
+                Volver
+            </a>
+			#}
+               </td>
+            </tr>
+    
+      </table>
+    <input type="hidden" id="facturamaxima" name="facturamaxima" value= "{{ nPosFactura }}">
+    <input type="hidden" id="imputacionmaxima" name="imputacionmaxima" value= "{{ nPosImputacion }}">
+</form>
+<script>
+    var idfactura = $("#facturamaxima").val() - 1;
+    var idfacturaMinimo = $("#facturamaxima").val();
+    var idimputacion = $("#imputacionmaxima").val() - 1;
+    var idimputacionMinimo = $("#imputacionmaxima").val();
+    $("#agregarimputacion").click(function () {
+        idimputacion++;
+
+        agregaraimputacion= "  <table  class='fondoRotatorioModificar' width='100%' cellspacing='0'  id='tablaimputacion"+idimputacion+"' >";
+        agregaraimputacion+= "            <tr>";
+        agregaraimputacion+= "                <td align='right'> <label>Imputación: </label></td>";
+        agregaraimputacion+= "                <td align='left'>";
+        agregaraimputacion+= "                    <select id='imputacion"+idimputacion+"' name='imputacion["+idimputacion+"]' required='required'>";
+        agregaraimputacion+= "                        {% for imputacion in imputaciones %}";
+        agregaraimputacion+= "                            <option value='{{ imputacion.id }}'>{{ imputacion }}</option>";
+        agregaraimputacion+= "                        {% endfor %}";
+        agregaraimputacion+= "                    </select>";
+        agregaraimputacion+= "                </td>";
+        agregaraimputacion+= "            </tr>";
+        agregaraimputacion+= "            <tr>";
+        agregaraimputacion+= "                <td align='right'> <label>Monto: </label></td>";
+        agregaraimputacion+= "                <td align='left'>";
+        agregaraimputacion+= "                    <input type='text' id='montoimputacion"+idimputacion+"' name='montoimputacion["+idimputacion+"]' required='required' >";
+        agregaraimputacion+= "                </td>";
+        agregaraimputacion+= "            </tr>";
+        agregaraimputacion+= "        <tr>";
+        agregaraimputacion+= "            <td colspan= '2'></td>";
+        agregaraimputacion+= "        </tr>";
+        agregaraimputacion+= "        </table>";
+        $("#imputacion").append(agregaraimputacion);
+
+    });
+    
+    $("#borrarimputacion").click(function () {
+        if (idimputacion >= idimputacionMinimo ){
+            $("#tablaimputacion"+idimputacion).remove();
+            idimputacion--;
+        }
+    });
+    
+    $("#agregarfactura").click(function () {
+        idfactura++;
+        
+        agregarafactura= "  <table  class='fondoRotatorioModificar' width='100%' cellspacing='0'  id='tablafactura"+idfactura+"' >";
+         agregarafactura+= "<tr>";
+        agregarafactura+= "    <td align='right'> <label>Tipo: </label></td>";
+        agregarafactura+= "    <td align='left'>";
+        agregarafactura+= "        <select id='tipofactura"+idfactura+"' name='tipofactura["+idfactura+"]' required='required' >";
+        agregarafactura+= "            {% for tipofactura in tipofacturas %}";
+        agregarafactura+= "                <option value='{{ tipofactura.id }}'>{{ tipofactura }}</option>";
+        agregarafactura+= "            {% endfor %}";
+        agregarafactura+= "        </select>";
+        agregarafactura+= "    </td>";
+        agregarafactura+= "</tr>";
+        //agregarafactura+= "        <tr>";
+        //agregarafactura+= "            <td>Tipo</td>";
+        //agregarafactura+= "            <td>";
+        //agregarafactura+= "                <select id='retenciontipofactura"+idfactura+"' name='retenciontipofactura["+idfactura+"][]'  multiple size='3' required='required' >";
+        //agregarafactura+= "                    {% for retenciontipo in retenciontipos %}";
+        //agregarafactura+= "                        <option value='{{ retenciontipo.id }}'>{{ retenciontipo }}</option>";
+        //agregarafactura+= "                    {% endfor %}";
+        //agregarafactura+= "                </select>";
+        
+        //agregarafactura+= "        <tr>";
+        //agregarafactura+= "            <td></td><td>*NOTA: Para marcar más de una tipo de factura presione la tecla Ctrl y haga click en los atributos necesarios. <br/>Para desmarcar los atributos seleccionados vuelva a marcar con la tecla Ctrl apretada.</td>";
+        //agregarafactura+= "        </tr>";
+    
+        agregarafactura+= "            </td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "        <tr>";
+        agregarafactura+= "            <td align='right'> <label>Número: </label></td>";
+        agregarafactura+= "            <td align='left'>";
+        agregarafactura+= "                <input type='text' id='numerofactura"+idfactura+"' name='numerofactura["+idfactura+"]' required='required' >";
+        agregarafactura+= "            </td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "        <tr>";
+        agregarafactura+= "            <td align='right'> <label>Monto: </label></td>";
+        agregarafactura+= "            <td align='left'>";
+        agregarafactura+= "                <input type='text' id='montofactura"+idfactura+"' name='montofactura["+idfactura+"]' required='required' >";
+        agregarafactura+= "            </td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "        <tr>";
+        agregarafactura+= "            <td colspan= '2'></td>";
+        agregarafactura+= "        </tr>";
+        agregarafactura+= "  </table>";
+        $("#factura").append(agregarafactura);
+    });
+    
+    $("#borrarfactura").click(function () {
+        if (idfactura >= idfacturaMinimo ){
+            $("#tablafactura"+idfactura).remove();
+            idfactura--;
+        }
+    });
+    
+    
+    $("#retenciontipofactura").change(function() {
+        valores= new Array();
+        valores[1] = -1;
+        valores[2] = -1;
+        valores[3] = -1;
+        $('#retenciontipofactura :selected').each(function(pos, selected){
+            valores[$(selected).val()] = $(selected).val(); 
+        });
+        pos= 1;
+        while (pos <= 3){
+            switch (valores[pos]){
+                case '1':
+                    $('#ivatexto').show();
+                    $('#ivacampo').show();
+                    $("#montoiva").prop("required", true);
+                break;
+                case '2':
+                    $('#gananciatexto').show();
+                    $('#gananciacampo').show();
+                    $("#montoganancia").prop("required", true);
+                break;
+                case '3':
+                    $('#resoluciontexto').show();
+                    $('#resolucioncampo').show();
+                    $("#montoresolucion").prop("required", true);
+                break;
+                default:
+                    switch (pos){
+                        case 1:
+                            $('#ivatexto').hide();
+                            $('#ivacampo').hide();
+                            $("#montoiva").prop("required", false);
+                        break;
+                        case 2:
+                            $('#gananciatexto').hide();
+                            $('#gananciacampo').hide();
+                            $("#montoganancia").prop("required", false);
+                        break;
+                        case 3:
+                            $('#resoluciontexto').hide();
+                            $('#resolucioncampo').hide();
+                            $("#montoresolucion").prop("required", false);
+                        break;
+                        default:
+                    } 
+            }
+            pos++;
+        }
+        
+    });
+    
+</script>
+        {% endblock %}
+{% endblock %}

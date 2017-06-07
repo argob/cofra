@@ -1,0 +1,75 @@
+{% extends 'MagypRendicionDeCajaBundle:Leyenda:base.html.twig' %}
+
+{% block cuerpo %}
+<!--
+    <h1>Crear Leyenda</h1>
+
+    <form action="{{ path('sistema_af_leyenda_create') }}" method="post">
+        <input type= "text" id="leyenda" name="leyenda" value= "{{entity.leyenda}}">
+        <br/>
+        <select id="anio" name="anio">
+            {% for aniototal in 2013..2020 %}
+                <option value="{{  aniototal }}">{{  aniototal }}</option>
+            {% endfor %}    
+        </select>
+        <br/>
+        <button type="submit">Guardar</button>
+    </form>
+
+    <ul class="record_actions">
+        <li>
+            <a href="{{ path('sistema_af_leyenda') }}">
+                Volver al listado
+            </a>
+        </li>
+    </ul>-->
+ <section>
+	<h1>Crear Leyenda</h1>
+	<div class="divFormularios" style="width:660px; margin-top: 0;">
+		<table class="tablaTitulo" align="center" width="660px" style="margin-bottom:10px;">
+			<thead>
+				<tr>
+					<th style="background-color:#009896; color:#fff;">Formulario de Creación:</th>
+				</tr>
+		</thead>
+		</table>
+		<br />
+		<form form action="{{ path('sistema_af_leyenda_create') }}" method="post">
+			<table id="tabla-leyenda" cellspacing="5" border="0" align="center" width="100%; ">
+				<tr>
+					<td colspan="2">Escriba debajo la leyenda: (maximo 255 caracteres)</td>
+				</tr>
+				<tr>
+					<td colspan="2"><textarea class="leyendaArea" rows="4" cols="50" id="leyenda" name="leyenda" value= "{{entity.leyenda}}"></textarea></td>
+				</tr>
+				<tr>
+					<td align="right" width="40%"><span style="font-size: 14px;">Seleccione el año:</span> </td>
+					<td align="left" width="50%">
+					<select id="anio" name="anio">
+           	 		{% for aniototal in 2013..2020 %}
+               	 		<option value="{{  aniototal }}">{{  aniototal }}</option>
+            			{% endfor %}
+					</select>
+					</td>
+				</tr>
+				<tr>
+					<td><p></p></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button class="btn btn-default" type="submit">Guardar</button>
+					</td>
+				</tr>
+				<tr>
+					<td><p></p></td>
+				</tr>
+		</table>
+		</form>
+		</div>
+		<div id="volver" Style="background-color:#009896; width:660px;"  onclick="efectosUnLoad('slideaizquierda', '#panel-notificacion', '{{ path("af_home")}}' );">
+                    <a class="volver" href="{{path('sistema_af_leyenda')}}">Volver al listado</a>
+             	</div>
+		<br />
+</section>    
+
+{% endblock %}

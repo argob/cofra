@@ -1,0 +1,83 @@
+{% extends 'MagypRendicionDeCajaBundle:Archivar:base.html.twig' %}
+{% block cabecera %}
+    {{ parent() }}
+
+    <div class="acciones">
+        <span style="margin-right: 25px; vertical-align: middle;">Acciones de Reintegro de : </span>
+        
+		<li onclick="parent.location='{{ path('af_rendiciones_home') }}'" class="volver">Volver</li>
+                          
+                             
+    </div>	
+
+{% endblock %}
+{% block cuerpo %}
+   
+
+ {% embed "MagypRendicionDeCajaBundle:Plantilla:tablaverde.html.twig" %}
+	
+        {% block busqueda %}
+             {% embed "MagypRendicionDeCajaBundle:Plantilla:busqueda.html.twig" %}
+                {% set path_action = path('af_archivar_index') %} 
+                {#% set path_autocompletar = 'sistema_busqueda_area_lista' %#}
+                {% set busqueda_nombre = 'archivar' %}
+                {% block input_with "400px" %}
+            {% endembed %}
+        {% endblock %}
+
+
+        {% block titulotabla "Listado de Archivadas" %}
+	{% block tabla %}
+	<table cellspacing="0" width="100%" >
+        <thead>
+            <tr>
+                <th>{{ knp_pagination_sortable(aarchivar, 'Caja', 'a.caja') }}</th>		    
+				<th>{{ knp_pagination_sortable(aarchivar, 'Rendicion', 'ren.expediente') }}</th>		    
+                <th>Liquidación</th>
+                {% if is_granted('ROLE_ARCHIVAR_MODIFICAR') %}
+                    <th>Acción</th>
+                {%endif%}
+            </tr>
+        </thead>
+        <tbody>
+            {% for archivar in aarchivar %}
+                <tr class="{{ cycle(["even", "odd"], loop.index) }}">
+                    <td>{{ archivar.caja }}</td>
+                    <td><a href="{{ path('sistema_rendicion_detalle', { 'idrendicion': archivar.liquidacion.rendicion.id }) }}">{{archivar.liquidacion.rendicion.getExpedienteCompleto}}</a></td>
+                    <td><a href="{{ path('sistema_liquidacion_show', { 'id': archivar.liquidacion.id, 'idrendicion': archivar.liquidacion.rendicion.id }) }}"><img src="{{ asset('images/form-botones/ver.png') }}" title="Ver Datos" alt="Ver" style="cursor:pointer;" /></a></td>
+						{% if is_granted('ROLE_ARCHIVAR_MODIFICAR') %}
+						<td style="padding:0px;"><a href="{{ path('af_archivar_modificar_role', { 'id': archivar.id }) }}"><img src="{{ asset('images/form-botones/editar.png') }}" title="Modificar Datos" alt="Modificar" style="cursor:pointer;" /></a>
+		    					{% if  is_granted('ROLE_LOG') %}	
+							<div style="display:inline-block; cursor:pointer;">
+								
+								<a href="{{ path('sistema_archivar_eventos', { 'idArchivar': archivar.id }) }}"><img src="{{ asset ("images/form-botones/eventos.png") }}" width="31" height="32" alt="Evento" class="accion3" title="Registro de Eventos"></a>
+							</div>	
+							{% endif %}	
+						</td>
+                    {%endif%}
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+	{% if ( aarchivar | length > 0) %}
+
+		<div class="pagination">
+				   <table align="center" id="paginador-tabla">
+				   <tr>
+					   <td>{{ knp_pagination_render(aarchivar) }}</td>
+				   </tr>
+		   </table>                   
+		   </div>            
+	{% endif %}
+	{% endblock %}	
+
+	{% block botones %}
+{#
+    <span><a href="{{ path('af_rendiciones_home') }}" class="btn btn-default">Volver</a></span>
+#}
+	{% endblock %}
+
+    {% endembed %}
+
+{% endblock %}
+	

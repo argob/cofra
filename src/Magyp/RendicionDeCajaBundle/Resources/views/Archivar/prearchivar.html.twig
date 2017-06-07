@@ -1,0 +1,46 @@
+{% extends 'MagypRendicionDeCajaBundle:Archivar:base.html.twig' %}
+
+{% block cuerpo %}
+	{% embed "MagypRendicionDeCajaBundle:Plantilla:crear-modificar.html.twig" %}
+
+            {% block titulo %}  <h1>Archivar</h1>{% endblock %}
+            {% block heightMarcoFoto 'style="height:412px"' %}
+
+            {% block imagenlateral %}  
+                    <img src={{ asset ("images/af-archivador.jpg")}} width="150" height="350" alt="imagen" style="margin-top:35px;" />
+            {% endblock %}
+
+            {% block titulo_formulario "ARCHIVAR" %}	
+
+            {% block tabla_formulario %}  
+										
+				<form action="{{ path('af_archivar', { 'idrendicion': idrendicion }) }}" method="post">
+					<table class="tablaFormularios" cellspacing="10" border="0" width="auto" style="margin-top:40px;">
+						<tr>
+							<td>Numero de Caja:
+							</td>
+							<td>
+								<input type="text" name="numerocaja" id="numerocaja" maxlength="255" size="30" value="" required="required" />
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2" scope="row">
+                                    <div style="margin:10px;" align="right">
+                                        <button type="submit" class="btn btn-default">Guardar</button>
+                                        <a href="{{ path('af_home') }}" ><button type="button" class="btn btn-volver" >Volver</button></a>
+                                    </div>
+							</td>
+						</tr>
+					</table>
+				</form>
+            {% endblock %}
+
+
+            {% block estilosEspeciales %}
+                    <link href="{{asset('css/plantillas/crear-modificar.css')}}" rel="stylesheet" type="text/css">
+                    <link href="{{asset('css/plantillas/crear-modificar-verde.css')}}" rel="stylesheet" type="text/css">
+            {% endblock %}
+	
+	{% endembed %}
+		
+{% endblock %}

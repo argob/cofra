@@ -1,0 +1,121 @@
+{# variables 'comprobantes' => $comprobantes, 'total' => $total, 'idrendicion' => $idrendicion, 'totalTipo2' => $totaltipo2,'totalTipo3' => $totaltipo3,'totalTipo4' => $totaltipo4,'rendicion' => $rendicion, 'edit_form' => $editForm->createView(), #}
+
+
+{% embed "MagypRendicionDeCajaBundle:Comprobante:detalle.html.twig" %}
+
+{% block acciones %}
+<div id="menucito" class="acciones">
+    {% if rendicion.esmodificablePorAF %}	
+	<li onclick="irApagina('/sistema/comprobante/nuevo/rendicion/{{idrendicion}}',true);" class="agregar">Agregar </li>
+	<li onclick="irApagina('/sistema/comprobante/'+seleccionado+'/edit',0);" class="editar">Modificar </li>
+	<li onclick="borrar('/sistema/comprobante/'+seleccionado+'/borrar',0);" class="borrar">Borrar</li>
+    {% endif %}
+    <li onclick="irApagina('{{path('sistema_comprobante_papelera',{ 'idrendicion':idrendicion})}}',true)" class="papelera">Papelera</li>
+    {% if is_granted('ROLE_LOG') %}
+    <li onclick="irApagina('/sistema/comprobante/'+seleccionado+'/eventos',0)" class="eventos">Eventos</li>
+    {% endif %}
+    <li onclick="irApagina('{{path('sistema_rendicion_imprimir',{ 'idrendicion':idrendicion ,'tipo':1, 'hash':hash  } )}}',true)" class="imprimir">Imprimir</li>
+
+    <li onclick="irApagina('{{path('imprimir_notadecomida_pdf',{ 'idrendicion':idrendicion, 'hash':hash } )}}',true)" class="imprimir">Nota de Comida</li>
+
+    <li onclick="irApagina('{{path('imprimir_rendiciondecajachica_pdf',{ 'idrendicion':idrendicion, 'hash':hash } )}}',true)" class="imprimir">Rendicion De Caja Chica</li>
+
+    <li onclick="irApagina('{{path('af_rendiciones_home')}}',true);" class="volver">Volver</li>
+	</div>
+{% endblock %}
+{% block cuerpo %} 
+
+
+{% block banner %}
+    {% if is_granted('ROLE_AF') %}
+        <div id="banner" style="amrgin-top:20px;">
+        {% if rendicion.esmodificable == false %}	
+            <div id="datosExpediente" style="margin-bottom: 5px; background-color: #000; color: #fff; border: none">
+            {% if is_granted('ROLE_AF') %}
+                {% if rendicion.isAtesoreria %}
+                    <button onclick="confirmarArchivada()" class="btn btn-default">Archivar</button>
+                {% elseif rendicion.isAceptada %}
+                        <button onclick="confirmarCorregir()" class="btn btn-default" >Enviar Para Corregir</button>
+                        <button onclick="confirmarATesoreria()" class="btn btn-default">A Tesoreria</button>
+                {% elseif rendicion.isEnviado %}
+                        <button onclick="confirmarAceptar()" class="btn btn-default">Aceptar</button>	
+                        <button onclick="confirmarCorregir()" class="btn btn-default">Enviar Para Corregir</button>
+                        {% elseif ((rendicion.isAtesoreria) or (rendicion.isArchivada)) %}
+                            Estado: {{rendicion.estadoNombre}} - La Rendicion ya no se puede modificar. 
+                {% endif %}
+            {% else %}
+                Estado: {{rendicion.estadoNombre}} - La Rendicion ya no se puede modificar. 
+            {% endif %}
+            </div>	    
+        {% endif %}
+        </div>
+    {% endif%}
+{% endblock %}
+
+{% block archivada %}        
+    {% if is_granted('ROLE_AF') %}
+        {% if rendicion.isArchivada %}
+            <hr/>
+            <form action="{{ path('af_archivar_modificar', {idarchivar:archivar.id} ) }} " method="post" style="display: inline">
+                <table cellspacing="0" border="0" width="auto" style="display: inline">
+                    <tr>
+                        <td align="left" >
+                            <a href="{{ path('sistema_liquidacion_show', { 'id': archivar.liquidacion.id, 'idrendicion': archivar.rendicion.id }) }}">
+                                Ver Liquidacion
+                            </a>
+                        </td>
+                        <td align="left" >
+                            <span>
+                                Numero de Caja: <input type="text" value="{{archivar.caja}}" disabled="disabled"/>
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+                <div id="rendicion-guardar" style="display: inline-block;">
+                    <div style="vertical-align: middle">
+                        <button type="submit" class="btn btn-default">Modificar</button>
+                    </div>				
+                </div>
+            </form>
+        {% endif%}
+    {% endif%}
+{% endblock %}
+			
+	{% endblock %}		
+{% block javascriptEspeciales %}
+	{{ parent() }}
+	<script>
+        {% if is_granted('ROLE_AF') %}
+
+            function confirmarAceptar(){
+                apprise('¿Esta seguro que desea marcar esta Rendicion como Aceptada?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                    if(r)irApagina('{{path('sistema_estado_rendicion_aceptar', { 'idrendicion':idrendicion })}}',true);
+                });
+            }
+
+            function confirmarCorregir(){
+                apprise('¿Esta seguro que desea enviar esta Rendicion para Corregir?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                    if(r)irApagina('{{path('sistema_estado_rendicion_acorregir', { 'idrendicion':idrendicion })}}',true);
+                });
+            }
+
+            function confirmarATesoreria(){
+                apprise('¿Esta seguro que desea enviar esta Rendicion a Tesoreria?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                    if(r)irApagina('{{path('sistema_estado_rendicion_atesoreria', { 'idrendicion':idrendicion })}}',true);
+                });
+            }
+
+            function confirmarArchivada(){
+                apprise('¿Esta seguro que desea archivar esta Rendicion?', {'verify':true, 'textYes':'Aceptar', 'textNo':'Cancelar'}, function(r){
+                    if(r)irApagina('{{path('af_prearchivar_crear', { 'idrendicion':idrendicion })}}',true);
+                });
+            }
+
+        {% endif %}	
+	</script>
+	
+{% endblock %}
+
+
+
+{% endembed %}
