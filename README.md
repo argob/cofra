@@ -24,7 +24,7 @@ Al hacer esto, se ejecutara un análisis de dependencias y de ser necesario le p
 En el caso de que algunos parámetros de conexión no puedan ser definidos utilizando el configurador ubicado en el config.php, se los puede definir a mano de la siguiente manera:
 
 Ir al archivo app/config/parameters.yml y definir los datos de la base de datos, ldap, smtp.
-Ir al archivo aoo/config/config.yml y definir el driver estableciendo en el parameters y el charset correspondiente.
+Ir al archivo aoo/config/config.yml y definir el driver estableciendo en el parameters, el charset correspondiente y el @domain.
 
 Para información mas detallada de la instalación del framwework que utiliza COFRA ir a https://symfony.com/doc/2.8/setup.html
 
