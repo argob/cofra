@@ -1,0 +1,18 @@
+﻿body { font-family: sans-serif; font-size: 14px; line-height: 1.6em; margin: 0; padding: 0; }
+.container { width: 800px; margin: 0 auto; }
+
+.autocomplete-suggestions { border: 1px solid #999; background: #FFF; cursor: default; overflow: auto; margin-top: 20px;
+						   margin-left: -140px;
+						   margin-left: -125px\9;
+							}
+.autocomplete-suggestion { padding: 2px 5px; white-space: nowrap; overflow: hidden; }
+.autocomplete-selected { background: #F0F0F0; }
+.autocomplete-suggestions strong { font-weight: normal; color: #3399FF; }
+
+/* dejar un estilo particular solo para los buscadores y que no afecte a los input de los formularios */
+.formulario input { font-size: 15px; padding: 10px; border: 1px solid #CCC; display: block; margin:5px 0; }
+.formulario select { margin: auto 0}
+
+input { font-size: 15px; padding: 10px; border: 1px solid #CCC; display: block; margin:5px 0; }
+select { margin: auto 0}
+

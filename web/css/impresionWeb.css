@@ -1,0 +1,120 @@
+#reportesCabecera ul, #reportesCabecera li {
+    text-align:left;
+    list-style-type: none;
+    padding:2px;
+    margin:0px;
+    height:auto;
+    display:block;
+    width:100%;
+    font-family: Arial,Verdana;
+    font-size:20px;
+}
+#reportesCabecera ul {
+    width:600px;
+    float:left;
+}
+#reportesCabecera label {
+    font-weight: bold;
+    text-align: left;
+   font-family: Arial,Verdana;
+    font-size:20px;
+}
+
+#reportesCabecera {
+	min-width: 300px;
+	max-width: 85%;
+	width: 850px;
+	height:auto;
+	padding: 5px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#reportesCabecera .tablaCabecera,  .tablaCabecera tr   {
+    width:100%;
+    text-align:left;
+}
+.tablaCabecera td   {
+    text-align:left;
+    list-style-type: none;
+    padding:0px;
+    margin:0px;
+    height:auto;
+    display:block;
+    width:40%; 
+    margin-right:100%;
+    float:right;
+    font-size: 12pt;
+}
+.cabeceraDe {
+    float:left !important;
+    text-align:left !important;
+    width:100% !important;
+    margin-top:30px !important;
+}
+.cabeceraMid {
+        width:50%;
+        float:right;
+        margin-top:0px;
+        margin-left: 120px;
+        margin:0px; 
+        display:block;
+}
+#reportesDiv {
+	min-width:840px;
+	min-height: 400px;
+	max-height:100%;
+	padding:5px;
+	height:400px;
+	min-width:300px;
+	max-width:85%;
+	width:850px;
+	border: thin solid #FC6;
+	margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#reportesTabla {
+
+	height:346px;
+	width: 100%;
+	overflow-y: auto;
+	display: inline-block;
+}
+#comprobantesTabla table {
+	width: 100%;
+    font-size: 20px;
+    font-family: arial, verdana;
+}
+#Comprobantes td {
+	padding:5px;
+}
+.tablaReporte {
+        background-color: #000;
+        background-image: url(../images/th-impresion.jpg);
+        background-repeat: repeat;
+        color:#fff !important;
+        box-shadow: inset 0 0 0 1000px #000;
+        margin:0px;
+}
+.totalImporte {
+   background-color:#000; 
+   color:#fff; 
+   font-weight: bold;
+}
+.total {
+     background-color:#000 !important; 
+    color:#fff; 
+    text-align: right !important; 
+    font-weight: bold;
+}
+.subTotal {
+     background-color:#000 !important; 
+    color:#fff; 
+    text-align: right; 
+    font-weight: bold;
+}
+.subTotalImporte {
+    background-color:#000; 
+    color:#fff; 
+    font-weight: bold;
+}

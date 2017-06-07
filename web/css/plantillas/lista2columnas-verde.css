@@ -1,0 +1,63 @@
+
+
+/* ----- tabla1------ */
+#colIz{
+	border: thin solid #000000;
+}
+.tablaTitulo th{
+	background-color:#5fb2ae;
+}
+.tablaTitulo th a{
+	text-decoration: none;
+}
+th a{
+    text-decoration: none;
+}
+
+
+a{
+    text-decoration:none;
+    color:#000000
+    
+}
+
+
+#tabla1 .odd{
+	background-color: #f1eeee;
+}
+#tabla1 .tr:hover{
+	background-color:#B2B2B2;
+}
+
+#tabla1 .seleccionada{
+	background-color: #dddddd;
+	
+}
+
+/* ----- tabla2------ */
+#colDe{
+	border: thin solid #000000;
+}
+.tablaTitulo2 th{
+	background-color:#5fb2ae;
+}
+.tablaTitulo2 th a{
+	text-decoration: none;
+}
+
+
+#tabla2 .odd{
+	background-color: #f1eeee;
+}
+#tabla2 .seleccionada{
+	background-color: #dddddd;
+}
+.tablaTitulo2 th a{
+	text-decoration: none;
+}
+th a{
+    text-decoration: none;
+}
+#tabla2 .tr:hover{
+	background-color:#B2B2B2;
+}

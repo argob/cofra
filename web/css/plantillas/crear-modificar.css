@@ -1,0 +1,67 @@
+.colIzFoto {
+    width: 150px;
+    height: 410px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    text-align: center;
+    vertical-align: top;
+    
+}
+
+#colDe-editar {
+    background-repeat: no-repeat;
+	background-color:#fff !important;
+    display: inline-block;
+	/**
+    margin-left: 20px;
+    margin-right: 0;
+    margin-top: 15px;
+	**/
+    max-height: 90%;
+    min-height: 400px;
+    min-width: 400px;
+    max-width: 50%;    
+    overflow: hidden;
+    padding: 5px;
+	font-family: Arial, Helvetica, sans-serif !important;
+}
+#colDe-editar td {
+	font-family: Segoe UI, Segoe UI Light, Verdana;
+	font-size: 14px;
+}
+/*
+#colDe-editar table{
+	padding:5px; 
+	margin-bottom:15px;
+        width:100%;
+}
+#colDe-editar table th{
+	height: 20px;
+	text-align:center;
+	
+}
+td{
+    border:thin solid #000;
+}
+td label{
+    text-align:right;
+}
+td label {
+    /*font-weight: normal;*/
+  /*  text-align: right;
+}
+
+*/
+.padding_left{
+ padding-left: 5px;  
+ color:black;
+ font-weight: bold;
+  width: 20%;
+    
+}
+.padding_derecho{
+ padding-right:5px;  
+ width: 10%;
+
+    
+}

@@ -1,0 +1,227 @@
+/* 
+    Document   : impresionPapel
+    Created on : May 27, 2013, 11:23:17 AM
+    Author     : echekenny
+    Description:
+        Purpose of the stylesheet follows.
+*/
+body {
+    color:#000;
+}
+root { 
+    display: block;
+}
+
+header {
+    visibility:hidden;
+    display: none;
+}
+#reportesCabecera ul, #reportesCabecera li {
+    text-align:left;
+    list-style-type: none;
+    padding:2px;
+    margin:0px;
+    height:auto;
+    display:block;
+}
+#reportesCabecera ul {
+    width:250px;
+    float:left;
+}
+#reportesCabecera label {
+    font-weight: bold;
+    font-size:14px;
+    text-align: left;
+}
+#reportesCabecera {
+	width:100%;
+	height:auto;
+	padding: 5px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#reportesCabecera .tablaCabecera,  .tablaCabecera tr   {
+    width:100%;
+    text-align:left;
+}
+.tablaCabecera {
+    border-bottom: thick solid #000;
+}
+.cabeceraDe {
+    float:right !important;
+    text-align:right !important;
+    width:100px !important;
+    margin-top:30px !important;
+}
+.cabeceraMid {
+    /*float:left;*/
+    margin-left: auto !important;
+    margin-right: auto !important;
+    text-align: left !important;
+    /*padding-left:50px !important;*/
+}
+#reportesDiv {
+	min-width:840px;
+	min-height: 400px;
+	max-height:100%;
+	padding:5px;
+	height:400px;
+	min-width:300px;
+	max-width:85%;
+	width:850px;
+	/*display: inline-block;*/
+	/*border: thin solid #FC6;*/
+	margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#reportesTabla {
+	width: 100%;
+	overflow-y: auto;
+	display: inline-block;
+}
+#comprobantesTabla table {
+	width: 100%;
+}
+#Comprobantes td #Comprobantes th {
+	padding:5px;
+        border-right: thin solid #000;
+}
+#Comprobantes th {
+        padding:5px;
+        border-right: thin solid #fff;
+        color:#fff;
+}
+#Comprobantes table {
+	border: thin solid #000;
+}
+
+/*----------------------------Traido de base--------------------------*/
+td {
+	font-family: Verdana, Geneva, sans-serif;
+        color:#000;
+}
+.odd {
+	background-color: #cacaca;
+        background-image: url(../images/td-impresion.jpg);
+        background-repeat: repeat;
+        box-shadow: inset 0 0 0 1000px #cacaca;
+}
+.tablaReporte {
+        background-color: #000;
+        /*background-image: url(../images/th-impresion.jpg);*/
+        background-repeat: repeat;
+        color:#fff !important;
+        box-shadow: inset 0 0 0 1000px #202020;
+        margin:0px;
+}
+#contenedor {
+	margin: 0 auto -30px;
+	width: 100%;
+	margin-right: auto;
+	margin-left: auto;
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	/*color: #FFF;*/
+	padding:0;
+	
+}
+article {
+	font-family: Verdana, Geneva, sans-serif;
+	padding: 5px;
+	/*height:80%;*/
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	width: 100%;	/*max-width:95%;*/
+	display:block;
+}
+section {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	/*display: inline-block;*/
+	padding: 5px;
+	width:100%;
+}
+footer {
+	
+	display:none;
+}
+
+footer, .push {
+	height: 30px; /* .push must be the same height as .footer */
+	clear:both;
+}
+/*--------------------Botones de Formulario-----------------------------------------*/
+/*---------------------------------------------------*/
+#comprobantesDiv {
+	padding:5px;
+	width:100%;
+	/*display: inline-block;*/
+	/*border: thin solid #000;*/
+	margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#comprobantesTabla {
+        padding:5px;
+	width:100%;
+	/*display: inline-block;*/
+        margin-left:auto;
+	margin-right:auto;
+        margin-top: 10px;
+}
+#comprobantesTabla table {
+	width: 100%;
+}
+#Comprobantes td {
+	padding:5px;
+        border-right: thin solid #000;
+        font-family: Verdana, Geneva, sans-serif;
+}
+#comprobantesTabla th, #comprobantesDiv th {
+        color: white;
+}
+
+h2 .tablaTitulo {
+	text-align:left;
+	color:#f0f0f0;	
+	/*display:inline-block;*/
+	/*margin-left:15px;*/
+}
+th {
+    color:#E6E6E6;
+    text-shadow: 0 0 3px #E6E6E6 !important;
+    font-family: Verdana, Geneva, sans-serif;
+}
+/*
+#Comprobantes td, #comprobantes table {
+	border: thin solid #000;
+        color:#F63 !important;
+}
+*/
+.totalImporte {
+   background-color:#000; 
+   color:#fff; 
+   font-weight: bold;
+}
+.total {
+     background-color:#000 !important; 
+    color:#fff; 
+    text-align: right !important; 
+    font-weight: bold;
+}
+.subTotal {
+     background-color:#000 !important; 
+    color:#fff; 
+    text-align: right; 
+    font-weight: bold;
+}
+.subTotalImporte {
+    background-color:#000; 
+    color:#fff; 
+    font-weight: bold;
+}

@@ -1,0 +1,495 @@
+/* 
+    Document   : base2
+    Created on : May 29, 2013, 12:36:30 PM
+    Author     : echekenny
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+html, body {
+	height:100%;
+	/*
+	min-height: 100%;
+	max-height:auto;
+	*/
+	/*width:100%;*/
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	margin:0;
+}
+h2 {
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	color: #fff;
+	/*font-weight: lighter;*/
+	font-weight: light;
+}
+h1 {
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	/*font-weight: lighter;*/
+	font-weight: light;
+}
+h2 .tablaTitulo {
+	text-align:left;
+	color:#000;	
+	display:inline-block;
+	margin-left:15px;
+}
+a:visited, img {
+	border:none;
+	text-decoration:none;
+}
+td {
+	font-family: "Verdana, Geneva, sans-serif";
+}
+#contenedor {
+	min-height: 100%;
+	/*height: auto !important;*/
+	/*height: 100%;*/
+	margin: 0 auto -30px;
+	width: 100%;
+	min-width:900px;
+	/*max-height:100%;*/
+	margin-right: auto;
+	margin-left: auto;
+	/*border: thin solid #000;*/
+	font-family: Verdana, Geneva, sans-serif;
+	font-size: 12px;
+	color: #FFF;
+	padding:0;
+	
+}
+header {
+	font-family: "Segoe UI, Verdana";
+	/*background-color: #0e1e2e	;*/
+	padding: 0px;
+	height: 125px;
+	width: 100%;	/*max-width:95%;*/
+	/*margin-top:1%;*/
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	color: #000;
+	background-color: #fff;	/*border: thin solid #000;*/
+}
+article {
+	font-family: "Segoe UI", "Segoe UI Light", "Verdana";
+	/*font-family: "Segoe UI, Verdana";*/
+	/*background-color: #0e1e2e	;*/
+	padding: 5px;
+	min-height: 80%;
+	max-height:85%;
+	height:80%;
+	/*margin-top:1%;*/
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	width: 95%;	/*max-width:95%;*/
+	color: #000;
+	/*border: thin solid #000;*/
+	display:block;
+}
+section {
+	margin-left: auto;
+	margin-right: auto;
+	margin-top:auto;
+	margin-bottom:auto;
+	text-align: center;
+	/*display: inline-block;*/
+	padding: 5px;
+	/*
+	min-width:300px;
+	max-width:60%;*/
+	min-width: 950px;
+	max-width: 95%;
+	min-height: 80%;
+	max-height: auto;
+	/*overflow:auto;*/
+	/*height: 90%;*/
+	/*border: thin solid #000;	*/
+}
+footer {
+	/*margin-top: 10px;*/
+	padding-top: 5px;
+	padding-bottom: 5px;
+	height: 30px;
+	margin-right: auto;
+	margin-left: auto;
+	/*background-image: url(../images/pie1.jpg);*/
+	color: #000;
+	text-align: center;
+	width: 95%;
+	border-top-width: thin;
+	border-top-style: solid;
+	border-top-color: #FCCD59;
+	font-family: "Segoe UI", "Segoe UI Semibold, Verdana";
+	font-size: small;
+	font-weight: normal;
+	display:block;
+	clear: both;
+}
+footer, .push {
+	height: 30px; /* .push must be the same height as .footer */
+	clear:both;
+}
+#botonera-base {
+	width:100%;
+	/*
+	padding-left:20%;
+	padding-right:20%;
+	*/
+	height:25px;
+	background-color:#FCAF66;
+	margin-right: auto;
+	margin-left: auto;
+	/*display:block;*/
+}
+#botonera {
+	float: right;
+	text-indent: 0;
+	display: inline-block;
+	text-align: right;
+	letter-spacing: 1em;
+	word-spacing: 1em;
+	margin-top: 15px;
+}
+#botonera2 {
+	width:700px;
+	/*
+	padding-left:20%;
+	padding-right:20%;
+	*/
+	height:25px;
+	/*background-color:#FCAF66;*/
+	margin-right: auto;
+	margin-left: auto;
+	/*display:block;*/
+}
+#botonera2 ul, li {
+	display:inline-block;
+	margin-right:20px;
+	height:30px;
+	/*margin-top:5px;*/
+}
+#logo {
+	font-family: "Segoe UI Light", "Segoe UI";
+	/*background-color: #0e1e2e	;*/
+	height: 80px;
+	/*margin-top:1%;*/
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+	width: 220px;	/*max-width:95%;*/
+	color: #000;
+	/*border: thin solid #000;*/
+	display:inline-block;
+		
+}
+#vacio {
+	width: 500px;
+	height: 80px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+#usuario {
+	margin-top: 5px;
+	float: right;
+	height:25px;
+	display: inline-block;
+	padding-right: 48px;
+	background-image: url(../images/icono-usuario-negro.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	color: #FFF;
+	display: block;
+	clear: right;
+	
+}
+#usuario2 {
+	float: right;
+	height: 24px;
+	display: inline-block;
+	padding-right: 48px;
+	background-image: url(../images/icono-user-chico2.png);
+	background-repeat: no-repeat;
+	background-position: right;
+	color: #fff;
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	font-size: 14px;
+	padding-top: 5px;
+	overflow:hidden;
+}
+#usuario a{
+	color:#FC6;
+	text-decoration:none;
+	
+}
+#usuario2 a {
+	color:#fff;
+	text-decoration:none;
+}
+#usuario2 a:hover {
+	color: #F90;
+}
+#logoMinisterio {
+	margin-top:20px;
+	float: right;
+	background-image: url(../images/logo-ministerio2.png);
+	height: 50px;
+	width: 180px;
+	display: block;
+	background-repeat: no-repeat;
+}
+#subHeader {
+	/*background-color: #F93;*/
+	/*background-color:#FCCD59;*/
+	height: 40px;
+	width:100%;
+	margin-right: auto;
+	margin-left: auto;
+	text-decoration:none;
+        background-image: url(../images/botonera-fondo.jpg);
+}
+#subHeader a {
+	width:100%;
+	height:100%;
+	text-decoration:none;
+}
+#menu {
+	height: 100%;
+	width: 850px;
+	margin-right: auto;
+	margin-left: auto;
+        color:#fff;
+}
+#menu a:active, #menu a:link, #menu a:visited {
+	color:#fff !important;
+	text-decoration:none;
+} 
+.seleccionada { 
+	background-color: rgb(255, 204, 102);
+	}
+.seleccionada  .seleccionada tr {
+	border-bottom: 1px solid #cef; 
+}
+
+.botones {
+	background-image: url(../images/iconos/prueba-1.png);
+	background-repeat: no-repeat;
+	background-color:transparent;
+	display: inline-block;
+	height: 30px;
+	width: 80px;
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	text-decoration: none;
+	background-position: left bottom;
+	padding-left: 32px;
+	list-style-type: none;
+	white-space: normal;
+	text-align: left;
+	margin-right: 10px;
+	line-height: 30px;
+}
+.botones a {
+	/*line-height: 30px;*/
+	color: #000;
+	text-decoration: none;
+}
+.botones a:visited, .botones a:active {
+	/*line-height: 30px;*/
+	color: #000;
+	text-decoration: none;
+}
+.botones li {
+	line-height: 30px;
+}
+.botones a:hover {
+	color: #F90;
+}
+.subBoton1 {
+	background-image: url(../images/iconos/botonera1.png);
+}
+.subBoton1:hover {
+	background-image: url(../images/iconos/botonera1-over.png);
+	color: #F90;
+}
+.subBoton2 {
+	background-image: url(../images/iconos/prueba-2.png);
+	
+}
+.subBoton2:hover {
+	background-image: url(../images/iconos/prueba-2-over.png);
+	color: #F90;
+}
+
+.subBoton3 {
+	background-image: url(../images/iconos/botonera3.png);
+}
+.subBoton3:hover {
+	background-image: url(../images/iconos/botonera3-over.png);
+	color: #F90;
+}
+.subBoton4 {
+	background-image: url(../images/iconos/botonera4.png);
+}
+.subBoton4:hover {
+	background-image: url(../images/iconos/botonera4-over.png);
+	color: #F90;
+}
+.subBoton5-off {
+	background-image: url(../images/iconos/botonera5-off.png);
+	color: #777;
+}
+.subBoton5 {
+	background-image: url(../images/iconos/botonera5.png);
+}
+.subBoton5:hover {
+	background-image: url(../images/iconos/botonera5-over.png);
+}
+.subBoton4-off {
+	background-image: url(../images/iconos/botonera4-off.png);
+	color: #777;
+}
+.subBoton3-off {
+	background-image: url(../images/iconos/botonera3-off.png);
+	color: #777;
+}
+.subBoton2-off {
+	background-image: url(../images/iconos/prueba-2-off.png);
+	color: #777;
+}
+.subBoton1-off {
+	background-image: url(../images/iconos/botonera1-off.png);
+	color: #777;
+}
+/*--------------------Botones de Formulario-----------------------------------------*/
+/*---------------------------------------------------*/
+
+.error {
+	background-image: url(../images/iconos/error.png);
+	background-repeat:none;
+	color: #777;
+}
+.btn {
+  display: inline-block;
+  *display: inline;
+  padding: 4px 12px;
+  margin-bottom: 0;
+  *margin-left: .3em;
+  font-size: 14px;
+  line-height: 20px;
+  color: #333333;
+  text-align: center;
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+  vertical-align: middle;
+  cursor: pointer;
+  background-color: #f5f5f5;
+  *background-color: #e6e6e6;
+  background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
+  background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
+  background-image: linear-gradient(to bottom, #ffffff, #e6e6e6);
+  background-repeat: repeat-x;
+  border: 1px solid #cccccc;
+  *border: 0;
+  border-color: #e6e6e6 #e6e6e6 #bfbfbf;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  border-bottom-color: #b3b3b3;
+  -webkit-border-radius: 4px;
+     -moz-border-radius: 4px;
+          border-radius: 4px;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#ffe6e6e6', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+  *zoom: 1;
+  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn:hover,
+.btn:focus,
+.btn:active,
+.btn.active,
+.btn.disabled,
+.btn[disabled] {
+  color: #333333;
+  background-color: #e6e6e6;
+  *background-color: #d9d9d9;
+}
+
+.btn:active,
+.btn.active {
+  background-color: #cccccc \9;
+}
+
+.btn:first-child {
+  *margin-left: 0;
+}
+
+.btn:hover,
+.btn:focus {
+  color: #333333;
+  text-decoration: none;
+  background-position: 0 -15px;
+  -webkit-transition: background-position 0.1s linear;
+     -moz-transition: background-position 0.1s linear;
+       -o-transition: background-position 0.1s linear;
+          transition: background-position 0.1s linear;
+}
+
+.btn:focus {
+  outline: thin dotted #333;
+  outline: 5px auto -webkit-focus-ring-color;
+  outline-offset: -2px;
+}
+
+.btn.active,
+.btn:active {
+  background-image: none;
+  outline: 0;
+  -webkit-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+     -moz-box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+          box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.btn.disabled,
+.btn[disabled] {
+  cursor: default;
+  background-image: none;
+  opacity: 0.65;
+  filter: alpha(opacity=65);
+  -webkit-box-shadow: none;
+     -moz-box-shadow: none;
+          box-shadow: none;
+}
+/*-------------------------------------------------------------*/
+.boton {
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #faa732;
+  *background-color: #f89406;
+  background-image: -moz-linear-gradient(top, #fbb450, #f89406);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#fbb450), to(#f89406));
+  background-image: -webkit-linear-gradient(top, #fbb450, #f89406);
+  background-image: -o-linear-gradient(top, #fbb450, #f89406);
+  background-image: linear-gradient(to bottom, #fbb450, #f89406);
+  background-repeat: repeat-x;
+  border-color: #f89406 #f89406 #ad6704;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fffbb450', endColorstr='#fff89406', GradientType=0);
+  filter: progid:DXImageTransform.Microsoft.gradient(enabled=false);
+}
+
+.boton:hover, .boton:focus, .boton:active, .boton.active, .boton.disabled, .boton[disabled] {
+  color: #ffffff;
+  background-color: #f89406;
+  *background-color: #df8505;
+}
+
+.boton:active, .boton.active {
+  background-color: #c67605 \9;
+}
+

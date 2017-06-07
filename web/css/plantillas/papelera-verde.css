@@ -1,0 +1,24 @@
+#papeleraDiv {
+	border: thin solid #000000;
+	background-color: #fff;
+}
+
+#papeleraDiv .tablaTitulo th{
+	background-color:#5FB2AE;
+        color:#ffffff;
+   
+}
+#papeleraDiv #papelera .odd{
+	background-color:#F1EEEE;
+     
+  
+}
+
+.seleccionada{
+	background-color: #B2B2B2 
+
+}
+#papelera {
+	width:99% !important;
+	
+}

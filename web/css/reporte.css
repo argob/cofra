@@ -1,0 +1,230 @@
+html, body {
+	height: 297mm;
+	width: 297mm;
+	margin-right: auto;
+	margin-left: auto;
+	margin-top:0;
+}
+.cuadro td {
+	text-align: center;
+}
+@font-face {
+	font-family: SHELLEY;
+	src: url('/images/Shelley_Allegro_BT.ttf');
+}
+.cuadro {
+	border-top: thin solid #000;
+	border-bottom: thin solid #000;
+	border-left: thin solid #000;
+    border-right: thin solid #000;
+	padding: 5px;
+	width: 100%;
+	min-width: 400px;
+	max-width: 100%;
+    border:solid thin none #000;
+}
+.cuadro .total td {
+	color: #FFF;
+	background-color: #000;
+	padding: 2mm;
+	font-weight: bold;
+}
+.cuadro .subHeader td {
+	background-color: #666 !important;
+	text-align: center !important;
+	font-weight: bold;
+	color: #FFF;
+    font-size: 21px;
+}
+.lugar {
+	float: right;
+	width: 100mm;
+	text-align: left;
+	margin-top: 40mm;
+	margin-left: 0mm;
+	padding-left: 0mm;
+    font-size: 18px;
+}
+#contenedor {
+	margin-left: auto;
+	margin-right: auto;
+	height: 100%;
+	width: 100%;
+	border: thin none #000;
+}
+#cabecera .membretes {
+	height: 30mm;
+	width: 100%;
+	float: none;
+        font-family: 'SHELLEY';
+}
+.membretes {
+	height: 30mm;
+	width: 100%;
+	float: none;
+	background-image:url('/images/membrete.png');
+    font-family: SHELLEY;
+    background-repeat: no-repeat;
+	background-position: 180px 10px;
+    font-family: 'SHELLEY';
+   
+}
+.datos {
+	height: auto;
+	width: 160mm;
+	float: left;
+	padding-top: 150px;
+    padding-left: 30mm; 
+    font-size: 12pt;
+}
+
+.precab {
+    height: auto;
+	color: #000;
+	width: 100mm;
+	float: left;
+    padding-left: 170mm; 
+	border: thin none #066;
+	padding-top: 10px
+}
+
+#cabecera .datos {
+	height: auto;
+	color: #000;
+	width: 160mm;
+	float: left;
+	border: thin none #066;
+	padding-top: 10px;
+
+}
+#cabecera {
+	height: 40mm;
+}
+#cuerpo {
+	margin-top:50mm;
+	border: thin none #000;
+	padding-left:30mm;
+    height:160mm;
+    font-size: 12pt;
+}
+.parrafo {
+	height: 20mm;
+	text-indent: 10mm;
+	margin-top:30mm; 
+    font-size: 23px;
+    font-family: Arial;
+}
+
+#pie {
+	height: 30mm;
+	margin-top:150mm;
+    margin-bottom:0px;
+    font-size: 12pt;
+     
+}
+.datos th {
+	font-weight: bold;
+	text-align: left;
+	width: 30mm
+}
+.resumen {
+	margin-bottom: 10mm;
+	width: 100%;
+	margin-right: auto;
+    margin-top: 50px;
+	margin-left: auto;
+	padding: 5px;
+   font-size:18px;
+}
+.firma {
+	margin-right: 50mm;
+	text-align: right;
+	float: right;
+	margin-top: 5mm;
+}
+.cuadro th, .resumen th {
+	color: #FFF;
+	background-color: #333;
+	padding: 5px;
+}
+.cuadro tr:nth-child(odd) {
+	background-color:#E4E4E4;	
+}
+.resumen label{
+	font-weight: bold;
+	color: #000;
+	padding-right: 10px;	
+}
+.leyenda {
+        float:right;
+        margin-top:0px;
+        margin-left: 20px;
+        margin:0px; 
+        display:block; 
+        font-weight: bold; 
+        text-align: center;
+        font-size:12pt;
+        font-family: Times New Roman;
+        font-style: italic;
+}
+ .area{
+        width:120mm;
+        padding-top:22mm;     
+}
+
+.texto_ministerio{ 
+        font-size:21px;
+        margin-top:8px;
+        margin-left:15px;
+        display:block;
+        text-align: center;
+}
+             
+.texto_area{ 
+        font-size:21px;
+        margin:0px;
+        display:block;
+        text-align: center;
+}
+
+.listado{
+        width:100%; 
+        border:0px; 
+        text-align: center;
+        border: 0;
+        padding: 0;
+        margin: 0;
+        font-size:21px;
+        font-family:arial ;
+}
+#codigodebarras{ 
+    float:right; 
+    text-align:left;
+    font-size:16px;
+                                                                                                                                                                          
+}
+.cudap {
+    float:left; 
+    text-align:center;     
+    margin-top:70px;
+    width: 160mm;
+    text-align: left;
+    font-size: 12pt; 
+}
+.tabla_fondo {
+   
+}
+/*---------------General----------*/
+.impTablaIz {
+	width:160mm;
+	float:left;
+	height:10mm;
+}
+.impTablaDe {
+	float:right;
+	margin-top:0mm;
+	margin-bottom:10mm;
+}
+
+    
+    

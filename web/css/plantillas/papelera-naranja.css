@@ -1,0 +1,10 @@
+#papeleraDiv {
+	border: thin solid #FC6;
+}
+
+#papeleraDiv .tablaTitulo th{
+	background-color:#F78D52;
+}
+#papeleraDiv #papelera .odd{
+	background-color:#F1EEEE;
+}

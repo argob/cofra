@@ -1,0 +1,22 @@
+#papeleraDiv {
+	min-width:840px;
+	min-height: 400px;
+	max-height:100%;
+	padding:5px;
+	height:400px;
+	min-width:300px;
+	max-width:85%;
+	width:850px;
+	/*display: inline-block;*/
+	
+	margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+#papeleraDiv .tablaTitulo th{
+	background-color:#FC6;
+}
+#papeleraDiv #papelera .odd{
+	background-color:#F1EEEE;
+}

@@ -1,0 +1,593 @@
+#contenedor {
+	font-size:  medium !important;
+}
+.superSuperiorAjuste {
+	width:auto !important;
+}
+.expListado {
+	list-style: none;
+	font-size: 18px;
+	margin:auto;
+	display:inline-block;
+	text-align: center;
+}
+.expListado li {
+	list-style: none;
+	text-align: left;
+	display:block;
+	margin-top:10px;
+}
+.expListado li a:hover {
+	color:#5F849E;
+	//font-weight: bold;
+}
+#subHeader {
+    height: 40px;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+    text-decoration: none;
+    background-image: url(../images/home_menu_tesoreria.jpg);
+}
+#colIz {
+	margin-left:auto !important;
+}
+#volver a:hover {
+	color:#cef;
+	font-weight: bold;
+}
+section #superSuperior {
+    display: block;
+    width: 492px;
+    background-color: #6F99B5;
+    height: 35px;
+    margin-bottom: 5px;
+}
+/*----Traidos de general para af------*/
+#colIzPipGral {
+	
+	float: none;
+	margin-top:5px;
+	display:inline;
+	background-color:black;
+	padding:5px;
+	border: thin solid #000;
+}
+#colIzPipGral td {
+	font-family: "Segoe UI Light", "Segoe UI";
+	font-size: 14px;
+}
+section .boton2 {
+	text-align:left;
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton2af {
+	text-align:right;
+	width:244px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+.tituloExp {
+	width:365px !important;
+	text-align: center;
+}
+.btn-exito {
+	border-radius:4px;
+	padding:5px;
+	font-size:14px;
+	color: #fff;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: #009896 !important;
+	border-color: #009896;
+	border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+	min-width:100px;
+}
+.textoIz {
+	text-align: left;
+}
+.panelExp {
+	width:370px !important;
+	text-align: left;
+}
+#datosExpediente {
+	min-width: 300px;
+	max-width: 85%;
+	width: 850px;
+	border: thin solid #000 !important;
+	padding: 5px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#comprobantesDiv {
+	min-width:840px;
+	min-height: 400px;
+	max-height:100%;
+	padding:5px;
+	height:400px;
+	min-width:300px;
+	max-width:85%;
+	width:850px;
+	/*display: inline-block;*/
+	border: thin solid #000;
+	margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+/*****************rendicion*/
+.notificacionTesoreria th{
+	background-color:#1a76b5 !important;
+	color:#6F99B5 !important;
+}
+.notificacionTesoreria th a {
+	color:#ccc;
+	font-size: 14px;
+}
+.notificacionTesoreria th a:hover {
+	color:#fff;
+}
+.contieneRendicionTesoreria .tablaTitulo th, .contieneRendicionTesoreria .tablaTitulo2 th {
+	background-color:#1a76b5;
+	color:#ccc !important;
+}
+.seleccionada {
+	background-color: rgb(182,198,218) !important;
+}
+#colDe {
+	padding:5px;
+	width:450px\9;
+	height:70%;
+	min-height: 400px;
+	max-height:70%;
+	display: inline-block;
+	background-repeat: no-repeat;	
+	margin-left: 20px;
+	margin-right: 0px;
+	border: thin solid #000;
+	overflow-y:auto;
+	min-width: 320px;
+	max-width:40%;
+}
+
+
+
+#colIz {
+	height:400px;
+	padding:5px;
+    margin-left: 15%;
+    width:415px;
+	display: inline-block;
+	background-repeat: no-repeat;
+	border: thin solid #000;
+
+}
+.colIzFoto {
+	background-color:#1a76b5 !important;
+}
+#colIzTabla {
+	min-height: 300px;
+	max-height:350px;
+       /* cambio por auto*/
+	overflow-y: scroll; 
+    overflow-x: hidden;
+	display: inline-block;
+    margin-right: 3px;
+    width:415px;
+
+    
+}
+
+#colDeTabla {
+	width:100%;
+	width:490px\9;
+	/*
+	min-height: 300px;
+	max-height:350px;
+	*/
+	height:350px;
+        /* cambio por auto*/
+    overflow-y: scroll;
+    overflow-x: hidden;
+	display: inline-block;
+  
+}
+
+
+
+#colCen {
+	min-height: 400px;
+	min-width: 300px;
+	max-width:40%;
+	max-height:200%;
+	display: inline-block;
+	background-repeat: no-repeat;
+	margin-left: 0;
+	margin-right: 0;
+	border: thin solid #FC6;
+	margin-top: 0;	
+}
+#fondoIz {
+	background-image: url(../images/fondo-columna1.png);
+	min-height: 500px;
+	min-width: 350px;
+	max-width:40%;
+	max-height:100%;
+	margin-right: 20px;
+	margin-left:auto;
+	float: left;
+	display: inline-block;
+	background-repeat: no-repeat;	/*
+	margin-left:auto;
+	margin-right:auto;*/
+	margin-top: auto;
+	margin-bottom:auto;
+	background-position: center top;
+}
+#fondoDe {
+	background-image: url(../images/fondo-columna2.png);
+	min-height: 500px;
+	min-width: 350px;
+	max-width:40%;
+	max-height:200%;
+	float: left;
+	display: inline-block;
+	background-repeat: no-repeat;	/*
+	margin-left:auto;
+	margin-right:auto;*/
+	margin-top:auto;
+	margin-bottom:auto;
+	background-position: center top;
+}
+.crear {
+	background-repeat: no-repeat;
+	height: 50px;
+	width:100px;
+	background-color: #09F;
+}
+.cancelar {
+	height: 50px;
+	width:100px;
+	background-color: #F63;
+	background-repeat: no-repeat;
+}
+.form-boton {
+	margin:10px;	
+	display:inline-block;
+}
+.odd {
+	background-color: #F1EEEE;
+}
+.odd td {
+	/*border-bottom: 1px solid #cef; */
+	}
+#tablaDescripcion, #tablaDescripcion .odd, #tablaDescripcion .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#tablaDescripcion1, #tablaDescripcion1 .odd, #tablaDescripcion1 .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#tablaDescripcion2, #tablaDescripcion2 .odd, #tablaDescripcion2 .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#tablaDescripcion0, #tablaDescripcion0 .odd, #tablaDescripcion0 .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#paginador {
+	color: #fff;
+	display:inline-block;
+	background-color: #FC6;
+	border: thin solid #FC6;
+	padding: 3px;
+}
+#paginador span {
+	padding:3px;
+	color:#000
+}
+#paginador span span {
+	background-color: #000;
+	color: #FFF;	
+}
+#paginador a {
+	color: #FFF;
+	text-decoration: none;		
+}
+#comprobantesTabla {
+
+	height:340px;
+	width: 100%;
+	overflow-y: auto;
+	display: inline-block;
+}
+#comprobantesTabla table {
+	width: 100%;
+}
+#Comprobantes td {
+	padding:5px;
+    margin-left: -5px;
+}
+#Comprobantes tr {
+	cursor:pointer;
+}
+#datosExpediente {
+        min-width: 300px;
+        max-width: 85%;
+        width: 850px;
+        border: thin solid #FC6; 
+        padding: 5px;
+        margin-left:auto;
+        margin-right:auto;
+}
+#papeleraDiv {
+	min-width:840px;
+	min-height: 400px;
+	max-height:100%;
+	padding:5px;
+	height:400px;
+	min-width:300px;
+	max-width:85%;
+	width:850px;
+	border: thin solid #FC6;
+	margin-top: 10px;
+	margin-left:auto;
+	margin-right:auto;
+}
+#papeleraTabla {
+/*
+	min-height: 346px;
+	max-height:400px;
+	*/
+	height:346px;
+	/*overflow-y: scroll;*/
+	overflow-y: auto;
+	display: inline-block;
+}
+#papelera td {
+	padding:5px;
+}
+#papelera {
+        width:95%;
+        margin:auto;  
+}
+
+.edicionArea input{
+	width:100px !important;
+	
+}
+
+.titulo_tbl{
+    
+    background-color:#5FB2AE;
+    Color:#fff;
+}
+.seleccionada { 
+	background-color:#c6c4c4;
+	}
+.seleccionada  .seleccionada tr {
+	border-bottom: 1px solid #cef;
+    background-color:#dddddd;
+}
+.colIzComprobante {
+    width: 150px;
+    height: 410px;
+    display: inline-block;
+    background-repeat: no-repeat;
+    text-align: center;
+    vertical-align: top;
+    /*background-color:#035D81;*/
+    background-color:#5fb2ae;
+    
+}
+/*--------------------ACCIONES DE SUB-BOTONERA------------------*/
+.acciones {
+    background-color: #dddddd;
+    min-width:600px;
+    width:auto;
+    padding:2px;
+    margin-left:auto;
+    margin-right: auto;
+    color:#000;
+    margin-top:0px;
+    padding-top: 5px;
+    font-family: "Segoe UI Light", "Segoe UI", "Verdana";
+}
+.acciones li {
+    display:inline-block;
+    list-style-type: none;
+    width:auto;
+    margin-right:10px;
+    cursor:pointer;
+    padding-left: 24px;
+    padding-right: 4px;
+    height:20px;
+   /* border-right:thin solid #666;*/
+
+}
+.acciones li:hover {
+    display:inline-block;
+    list-style-type: none;
+    width:auto;
+    margin-right:10px;
+    cursor:pointer;
+    color:#999;
+   
+}
+.acciones .enviar1 {
+    background-image: url(../images/iconos/subotonera-enviar.png);
+    background-repeat: no-repeat;
+ 
+}
+.acciones .atras {
+    background-image: url(../images/iconos/subotonera-atras.png);
+    background-repeat: no-repeat;
+}
+.acciones .agregar {
+    background-image: url(../images/iconos/subotonera-agregar.png);
+    background-repeat: no-repeat;
+ 
+}
+.acciones .editar {
+    background-image: url(../images/iconos/subotonera-editar.png);
+    background-repeat: no-repeat;
+}
+.acciones .borrar {
+    background-image: url(../images/iconos/subotonera-borrar.png);
+    background-repeat: no-repeat;
+}
+.acciones .papelera {
+    background-image: url(../images/iconos/subotonera-papelera.png);
+    background-repeat: no-repeat;
+}
+.acciones .volver {
+    background-image: url(../images/iconos/subotonera-volver.png);
+    background-repeat: no-repeat;
+    border:none;
+}
+.acciones .imprimir {
+    background-image: url(../images/iconos/subotonera-imprimir.png);
+    background-repeat: no-repeat;
+    border:none;
+}
+.acciones .notadecomida {
+    background-image: url(../images/iconos/print_notadecomida.png);
+    background-repeat: no-repeat;
+    border:none;
+}
+.acciones .rendicioncaja {
+    background-image: url(../images/iconos/print_rendicioncaja.png);
+    background-repeat: no-repeat;
+    border:none;
+}
+.acciones .eventos {
+    background-image: url(../images/iconos/subotonera-eventos.png);
+    background-repeat: no-repeat;
+    border:none;
+}
+.Error ul, .Error li {
+	list-style-type: disc;
+	color:#fff;
+	/*font-weight: bold;*/
+	margin-left:60px;
+}
+#colArea {
+	font-size: 12px !important;
+	width: 900px;
+	min-width: 800px;
+	max-width: 100%;
+	height: auto;
+	padding: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	border: thin solid #000;
+	overflow: auto;
+	
+}
+#colArea table th{
+
+	padding:3px; 
+	margin-bottom:10px;
+	background-color:#5FB2AE;
+}
+#colArea table td{
+	padding:2px;
+	/*margin:10px;*/
+}
+/*******************traido de base2*******************/
+.seleccionada { 
+	background-color: rgb(255, 204, 102);
+	}
+.seleccionada  .seleccionada tr {
+	border-bottom: 1px solid #cef; 
+}
+
+/***********Rendicion detalle**************/
+
+#comprobantesDiv {
+	background-color:#fff !important;
+	}
+#datosExpediente  {
+/*background-color:#fff !important;	*/
+	}
+#banner #datosExpediente {
+/*background-color:#000 !important;		*/
+	}
+#datosExpediente .selectBlanco select {
+	/*background-color:#fff !important;*/
+	}
+#magyp_rendiciondecajabundle_rendiciontype_fecha select{
+	background-color:#fff !important;	
+	}
+.comprobantesTabla1	.comprobantesFecha select {
+	width:45px !important;
+	}
+.comprobantesFecha {
+	width: 180px;
+	}
+.comprobantesFecha select:nth-child(3)  {
+	width:70px !important;
+	}
+.btnTesoreria {
+	
+}
+.bannerTesoreria #datosExpediente{
+	background-color:#6F99B5 !important;
+	border:thin solid #1a76b5 !important;
+}
+.tablaTitulo th.tesoreria {
+	/*background-color:#1a76b5;*/
+}
+.appriseOuter {
+	
+}
+.appriseInner {
+	
+}
+.principal.tesoreria td{
+	text-align: left;
+}
+.principal.tesoreria td:last-child {
+	text-align: center;
+}
+/********Traido de las plantillas de 2 columnas*******/
+#colDeTabla {
+	width:100%;
+}
+#divajax {
+	width:100% !important;
+}
+#colDe.rendicionTesoreria {
+	min-width:500px !important;
+}
+#colDeTabla.rendicionTesoreria table td:last-child{
+	text-align: right;
+}
+/****Botones****/
+.btn-tesoreria {
+	border-radius:4px;
+	padding:5px;
+	font-size:14px;
+  color: #ffffff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #1a76b5 !important;
+  background-repeat: repeat-x;
+  border-color: #1a76b5;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  min-width:100px;
+}
+.btn-cancelar {
+	border-radius:4px;
+	padding:5px;
+	font-size:14px;
+  color: #fff;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+  background-color: #AA3333 !important;
+  border-color: #AA3333;
+  border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+  min-width:100px;
+}

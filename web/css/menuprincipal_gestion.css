@@ -1,0 +1,23 @@
+/* 
+    Document   : menuprincipal_gestion
+    Created on : 06/12/2013, 10:47:50
+    Author     : ywaldman
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+root { 
+    display: block;
+}
+
+
+
+.Icono_adm{
+
+        background-image: url(../images/iconos/botonera3-over.png);
+        color:#000000;
+}
+.Icono_adm:hover {
+	background-image: url(../images/iconos/botonera3.png);
+        color:#ffffff;
+}

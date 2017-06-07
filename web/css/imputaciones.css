@@ -1,0 +1,369 @@
+@charset "utf-8";
+html, body {
+	height: 100%;
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	margin:0;
+}
+h2 {
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	color: #000 !important;
+	font-weight: lighter;
+}
+h1 {
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	font-weight: lighter;
+	margin-top: 25px;
+}
+h2 .tablaTitulo {
+	text-align:left;
+	color:#000;	
+	display:inline-block;
+	margin-left:15px;
+}
+tr {
+	margin-right: auto;
+	margin-left: auto;
+	text-align: center;
+}
+table {
+overflow: auto;
+}
+td {
+	min-width:100px;
+        max-width:300px;
+}
+/*---------------------------------TABLA ESTILO 1-------------------------------------*/
+.principal table {
+	margin-top:30px;
+	min-width: 400px;
+	max-width: 90%;
+	min-height:20%;
+	max-height: 80%;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	font-size: medium;
+	overflow: auto;
+}
+.principal th {
+text-align:center;	
+}
+.principal td {
+	text-align: center;
+	border-right-width: thin;
+	border-bottom-width: thin;
+	border-right-style: solid;
+	border-bottom-style: solid;
+	border-right-color: #FC6;
+	border-bottom-color: #FC6;
+	min-width:50px;
+}
+.secundaria table {
+		
+	
+}
+td .botonFormulario {
+text-align:center !important;
+margin-left:auto;
+margin-right:auto;	
+}
+#algo {
+	width: 200px;
+	height: 300px;
+	background-color: #CCC;
+	display: inline-block;
+	white-space: nowrap;
+}
+#colDe {
+/*margin-right: 5%;*/
+	padding:5px;
+	/*float: left;*/
+	/*revisar este height*/
+	min-height: 430px;
+	max-height:70%;
+	
+	/*min-width: 400px;*/
+	max-width:40%;
+	display: inline-block;
+	background-repeat: no-repeat;	
+	margin-left: 20px;
+	margin-right: 0px;
+	border: thin solid #000000;
+	margin-top: 15px;	
+	overflow:hidden;
+}
+#colIz {
+	/*margin-right: 5%;*/
+	padding:5px;
+	/*float: left;*/
+	display:inline-block;
+	min-height: 430px;
+	max-height:70%;
+	min-width: 400px;
+	max-width:40%;
+	display: inline-block;
+	background-repeat: no-repeat;
+	/*margin-left: 30px;*/
+	margin-left:auto;
+	margin-right: auto;
+	border: thin solid #000000;
+	margin-top: 15px;
+	overflow:hidden;
+    padding:5px;
+}
+
+#colIzTabla {
+	min-height: 300px;
+	max-height:350px;
+    /* cambio por auto*/
+    overflow-y: scroll !important;
+    overflow-x: hidden;
+	display: inline-block;
+    margin-right: 3px;
+    width:415px;
+}
+
+#colCen {
+	min-height: 400px;
+	min-width: 300px;
+	max-width:40%;
+	max-height:200%;
+	display: inline-block;
+	background-repeat: no-repeat;
+	margin-left: 0;
+	margin-right: 0;
+	border: thin solid #FC6;
+	margin-top: 0;	
+}
+#fondoIz {
+	background-image: url(../images/fondo-columna1.png);
+	min-height: 500px;
+	min-width: 350px;
+	max-width:40%;
+	max-height:100%;
+	margin-right: 20px;
+	margin-left:auto;
+	float: left;
+	display: inline-block;
+	background-repeat: no-repeat;	/*
+	margin-left:auto;
+	margin-right:auto;*/
+	margin-top: auto;
+	margin-bottom:auto;
+	background-position: center top;
+}
+#fondoDe {
+	background-image: url(../images/fondo-columna2.png);
+	min-height: 500px;
+	min-width: 350px;
+	max-width:40%;
+	max-height:200%;
+	float: left;
+	display: inline-block;
+	background-repeat: no-repeat;	/*
+	margin-left:auto;
+	margin-right:auto;*/
+	margin-top:auto;
+	margin-bottom:auto;
+	background-position: center top;
+}
+.crear {
+	background-repeat: no-repeat;
+	height: 50px;
+	width:100px;
+	background-color: #09F;
+}
+.cancelar {
+	height: 50px;
+	width:100px;
+	background-color: #F63;
+	background-repeat: no-repeat;
+}
+.form-boton {
+	margin:10px;	
+	display:inline-block;
+}
+.odd {
+	background-color: #F1EEEE;
+}
+.odd td {
+	border-bottom: 1px solid #cef; 
+	}
+a {
+	text-decoration:none;
+}
+	/*
+.accion {
+	width:32px;
+	height:32px;
+
+}
+.accion:hover {
+	transition: all 0.75s ease-in-out;
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease-in-out;
+	background-image:url(../images/form-botones/form2-borrar-over.png);
+}
+*/
+#tablaDescripcion, #tablaDescripcion .odd, #tablaDescripcion .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#tablaDescripcion1, #tablaDescripcion1 .odd, #tablaDescripcion1 .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#tablaDescripcion2, #tablaDescripcion2 .odd, #tablaDescripcion2 .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+#tablaDescripcion0, #tablaDescripcion0 .odd, #tablaDescripcion0 .odd td {
+	background-color:transparent;
+	border-bottom:0;
+}
+/*--------------------Paginador Imputacion-----------*/
+.pagination {
+	width:100%;
+	min-width: 400px;
+	display:block;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+.pagination span {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+}
+#paginador-tabla {
+	width:400px;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+	display: block;
+	overflow:visible;
+}
+#paginador {
+	color: #fff;
+	display:inline-block;
+	background-color: #FC6;
+	border: thin solid #FC6;
+	padding: 3px;
+}
+#paginador span {
+	padding:3px;
+	color:#000
+}
+#paginador span span {
+	background-color: #000;
+	color: #FFF;	
+}
+#paginador a {
+	color: #FFF;
+	text-decoration: none;		
+}
+/*
+#acomodador {
+	margin-left:auto; 
+	margin-right:auto; 
+	padding:5px; 
+	width:900px;
+	min-width:50%; 
+	max-width:100%; 
+}
+*/
+/*-------------------------------------Formularios--------------------------------*/
+
+input{
+	width:250px;
+    font-size:14px;
+    font-family: Arial, helvetica;
+    outline:none;
+    transition: all 0.75s ease-in-out;
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease-in-out;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border:1px solid rgba(0,0,0, 0.2);
+    color:gray;
+    background-color:#eee;
+    padding: 3px;
+}
+ 
+input:focus {
+    box-shadow: 0 0 10px #aaa;
+    -webkit-box-shadow: 0 0 10px #aaa;
+    -moz-box-shadow: 0 0 10px #aaa;
+    border:1px solid #999;
+    background-color:white;
+}
+.descripcion {
+	width: 250px;
+}
+select {
+	width:250px;
+	font-size:14px;
+    font-family: Arial, helvetica;
+    outline:none;
+    transition: all 0.75s ease-in-out;
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease-in-out;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border:1px solid rgba(0,0,0, 0.2);
+    color:gray;
+    background-color:#eee;
+    padding: 3px;
+}
+list {
+	width:250px;
+	  font-size:14px;
+    font-family: Arial, helvetica;
+    outline:none;
+    transition: all 0.75s ease-in-out;
+    -webkit-transition: all 0.75s ease-in-out;
+    -moz-transition: all 0.75s ease-in-out;
+    border-radius:3px;
+    -webkit-border-radius:3px;
+    -moz-border-radius:3px;
+    border:1px solid rgba(0,0,0, 0.2);
+    color:gray;
+    background-color:#eee;
+    padding: 3px;
+}
+select:focus {
+    box-shadow: 0 0 10px #aaa;
+    -webkit-box-shadow: 0 0 10px #aaa;
+    -moz-box-shadow: 0 0 10px #aaa;
+    border:1px solid #999;
+    background-color:white;
+}
+
+.acciones2 td {
+ padding-left:10px;   
+ font-size:18px;
+
+}
+.acciones2 tr.odd, .odd td {
+    background:none;
+    background-color:transparent;
+    border:none;
+    
+}
+.subBoton4 {
+	background-image: url(../images/iconos/botonera4-over.png);
+	/*color: #F90;*/
+        color:#FAD98D;
+}
+.imp-codigo{
+    min-width: 50px;
+    max-width: 60px;
+    
+    
+}
+   
+ td label {
+	text-align:left;	
+}     

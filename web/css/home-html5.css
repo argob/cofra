@@ -1,0 +1,191 @@
+section {
+    margin-top:50px;
+}
+html, body {
+	height:100%;
+	/*width:100%;*/
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	margin:0;
+}
+section #superSuperior {
+        display:inline-block;
+        width:492px;
+        background-color:#009896;
+        height:35px;
+        margin-bottom: 5px;
+}
+section #superSuperior h1 {
+        display:inline-block;
+        margin: 0px;
+        padding: 0px;
+        color: #fff;
+        font-size:24px;
+        font-weight: lighter;
+}
+section #superior {
+	display:block;	
+}
+
+superSuperior
+section #medio {
+	display:block;	
+}
+section #inferior {
+	display:block;	
+}
+section .boton1 {
+	text-align:right;
+	width:244px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton2 {
+	text-align:left;
+	width:244px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton3 {
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton4 {
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton5 {
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton6 {
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton7 {
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton8 {
+	width:120px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton9 {
+	width:350px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+section .boton10{
+	width:491px;
+	height:105px;
+	/*border: thin solid #000;*/
+	display:inline-block;
+}
+#botonera {
+	float: right;
+	text-indent: 0;
+	display: inline-block;
+	text-align: right;
+	letter-spacing: 1em;
+	word-spacing: 1em;
+	margin-top: 15px;
+}
+.volver{
+    	width:491px;
+	height:105px;
+	/*border: thin solid #000;*/
+ 
+}
+
+section #volver {
+        display:inline-block;
+        width:492px;
+        background-color:#009896;
+        height:35px;
+        margin-bottom: 5px;
+}
+section #volver a {
+        display:inline-block;
+        margin: 0px;
+        padding: 0px;
+        color: #fff;
+        font-size:24px;
+        font-weight: lighter;
+        text-decoration:none;
+}
+
+
+
+/*---------------------------------TABLA ESTILO 1-------------------------------------*/
+#colDe {
+	/*padding-top:30px;*/
+	min-width:300px;
+	max-width:800px;
+	height:400px;
+	display:inline-block;
+	text-align:left;
+}
+
+#colIzLogin {
+	/*margin-right: 5%;*/
+	/*float: left;*/
+	width: 250px;
+	height: 400px;
+	display: inline-block;
+	background-repeat: no-repeat;	/*
+	margin-left:auto;
+	margin-right:auto;*/
+	background-position: center top;
+	background-image: url(../images/login-img1.png);
+}
+.login {
+	text-align:left;	
+}
+table {
+	margin-top:30px;
+	min-width: 200px;
+	max-width: 100%;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+	font-family: "Segoe UI Light", "Segoe UI", "Segoe UI Semibold";
+	font-size: medium;
+}
+th {
+text-align:left;	
+}
+tr {
+margin-bottom:10px;		
+}
+td {
+text-align:left;
+}
+td .botonFormulario {
+text-align:center !important;
+margin-left:auto;
+margin-right:auto;	
+}
+
+/***********************buscador******/
+#colIzPipGral {
+	
+	float: left;	
+        height: 100px;
+	display:inline;
+	background-color:black;
+	width: 492px;
+}

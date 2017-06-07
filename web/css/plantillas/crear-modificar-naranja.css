@@ -1,0 +1,14 @@
+.colIzFoto {
+    background-color:#FCCD59;
+    
+}
+
+#colDe-editar {
+    border: thin solid #FFCC66;
+}
+
+#colDe-editar table th{
+	background-color:#FC6;
+	text-align:center;
+	
+}

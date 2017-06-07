@@ -1,0 +1,42 @@
+/* 
+    Document   : comprobante
+    Created on : 04/11/2013, 12:04:38
+    Author     : ywaldman
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+#tabla-Comprobante input{
+	padding:3px;
+	font-size:12px;
+        width:200px;
+}
+#tabla-Comprobante .numero-parte1{
+        width:50px !important;
+        margin: 0 5px 0 0;
+}
+#tabla-Comprobante .numero-parte2{
+        width:128px;
+        margin: 0 0 0 5px;
+}
+#tabla-Comprobante #imputacion_id{
+        width:200px;
+        
+}
+#tabla-Comprobante label{
+	padding:1px;
+	font-size:11px;
+        width:50px;
+}
+#tabla-Comprobante select{
+        padding:3px;
+	font-size:12px;
+	max-width:208px !important;
+	min-width:50px !important;
+	border:thin solid #ccc;
+}
+.btn_referencias{
+margin-left: 15px;  
+    
+    
+}

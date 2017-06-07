@@ -1,0 +1,20 @@
+/* ----- tabla1------ */
+#colIz{
+	border: thin solid #FC6;
+}
+.tablaTitulo th{
+	background-color:#F78D52;
+}
+#tabla1 .odd{
+	background-color: #FFC;
+}
+/* ----- tabla2------ */
+#colDe{
+	border: thin solid #FC6;
+}
+.tablaTitulo2 th{
+	background-color:#F78D52;
+}
+#tabla2 .odd{
+	background-color: #F1EEEE;
+}
