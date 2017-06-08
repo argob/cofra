@@ -30,6 +30,6 @@ Para información mas detallada de la instalación del framwework que utiliza CO
 
 # Contacto
 
-Te invitamos a crearnos un issue en caso de que encuentres algún bug o tengas feedback de alguna parte de portal-andino-theme.
+Te invitamos a crearnos un issue en caso de que encuentres algún bug o tengas feedback de alguna parte de cofra.
 
 Para todo lo demás, podés mandarnos tu comentario o consulta a datos@modernizacion.gob.ar.
