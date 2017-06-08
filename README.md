@@ -28,3 +28,8 @@ Ir al archivo aoo/config/config.yml y definir el driver estableciendo en el para
 
 Para información mas detallada de la instalación del framwework que utiliza COFRA ir a https://symfony.com/doc/2.8/setup.html
 
+# Contacto
+
+Te invitamos a crearnos un issue en caso de que encuentres algún bug o tengas feedback de alguna parte de portal-andino-theme.
+
+Para todo lo demás, podés mandarnos tu comentario o consulta a datos@modernizacion.gob.ar.
