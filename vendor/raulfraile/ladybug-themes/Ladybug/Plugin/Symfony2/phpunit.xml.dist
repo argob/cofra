@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<phpunit bootstrap="Tests/bootstrap.php" colors="true" strict="true">
+    <testsuites>
+        <testsuite name="LadybugSymfony2Plugin">
+            <directory>./tests</directory>
+        </testsuite>
+    </testsuites>
+    <listeners>
+        <listener class="\Mockery\Adapter\Phpunit\TestListener"></listener>
+    </listeners>
+
+</phpunit>

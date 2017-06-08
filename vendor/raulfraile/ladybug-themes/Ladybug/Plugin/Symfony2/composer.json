@@ -1,0 +1,25 @@
+{
+    "name": "raulfraile/ladybug-plugin-symfony2",
+    "type": "ladybug-plugin",
+    "description": "Symfony2 plugin for ladybug",
+    "keywords": ["ladybug", "plugin"],
+    "license": "MIT",
+    "require": {
+        "raulfraile/ladybug-installer": "~1.0.0"
+    },
+    "require-dev": {
+        "mockery/mockery": "0.8.0",
+        "raulfraile/ladybug": "~1.0.0",
+        "symfony/http-foundation": "*"
+    },
+    "extra": {
+        "ladybug_name": "Symfony2"
+    },
+    "autoload": {
+        "psr-0": {
+            "Ladybug\\Plugin\\Symfony2\\": ""
+        }
+    },
+    "target-dir": "Ladybug/Plugin/Symfony2",
+    "minimum-stability": "dev"
+}

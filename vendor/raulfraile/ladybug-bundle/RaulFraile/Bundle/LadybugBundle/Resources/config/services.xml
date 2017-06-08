@@ -1,0 +1,31 @@
+<?xml version="1.0" ?>
+<container xmlns="http://symfony.com/schema/dic/services"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
+
+    <services>
+
+        <service id="ladybug.dumper" class="Ladybug\Dumper">
+            <call method="setOptions">
+                <argument>%ladybug.options%</argument>
+            </call>
+        </service>
+
+        <service id="ladybug.twig.extension" class="RaulFraile\Bundle\LadybugBundle\Twig\Extension\LadybugExtension" public="false">
+            <tag name="twig.extension" />
+            <argument type="service" id="ladybug.dumper"></argument>
+        </service>
+
+        <service id="data_collector.ladybug_data_collector" class="RaulFraile\Bundle\LadybugBundle\DataCollector\LadybugDataCollector">
+            <argument type="service" id="ladybug.dumper" />
+            <tag name="data_collector" template="RaulFraileLadybugBundle:Collector:ladybug" id="ladybug" />
+        </service>
+
+        <service id="ladybug" alias="data_collector.ladybug_data_collector" />
+
+        <service id="ladybug.event_listener.ladybug_config_listener" class="RaulFraile\Bundle\LadybugBundle\EventListener\LadybugConfigListener">
+            <argument>%ladybug.options%</argument>
+            <tag name="kernel.event_listener" event="kernel.request" method="onKernelRequest" />
+        </service>
+    </services>
+</container>
