@@ -14,10 +14,11 @@ Acceso a cualquier base de datos Relacional.
 
 Ejecutar las siguientes lineas de comando
 
+```bash
 sudo chmod +x web/pff/wkhtmltopdf-amd64
 sudo chown www-data:www-data app/logs/
 sudo chown www-data:www-data app/cache/
-
+```
 Ejecutar desde la url de la aplicación el archivo ubicado en web/config.php
 Al hacer esto, se ejecutara un análisis de dependencias y de ser necesario le permitirá cargar la configuración del sistema.
 
