@@ -8,7 +8,7 @@ Sistema de rendición de caja chica, permite tener un seguimiento, control y gen
 * PHP >= 5.4
 * Apache
 * Acceso LDAP
-* Acceso a cualquier base de datos Relacional.
+* Acceso a cualquier base de datos relacional
 
 # Instalación
 
