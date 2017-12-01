@@ -4,11 +4,11 @@ Sistema de rendición de caja chica, permite tener un seguimiento, control y gen
 
 # Requisitos
 
-Linux
-PHP >= 5.4
-APACHE
-Acceso LDAP
-Acceso a cualquier base de datos Relacional.
+* Linux
+* PHP >= 5.4
+* Apache
+* Acceso LDAP
+* Acceso a cualquier base de datos Relacional.
 
 # Instalación
 
