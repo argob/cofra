@@ -4,7 +4,7 @@ Sistema de rendición de caja chica. Permite tener un seguimiento, control y gen
 
 # Requisitos
 
-* Linux + Apache + MySQL (o cualquier base de datos relacional) + PHP (5.4+) - Véase [cómo montar un servidor LAMP](https://github.com/argob/arsat/wiki/C%C3%B3mo-montar-un-servidor-LAMP)
+* [Servidor LAMP](https://github.com/argob/arsat/wiki/C%C3%B3mo-montar-un-servidor-LAMP)
 * Acceso LDAP
 
 # Instalación
@@ -12,9 +12,9 @@ Sistema de rendición de caja chica. Permite tener un seguimiento, control y gen
 Ejecutar las siguientes lineas de comando
 
 ```bash
-sudo chmod +x web/pdf/wkhtmltopdf-amd64
-sudo chown apache:apache app/logs/
-sudo chown apache:apache app/cache/
+chmod +x web/pdf/wkhtmltopdf-amd64
+chown -R apache:apache app/logs/
+chown -R apache:apache app/cache/
 ```
 
 Ejecutar desde la URL de la aplicación el archivo ubicado en `web/config.php`
