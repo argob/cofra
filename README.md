@@ -15,7 +15,7 @@ Sistema de rendición de caja chica, permite tener un seguimiento, control y gen
 Ejecutar las siguientes lineas de comando
 
 ```bash
-sudo chmod +x web/pff/wkhtmltopdf-amd64
+sudo chmod +x web/pdf/wkhtmltopdf-amd64
 sudo chown www-data:www-data app/logs/
 sudo chown www-data:www-data app/cache/
 ```
