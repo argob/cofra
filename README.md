@@ -19,13 +19,10 @@ sudo chmod +x web/pff/wkhtmltopdf-amd64
 sudo chown www-data:www-data app/logs/
 sudo chown www-data:www-data app/cache/
 ```
-Ejecutar desde la url de la aplicación el archivo ubicado en web/config.php
+Ejecutar desde la URL de la aplicación el archivo ubicado en web/config.php
 Al hacer esto, se ejecutara un análisis de dependencias y de ser necesario le permitirá cargar la configuración del sistema.
 
-En el caso de que algunos parámetros de conexión no puedan ser definidos utilizando el configurador ubicado en el config.php, se los puede definir a mano de la siguiente manera:
-
-Ir al archivo app/config/parameters.yml y definir los datos de la base de datos, ldap, smtp.
-Ir al archivo aoo/config/config.yml y definir el driver estableciendo en el parameters, el charset correspondiente y el @domain.
+En el caso de que algunos parámetros de conexión no se puedan definir utilizando el configurador ubicado en el config.php, ir al archivo app/config/parameters.yml y definir los datos de la base de datos, LDAP, SMTP; luego ir al archivo app/config/config.yml y definir el driver estableciendo en el parameters, el charset correspondiente y el @domain.
 
 Para información mas detallada de la instalación del framwework que utiliza COFRA ir a https://symfony.com/doc/2.8/setup.html
 
